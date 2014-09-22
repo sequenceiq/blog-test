@@ -163,6 +163,12 @@ we need to see the global picture here, that's why you can see that the parallel
 [set](https://github.com/sequenceiq/sequenceiq-samples/blob/master/tez-topk/src/main/java/com/sequenceiq/tez/topk/TopK.java#L129) to `1`.
 We didn't specify it in the previous 2 Vertices which means that this will be decided at run time.
 
+### TopK DataGen
+You also can generate an arbitrary size of dataset with the
+[TopKDataGen](https://github.com/sequenceiq/sequenceiq-samples/blob/master/tez-topk/src/main/java/com/sequenceiq/tez/topk/TopKDataGen.java)
+job. This is a special DAG which has only 1 Vertex and no Edges.
+
 ## What's next
 In the next post we'll see how we can achieve the same with Spark and we'll do a performance comparison on a large dataset.
+Cascading also works on the Tez integration, so we'll definitely report on that too. 
 If you have any questions or suggestions you can reach us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook.com/sequenceiq).
