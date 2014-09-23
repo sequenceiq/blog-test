@@ -168,7 +168,17 @@ You also can generate an arbitrary size of dataset with the
 [TopKDataGen](https://github.com/sequenceiq/sequenceiq-samples/blob/master/tez-topk/src/main/java/com/sequenceiq/tez/topk/TopKDataGen.java)
 job. This is a special DAG which has only 1 Vertex and no Edges.
 
+### How to run the examples
+Build the project `mvn clean install` which will generate a jar. Copy this jar to HDFS and you are good to go. In order to make this jar
+runnable we also created a
+[driver](https://github.com/sequenceiq/sequenceiq-samples/blob/master/tez-topk/src/main/java/com/sequenceiq/tez/topk/TopKDriver.java)
+class.
+```
+hadoop jar tez-topk-1.0.jar topkgen /data 1000000
+hadoop jar tez-topk-1.0.jar topk /data /result 0 10
+```
+
 ## What's next
 In the next post we'll see how we can achieve the same with Spark and we'll do a performance comparison on a large dataset.
-Cascading also works on the Tez integration, so we'll definitely report on that too. 
+Cascading also works on the Tez integration, so we'll definitely report on that too.
 If you have any questions or suggestions you can reach us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook.com/sequenceiq).
