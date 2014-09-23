@@ -169,6 +169,9 @@ You also can generate an arbitrary size of dataset with the
 job. This is a special DAG which has only 1 Vertex and no Edges.
 
 ### How to run the examples
+
+First of all you will need a Tez cluster - we have put together a real one, you can get it from [here](http://blog.sequenceiq.com/blog/2014/09/19/apache-tez-cluster/). Pull the container, and follow the instructions below.
+
 Build the project `mvn clean install` which will generate a jar. Copy this jar to HDFS and you are good to go. In order to make this jar
 runnable we also created a
 [driver](https://github.com/sequenceiq/sequenceiq-samples/blob/master/tez-topk/src/main/java/com/sequenceiq/tez/topk/TopKDriver.java)
