@@ -148,7 +148,7 @@ We write tests that can be run automatically to check the process. Each changese
 is covered.
 
 
-#### Apply liquibase changesets to the production database
+#### Apply liquibase changelogs to the production database
 
 After the application is tested upon applying the database changes - that ensures that changelogs are correct, it's easy to set up
 a jenkins job that:
