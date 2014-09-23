@@ -12,7 +12,7 @@ of the application framework. At SequenceIQ we always try to find and provide th
 being involved in many open source Apache projects. We are always looking for the latest innovations, and try to apply them to our projects.
 For a while we're have been working hard on a new project called
 [Banzai Pipeline](http://docs.banzai.apiary.io/) which we'll open source in the near future. One handy feature of the projects is the ability to run the same pipes on `MR2`, `Spark` and `Tez` - your choice.
-In the next couple of posts we'll compare these runtimes using different jobs and as the first example we chose TopK. Before going into
+In the next couple of posts we'll compare these runtimes using different jobs and as the first example to implement we chose TopK. Before going into
 details let's revisit what Apache Tez is made of.
 
 ## Apache Tez key concepts
