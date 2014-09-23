@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "TopK on Apache Tez"
-date: 2014-09-23 14:08:04 +0200
+date: 2014-09-23 19:53:04 +0200
 comments: true
 categories: [Apache Tez]
 author: Krisztian Horvath
-published: false
+published: true
 ---
 The Apache Tez community draw attention last week with their latest release [0.5.0](http://tez.apache.org/releases/0.5.0/release-notes.txt)
 of the application framework. At SequenceIQ we always try to find and provide the best solutions to our customers and share the experience we gain by
