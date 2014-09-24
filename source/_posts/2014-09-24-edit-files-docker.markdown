@@ -35,6 +35,8 @@ You can use zedapp as a *chrome plugin* or a *standalone* app. Downloads are
 available at: [zedapp.org](http://zedapp.org/download/). I recommend to
 go for the **standalone** version.
 
+<!-- more -->
+
 ## Install zedrem
 
 For [remote editing](http://zedapp.org/features/edit-remote-files/),
