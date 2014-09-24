@@ -18,7 +18,7 @@ But if you have a valid reason, here comes the how-to.
 ## Why Zedapp
 
 Most of the time I use either vi or [Atom](https://atom.io/), but a few months
-ago I stumbled upon [Zedapp](zedapp.org) an opinionated editor. It aims to
+ago I stumbled upon [Zedapp](http://zedapp.org/) an opinionated editor. It aims to
 reduce cognitive load while editing, by simplifying things, like deliberately
 not using tabs.
 
