@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "Edit files in Docker containers"
-date: 2014-09-24 19:53:04 +0200
+date: 2014-09-24 15:53:04 +0200
 comments: true
-categories: [Docker, Zed]
+categories: [Docker, Zedapp]
 author: Lajos Papp
-published: false
+published: true
 ---
 
 I wish I get 1 dollar each time I install vi in a docker container ... I wanted
