@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Strata + Hadoop World 2014 Startup Showcase"
+title: "Euroventures invests in SequenceIQ"
 date: 2014-09-25 09:42:38 +0200
 comments: true
 categories: [Euroventures, SequenceIQ, Press release]
