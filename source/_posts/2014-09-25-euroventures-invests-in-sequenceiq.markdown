@@ -10,5 +10,5 @@ published: true
 
 We are happy to announce that Euroventures has invested in SequenceIQ. Euroventure's investment is intended to foster the company's growth in terms of staffing, technology stack and expansion into the U.S. market. 
 
-http://www.euroventures.hu/news.php?id=296
+Euroventures' press release is available [here](http://www.euroventures.hu/news.php?id=296).
 
