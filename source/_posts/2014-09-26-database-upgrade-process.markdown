@@ -5,7 +5,7 @@ date: 2014-09-26 18:00:00 +0200
 comments: true
 categories: [Liquibase, Docker, CI, CD]
 author: Laszlo Puskas
-published: false
+published: true
 ---
 
 At [SequenceIQ](http://sequenceiq.com) we are `crazy` about automating everything - let it be the provisioning of a thousand nodes Hadoop cluster using [Cloudbreak](http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/) or a simple database change. We apply the same automated CI/CD process to all our projects, including plain old RDBMS schema changes ... yes, though we are a `big data` technology company sometimes we do use JPA as well. 
@@ -111,10 +111,14 @@ Speaking of tools, we found that [Liquibase](http://www.liquibase.org/index.html
 We have created a docker image with a `liquibase` installation. You can find the project [here](https://github.com/sequenceiq/docker-liquibase);
 
 The image can be built locally with the command:
-```docker build -t sequenceiq/docker-liquibase .```  
+```
+docker build -t sequenceiq/docker-liquibase .
+```  
 
 from the project root, or pulled from the Docker repository:  
-```docker pull sequenceiq/docker-liquibase```
+```
+docker pull sequenceiq/docker-liquibase
+```
 
 
 Containers built from this image can be used to perform `liquibase` operations on any host. This saves us a
