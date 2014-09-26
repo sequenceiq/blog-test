@@ -8,7 +8,6 @@ author: Laszlo Puskas
 published: true
 ---
 
-
 At [SequenceIQ](http://sequenceiq.com) we are `crazy` about automating everything - let it be the provisioning of a thousand nodes Hadoop cluster using [Cloudbreak](http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/) or a simple database change. We apply the same automated CI/CD process to all our projects, including plain old RDBMS schema changes ... yes, though we are a `big data` technology company sometimes we do use JPA as well. 
 
 As applications evolve their underlying data model change. New functionalities often need data model changes and the initial design
