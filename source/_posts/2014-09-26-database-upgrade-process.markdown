@@ -105,17 +105,12 @@ The image can be built locally with the command:
 docker build -t sequenceiq/docker-liquibase .
 ```  
 
-from the project root, or pulled from the Docker repository:  
+or from the project root, or pulled from the Docker repository:  
 ```
 docker pull sequenceiq/docker-liquibase
 ```
 
-
-Containers built from this image can be used to perform `liquibase` operations on any host. This saves us a lot of time by having the installation and configuration shipped and helps us to automate most of the tasks;
-
-You can use the container for performing liquibase tasks manually in a terminal, or you can start the container to automatically perform specific tasks (and quit eventually).
-
-To start the container linked to the previously started database container and perform manual operations, run:
+Containers built from this image can be used to perform `liquibase` operations on any host. This saves us a lot of time by having the installation and configuration shipped and helps us to automate most of the tasks. You can use the container for performing liquibase tasks manually in a terminal, or you can start the container to automatically perform specific tasks (and quit eventually). To start the container linked to the previously started database container and perform manual operations, run:
 
 ```
 docker run -it \
@@ -138,7 +133,6 @@ Some of the Liquibase tasks can be scripted. We scripted the diff generation and
 #### Testing
 
 We write tests that can be run automatically to check the process. Each `changeset`, especially those related to data migration / transformation is covered.
-
 
 #### Apply liquibase changelogs to the production database
 
