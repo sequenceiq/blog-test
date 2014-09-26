@@ -1,30 +1,32 @@
 ---
 layout: post
-title: "Managing database upgrades with liquibase and docker"
-date: 2014-09-14 18:00:00 +0200
+title: "Managing database upgrades with Liquibase and Docker"
+date: 2014-09-26 18:00:00 +0200
 comments: true
-categories: [Liquibase, Docker]
+categories: [Liquibase, Docker, CI/CD]
 author: Laszlo Puskas
 published: false
 ---
 
-## Introduction
+At [SequenceIQ](http://sequenceiq.com) we are `crazy` about automating everything - let it be the provisioning of a thousand nodes Hadoop cluster using [Cloudbreak](http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/) or a simple database change. We apply the same automated CI/CD process to all our projects, including plain old RDBMS schema changes ... yes, though we are a `big data` technology company sometimes we do use PostgreSQL as well. 
 
 As applications evolve their underlying data model change. New functionalities often need data model changes and the initial design
 needs to be adapted to the ever changing demands.  
-These changes are of two type : structural changes (eg.: addition/removal of tables, columns, constraints etc ...)
+These changes usually are of two types : structural changes (e.g.: addition/removal of tables, columns, constraints etc ...)
 and migration of the existing data to the new version of the datamodel.
 
-As the data model gets more and more complex  - this will happen in spite of trying to keep it as simple as possible -
+As the data model gets more and more complex  - this will happen in-spite of trying to keep it as simple as possible -
 the complexity of these tasks grow proportionally.
 
-This happens here at Sequenceiq too; the post is about how we tried to address some of these problems.
+This happens here at SequenceIQ too; the post is about how we address some of these problems.
+
+<!-- more -->
 
 ## Directives
 
 * We need a process to follow each time such changes arise
 * Use appropriate tools that do the job (instead of reinventing the wheel)
-* Make the process automated as much as possible
+* Make the process **automated** as much as possible
 
 ### The process
 
@@ -40,16 +42,15 @@ The process - as the common sense suggests - could be split in the following ste
 ### Tools
 
 * Dockerized (Postgres) database
-* Dockerized liquibase
+* Dockerized Liquibase
 * Jenkins
 
 ### Implementation
 
 #### Start from the initial version of the database
 
-To start with, you need a database that's (structurally) identical to the production. There are several ways to achieve this;
-but as we use Postgres and we try to keep it simple here's what we do:
-* we always have a QA database which is identical to the production (obviously the data is not the same)
+To start with, you need a database that's (structurally) identical with the production one. There are several ways to achieve this;we use Postgres and try to keep it simple, so here's what we do:
+* we always have a QA database which is identical with the production (obliviously the data is not the same)
 * we make a copy of the *data* folder of the postgres installation into an arbitrary location on the host
 * we pass it as a volume to a Docker container running Postgres
 
@@ -69,14 +70,14 @@ where the passed in variables are the following:
 * CONTAINER_NAME - the name of the database Docker container
 * DB_USER - the database user name
 * DB_PASS - the database password
-* DB_NAME - the databaste schema
+* DB_NAME - the database schema
 
-We have a running database now (in less than a minute); we can connect to it with a client on your localhost, port 5432 with the given username/password.
+We have a running database now (in less than a minute) - same as the prod; we can connect to it with a client on your localhost, port 5432 with the given username/password.
 
 #### Perform changes required by the new version of the application
 
 As expected, this is the most challenging part in the process: changes need to be implemented and also
-captured so that they can be applied any time (preferably in an automated way)
+captured so that they can be applied any time (preferably in an **automated** way)
 
 As we're using JPA (with Hibernate as JPA provider) incremental structural changes are executed with the
 SchemaUpdate tool. This can be done during the application startup or using *ant* or *maven*.
@@ -84,20 +85,20 @@ As we continuously test the application we choose to start the application confi
 changed data model (annotations). Alternatively we could regenerate the whole schema. (See the SchemaUpdate tool documentation:
 [here](http://docs.jboss.org/hibernate/core/3.6/reference/en-US/html/toolsetguide.html))
 
-At this point we have a database that corresponds to the new version of the application.
+At this point we have a database that aligns with the new version of the application.
 
-Please note here, that only incremental changes have been applied to the database till now, meaning that for example new fields have been added,
+Please note here, that only `incremental` changes have been applied to the database till now, meaning that for example new fields have been added,
  but old/deprecated fields haven't been deleted.
 
 Other type of scripts need to be implemented manually:
 
 1. changes that couldn't be performed by the SchemaUpdate tool, such as cleanup (SQL) scripts. This being done, differences till this phase can be
-automatically generated by running the Liquibase Docker container - see the next section
+automatically generated by running the Liquibase Docker container - see the next section.
 Differences are stored under version control, in form of *Liquibase changelogs*
 
 2. data migration scripts, that adapt the existing data to the new structure. Think of cases
  when for example a field becomes a new entity and instead of a value you need to store a reference to the new entity.
- We store these kind of scripts along with the generated diff files under version control in form of *Liquibase changlogs*
+ We store these kind of scripts along with the generated diff files under version control in form of *Liquibase changelogs*
 
 #### Dockerized Liquibase
 
@@ -107,19 +108,20 @@ Speaking of tools, we found that [Liquibase](http://www.liquibase.org/index.html
 2. automatically generate diffs between two versions of the database
 3. automatically update a database based on changelogs
 
-We have created a docker image with a liquibase installation. You can find the project [here](https://github.com/sequenceiq/docker-liquibase);
+We have created a docker image with a `liquibase` installation. You can find the project [here](https://github.com/sequenceiq/docker-liquibase);
 
 The image can be built locally with the command:
 ```docker build -t sequenceiq/docker-liquibase .```  
+
 from the project root, or pulled from the Docker repository:  
 ```docker pull sequenceiq/docker-liquibase```
 
 
-Containers built from this image can be used to perform liquibase operations on any host. This saves us a
-lot of time by having the installation and configuration shipped and helps us to automate some of the tasks;
+Containers built from this image can be used to perform `liquibase` operations on any host. This saves us a
+lot of time by having the installation and configuration shipped and helps us to automate most of the tasks;
 
 You can use the container for performing liquibase tasks manually in a terminal, or you can start the container to automatically perform
-specific tasks (and quit eventually)
+specific tasks (and quit eventually).
 
 To start the container linked to the previously started database container and perform manual operations, run:
 
@@ -132,26 +134,26 @@ docker run -it \
 $LIQUIBASE_DOCKER_IMAGE \
 /bin/bash
 ```
-Here the meaning of variables are the following:
+See the description of the variables:
 
 * LIQUIBASE_CONTAINER the name of the Liquibase Docker container
-* DB_CONTAINER the name of the databes container the Liquibase container is to be linked to
+* DB_CONTAINER the name of the database container the Liquibase container is to be linked to
 * LIQUIBASE_CHANGELOGS the folder holding the liquibase changelogs (Liquibase will read and write here)
 * LIQUIBASE_DOCKER_IMAGE the name of the dockerized Liquibase Docker image
 
 Some of the Liquibase tasks can be scripted. We scripted the diff generation and changelog application. Liquibase offers more advanced features
-too however we only needed a few of the basic features till now.
+too. 
 
 #### Testing
 
-We write tests that can be run automatically to check the process. Each changeset, especially those related to data migration / transformation
+We write tests that can be run automatically to check the process. Each `changeset`, especially those related to data migration / transformation
 is covered.
 
 
 #### Apply liquibase changelogs to the production database
 
 After the application is tested upon applying the database changes - that ensures that changelogs are correct, it's easy to set up
-a jenkins job that:
+a `jenkins` job that:
 
 * checks out the proper version of changelogs
 * starts a docker container linked to the (production) database and applies changelogs
@@ -163,5 +165,6 @@ Obviously this step needs to be designed carefully and adapted to the custom app
 
 * Thanks to Docker, all the work described here can be done offline (setting up the infrastructure can be done fast,
   on a dev's machine for example)
-* Liquibase changelogs can be executed individually or in group (by including subsets of changelogs) thus during the whole process
-we can adopt a step-by step approach
+* Liquibase changelogs can be executed individually or in group (by including subsets of changelogs) thus during the whole process we can adopt a step-by step approach
+
+If you have any questions or suggestions you can reach us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook.com/sequenceiq).
