@@ -5,7 +5,7 @@ date: 2014-09-26 18:00:00 +0200
 comments: true
 categories: [Liquibase, Docker, CI, CD]
 author: Laszlo Puskas
-published: true
+published: false
 ---
 
 At [SequenceIQ](http://sequenceiq.com) we are `crazy` about automating everything - let it be the provisioning of a thousand nodes Hadoop cluster using [Cloudbreak](http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/) or a simple database change. We apply the same automated CI/CD process to all our projects, including plain old RDBMS schema changes ... yes, though we are a `big data` technology company sometimes we do use JPA as well. 
