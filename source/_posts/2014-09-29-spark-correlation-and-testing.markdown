@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "Apache Spark - Job creation and testing"
-date: 2014-09-29 20:42:24 +0200
+date: 2014-09-29 15:42:24 +0200
 comments: true
 categories: [Spark, MLlib, Correlation, Testing]
 author: Oliver Szabo
-published: false
+published: true
 ---
 
 At [SequenceIQ](http://sequenceiq.com/) we use different runtimes (MR2, Spark, Tez) when submitting jobs from [Banzai](http://docs.banzai.apiary.io/reference) to a YARN clusters.
