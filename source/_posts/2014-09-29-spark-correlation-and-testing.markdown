@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Apache Spark - Job creation and testing"
+title: "Apache Spark - create and test jobs"
 date: 2014-09-29 15:42:24 +0200
 comments: true
 categories: [Spark, MLlib, Correlation, Testing]
