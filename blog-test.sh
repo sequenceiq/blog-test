@@ -25,8 +25,16 @@ fi
 # stop previous blog contaier
 docker rm -f  blog-test &> /dev/null
 
+blogStart() {
+  docker run -d \
+    --name blog-test \
+    -p ${BLOG_PORT}:8080 \
+    --volume /tmp/blog \
+    blog-test-image
+}
+
 docker build -t blog-test-image . \
- && docker run -d --name blog-test -p ${BLOG_PORT}:8080 blog-test-image \
+ && blogStart \
  && open http://192.168.59.103:${BLOG_PORT}
 
 if [[ $1 =~ -d ]]; then
