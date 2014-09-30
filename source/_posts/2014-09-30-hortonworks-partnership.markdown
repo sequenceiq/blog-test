@@ -18,6 +18,8 @@ SequenceIQ’s technology enables organizations to have a DevOps friendly way to
 
 “SequenceIQ and Hortonworks share a common goal of making the provisioning of Apache Hadoop clusters easier on different cloud and Docker container based environments,” said Janos Matyas, chief technology officer of SequenceIQ. “Cloudbreak and HDP help enterprises to minimize the cost of their Hadoop deployments, and create on-demand autoscaling Hadoop clusters.”
 
+<!-- more -->
+
 Hortonworks Data Platform was built by the core architects, builders and operators of Apache Hadoop and includes all of the necessary components to manage a cluster at scale and uncover business insights from existing and new big data sources. With a [YARN](http://hortonworks.com/hadoop/yarn/)-based architecture, HDP is an important component of the modern data architecture, helping organizations mine, process and analyze large batches of unstructured data sets to make more informed business decisions.
 
 “Hortonworks is dedicated to expanding and empowering the Apache Hadoop ecosystem, accelerating innovation and adoption of 100 percent open source enterprise Hadoop,” said John Kreisa, vice president of strategic marketing at Hortonworks. “We welcome SequenceIQ to the Hortonworks Technology Partner Program and look forward to working with them to strengthen Hadoop’s role as the foundation of the next-generation data architecture.”
