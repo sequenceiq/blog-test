@@ -18,7 +18,7 @@ export BLOG_PORT
 if [[ $1 =~ -d ]]; then
   echo '[WARNING] you are testing uncommited changes !'
 else
-  echo [INFO] stashing away uncommited changes and untracked files
+  echo -e "[INFO] stashing away uncommited changes and untracked files\n"
   git stash save -u "before blog generation"
 fi
 
@@ -30,7 +30,7 @@ docker build -t blog-test-image . \
  && open http://192.168.59.103:${BLOG_PORT}
 
 if [[ $1 =~ -d ]]; then
-  echo '[WARNING] Please remember to commit you changes'
+  echo '[WARNING] Please remember to commit AND PUSH your changes'
 else
   echo [INFO] Move uncommited changes and untracked files back to WORKDIR
   git stash pop
