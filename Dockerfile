@@ -1,1 +1,1 @@
-FROM sequenceiq/blog:test-onbuild
+FROM sequenceiq/blog
