@@ -4,7 +4,7 @@
   <title><![CDATA[Category: REST API | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/rest-api/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-10-01T12:58:51+00:00</updated>
+  <updated>2014-10-01T14:07:39+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -18,7 +18,11 @@
     <link href="http://blog.sequenceiq.com/blog/2014/10/01/ngrok-docker/"/>
     <updated>2014-10-01T16:00:00+00:00</updated>
     <id>http://blog.sequenceiq.com/blog/2014/10/01/ngrok-docker</id>
-    <content type="html"><![CDATA[<p>At <a href="http://sequenceiq.com">SequenceIQ</a> we work quite a lot with different cloud providers and receive callbacks, push notifications and messages broadcasted to subscribed topics. While subscribing and receiving these messages to a <code>public domain/IP address</code> is not an issue, doing development and testing on internal networks can be challenging. Being able to do these we use <strong>ngrok</strong> &ndash; a reverse proxy that creates a secure tunnel between from a public endpoint to a locally running service.</p>
+    <content type="html"><![CDATA[<h2>HACK</h2>
+
+<p>version 3.0</p>
+
+<p>At <a href="http://sequenceiq.com">SequenceIQ</a> we work quite a lot with different cloud providers and receive callbacks, push notifications and messages broadcasted to subscribed topics. While subscribing and receiving these messages to a <code>public domain/IP address</code> is not an issue, doing development and testing on internal networks can be challenging. Being able to do these we use <strong>ngrok</strong> &ndash; a reverse proxy that creates a secure tunnel between from a public endpoint to a locally running service.</p>
 
 <p>While you can always use hosted and free <a href="https://ngrok.com/">ngrok</a> solution, many time due to security and availability issues you might want to use your own internally deployed <code>ngrok server</code> (with your custom domain name). This post discuss this, and offer a Docker based solution/one-liner for you to start with in less than a minute. As we always <code>containerize</code> everything we did the same with ngrok as well, and made it available in the official Docker <a href="https://registry.hub.docker.com/u/sequenceiq/ngrokd/">repository</a>.</p>
 
