@@ -130,6 +130,140 @@
 
       <div class="row-fluid">
         
+            <a href="http://blog.sequenceiq.com/blog/2014/10/01/ngrok-docker/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
+        
+      </div>
+
+<span class="badge name-badge">01 October 2014</span>
+      
+        <div class="row-fluid">
+            
+            <a href="/blog/categories/rest-api/"><span class="label label-warning">REST API</span></a>
+            
+            <a href="/blog/categories/debug/"><span class="label label-warning">debug</span></a>
+            
+            <a href="/blog/categories/ngrok/"><span class="label label-warning">ngrok</span></a>
+            
+        </div>
+      
+    </div>
+    <div class="col-md-10 post-container">
+      <h1 class="link">
+          <a href="/blog/2014/10/01/ngrok-docker/">Running ngrok in Docker</a>
+          <span class="badge name-badge">Wilbur Sarnguranaj</span>
+
+      </h1>
+      <p>At <a href="http://sequenceiq.com">SequenceIQ</a> we work quite a lot with different cloud providers and receive callbacks, push notifications and messages broadcasted to subscribed topics. While subscribing and receiving these messages to a <code>public domain/IP address</code> is not an issue, doing development and testing on internal networks can be challenging. Being able to do these we use <strong>ngrok</strong> &ndash; a reverse proxy that creates a secure tunnel between from a public endpoint to a locally running service.</p>
+
+<p>While you can always use hosted and free <a href="https://ngrok.com/">ngrok</a> solution, many time due to security and availability issues you might want to use your own internally deployed <code>ngrok server</code> (with your custom domain name). This post discuss this, and offer a Docker based solution/one-liner for you to start with in less than a minute. As we always <code>containerize</code> everything we did the same with ngrok as well, and made it available in the official Docker <a href="https://registry.hub.docker.com/u/sequenceiq/ngrokd/">repository</a>.</p>
+
+<h2>Pull and use the <code>ngrok</code> server</h2>
+
+<p>To get the container use the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>docker pull sequenceiq/ngrokd</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once you have the container you are ready to start and use it.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>docker run -d --name ngrokd \
+</span><span class='line'>  --restart=always \
+</span><span class='line'>  -p 4480:4480 \
+</span><span class='line'>  -p 4444:4444 \
+</span><span class='line'>  -p 4443:4443 \
+</span><span class='line'>  sequenceiq/ngrokd \
+</span><span class='line'>    -httpAddr=:4480 \
+</span><span class='line'>    -httpsAddr=:4444 \
+</span><span class='line'>    -domain=ngrok.sequenceiq.com</span></code></pre></td></tr></table></div></figure>
+
+
+
+      
+       <a href="/blog/2014/10/01/ngrok-docker/">Read on &rarr;</a> 
+    </div>
+  </div>
+
+
+
+    </article>
+    
+    <hr>
+    
+  
+  
+    <article>
+      
+
+  <div class="row">
+    <div class="col-md-2 post-meta">
+
+
+      <div class="row-fluid">
+        
+            <a href="http://blog.sequenceiq.com/blog/2014/09/30/hortonworks-partnership/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
+        
+      </div>
+
+<span class="badge name-badge">30 September 2014</span>
+      
+        <div class="row-fluid">
+            
+            <a href="/blog/categories/hortonworks/"><span class="label label-warning">Hortonworks</span></a>
+            
+            <a href="/blog/categories/sequenceiq/"><span class="label label-warning">SequenceIQ</span></a>
+            
+        </div>
+      
+    </div>
+    <div class="col-md-10 post-container">
+      <h1 class="link">
+          <a href="/blog/2014/09/30/hortonworks-partnership/">SequenceIQ Joins Hortonworks Technology Partner Program</a>
+          <span class="badge name-badge">Janos Matyas</span>
+
+      </h1>
+      <p>Integration of Hortonworks Data Platform with Cloudbreak enables Hadoop to run in Docker containers &ndash; shipped to the cloud.</p>
+
+<p><strong>SAN FRANCISCO, September 30, 2014</strong> — <a href="http://sequenceiq.com/">SequenceIQ ,Inc.</a> today announced that it has joined the <a href="http://hortonworks.com/partners/become-a-partner/">Hortonworks® Technology Partner Program</a>. <a href="http://hortonworks.com/">Hortonworks</a> is the leading contributor to and provider of Apache™ Hadoop®. SequenceIQ will integrate <a href="http://hortonworks.com/hdp/">Hortonworks Data Platform</a> (HDP) with Cloudbreak to enable a cloud agnostic, autoscaling and <a href="https://www.docker.com/">Docker</a> container based provisioning of HDP.</p>
+
+<p>By joining the Hortonworks Technology Partner program, SequenceIQ will work to enable and accelerate the deployment of a modern data architecture, integrating with the Hortonworks Data Platform—the industry’s only 100 percent open source Hadoop distribution, explicitly architected, built, and tested for enterprise-grade deployments.</p>
+
+<p>SequenceIQ’s technology enables organizations to have a DevOps friendly way to ease and automate provisioning of on-demand Hadoop clusters and services using their favorite cloud provider. With the integration of HDP, users can now leverage all the available features of a 100 percent open source commercial Hadoop distribution.</p>
+
+<p>“SequenceIQ and Hortonworks share a common goal of making the provisioning of Apache Hadoop clusters easier on different cloud and Docker container based environments,” said Janos Matyas, chief technology officer of SequenceIQ. “Cloudbreak and HDP help enterprises to minimize the cost of their Hadoop deployments, and create on-demand autoscaling Hadoop clusters.”</p>
+
+
+      
+       <a href="/blog/2014/09/30/hortonworks-partnership/">Read on &rarr;</a> 
+    </div>
+  </div>
+
+
+
+    </article>
+    
+    <hr>
+    
+  
+  
+    <article>
+      
+
+  <div class="row">
+    <div class="col-md-2 post-meta">
+
+
+      <div class="row-fluid">
+        
             <a href="http://blog.sequenceiq.com/blog/2014/09/29/spark-correlation-and-testing/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
         
       </div>
@@ -400,7 +534,7 @@ an easier way to edit files in a running docker container. First of all try to
 
 <p>But if you have a valid reason, here comes the how-to.</p>
 
-<h2>Why Zedapp</h2>
+<h2>Why Zedapp 2</h2>
 
 <p>Most of the time I use either vi or <a href="https://atom.io/">Atom</a>, but a few months
 ago I stumbled upon <a href="http://zedapp.org/">Zedapp</a> an opinionated editor. It aims to
@@ -638,171 +772,6 @@ from producers to consumers. The DAG itself defines the structure of the data pr
 
     </article>
     
-    <hr>
-    
-  
-  
-    <article>
-      
-
-  <div class="row">
-    <div class="col-md-2 post-meta">
-
-
-      <div class="row-fluid">
-        
-            <a href="http://blog.sequenceiq.com/blog/2014/09/17/spark-1-1-0-docker/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
-        
-      </div>
-
-<span class="badge name-badge">17 September 2014</span>
-      
-        <div class="row-fluid">
-            
-            <a href="/blog/categories/apache-spark/"><span class="label label-warning">Apache Spark</span></a>
-            
-            <a href="/blog/categories/docker/"><span class="label label-warning">Docker</span></a>
-            
-        </div>
-      
-    </div>
-    <div class="col-md-10 post-container">
-      <h1 class="link">
-          <a href="/blog/2014/09/17/spark-1-1-0-docker/">Apache Spark 1.1.0 on Docker</a>
-          <span class="badge name-badge">Janos Matyas</span>
-
-      </h1>
-      <p>As you might be already familiar, we have <code>dockerized</code> most of the Hadoop ecosystem &ndash; we are running MR2, Spark, Storm, Hive, HBase, Pig, Oozie, Drill etc in Docker containers &ndash; on bare metal and in the cloud as well. For details you can check these older posts/resources:</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th> Name                  </th>
-<th> Description </th>
-<th> Documentation </th>
-<th> GitHub</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td> Apache Hadoop  </td>
-<td> Pseudo distributed container </td>
-<td> <a href="http://blog.sequenceiq.com/blog/2014/08/18/hadoop-2-5-0-docker/">http://blog.sequenceiq.com/blog/2014/08/18/hadoop-2-5-0-docker/</a> </td>
-<td> <a href="https://github.com/sequenceiq/hadoop-docker">https://github.com/sequenceiq/hadoop-docker</a></td>
-</tr>
-<tr>
-<td></td>
-<td> Apache Ambari   </td>
-<td> Multi node &ndash; full Hadoop stack, blueprint based </td>
-<td> <a href="http://blog.sequenceiq.com/blog/2014/06/19/multinode-hadoop-cluster-on-docker/">http://blog.sequenceiq.com/blog/2014/06/19/multinode-hadoop-cluster-on-docker/</a> </td>
-<td> <a href="https://github.com/sequenceiq/docker-ambari">https://github.com/sequenceiq/docker-ambari</a></td>
-</tr>
-<tr>
-<td></td>
-<td> Cloudbreak         </td>
-<td> Cloud agnostic Hadoop as a Service </td>
-<td> <a href="http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/">http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/</a> </td>
-<td> <a href="https://github.com/sequenceiq/cloudbreak">https://github.com/sequenceiq/cloudbreak</a></td>
-</tr>
-<tr>
-<td></td>
-<td> Periscope          </td>
-<td> SLA policy based autoscaling for Hadoop clusters </td>
-<td> <a href="http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/">http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/</a> </td>
-<td> <a href="https://github.com/sequenceiq/periscope">https://github.com/sequenceiq/periscope</a></td>
-</tr>
-</tbody>
-</table>
-
-
-<p>In this current post we’d like to help you to start with the <code>latest - 1.1.0</code> Spark release in minutes &ndash; using Docker. Docker and Spark are two technologies which are very <code>hyped</code> these days. At <a href="http://sequenceiq.com/">SequenceIQ</a> we use both quite a lot, thus we put together a Docker container and sharing it with the community.</p>
-
-<p>The container’s code is available in our <a href="https://github.com/sequenceiq/docker-spark/blob/v1.1onHadoop-2.5.1/README.md">GitHub</a> repository.</p>
-
-<h3>Pull the image from Docker Repository</h3>
-
-<p>We suggest to always pull the container from the official Docker repository &ndash; as this is always maintained and supported by us.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>docker pull sequenceiq/spark:1.1.0</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-
-      
-       <a href="/blog/2014/09/17/spark-1-1-0-docker/">Read on &rarr;</a> 
-    </div>
-  </div>
-
-
-
-    </article>
-    
-    <hr>
-    
-  
-  
-    <article>
-      
-
-  <div class="row">
-    <div class="col-md-2 post-meta">
-
-
-      <div class="row-fluid">
-        
-            <a href="http://blog.sequenceiq.com/blog/2014/09/15/hadoop-2-5-1-docker/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
-        
-      </div>
-
-<span class="badge name-badge">15 September 2014</span>
-      
-        <div class="row-fluid">
-            
-            <a href="/blog/categories/apache/"><span class="label label-warning">Apache</span></a>
-            
-            <a href="/blog/categories/docker/"><span class="label label-warning">Docker</span></a>
-            
-            <a href="/blog/categories/hadoop/"><span class="label label-warning">Hadoop</span></a>
-            
-            <a href="/blog/categories/registry/"><span class="label label-warning">Registry</span></a>
-            
-            <a href="/blog/categories/ubuntu/"><span class="label label-warning">Ubuntu</span></a>
-            
-        </div>
-      
-    </div>
-    <div class="col-md-10 post-container">
-      <h1 class="link">
-          <a href="/blog/2014/09/15/hadoop-2-5-1-docker/">Apache Hadoop 2.5.1 on Docker</a>
-          <span class="badge name-badge">Janos Matyas</span>
-
-      </h1>
-      <p>Following the release cycle of Hadoop, today we are releasing a new <code>2.5.1</code> version of our <a href="https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/">Hadoop Docker container</a>. Up until today the container was only <code>CentOS</code> based, but during the last few months we got lots of requests to release a Hadoop container on <code>Ubuntu</code> as well. From now on we will have both released, supported and published to the official Docker repository. Enjoy.</p>
-
-<h2>Centos</h2>
-
-<h3>Build the image</h3>
-
-<p>In case you&rsquo;d like to try directly from the <a href="https://github.com/sequenceiq/hadoop-docker/tree/2.5.1">Dockerfile</a> you can build the image as:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>docker build  -t sequenceiq/hadoop-docker:2.5.1 .</span></code></pre></td></tr></table></div></figure>
-
-
-
-      
-       <a href="/blog/2014/09/15/hadoop-2-5-1-docker/">Read on &rarr;</a> 
-    </div>
-  </div>
-
-
-
-    </article>
-    
   
   <div class="pagination">
     
@@ -822,6 +791,14 @@ from producers to consumers. The DAG itself defines the structure of the data pr
                  <section>
   <h2 class="blue">Recent Posts</h2>
   <ul id="recent_posts" class="list-group">
+    
+      <li class="list-group-item">
+        <a href="/blog/2014/10/01/ngrok-docker/">Running ngrok in Docker</a>
+      </li>
+    
+      <li class="list-group-item">
+        <a href="/blog/2014/09/30/hortonworks-partnership/">SequenceIQ Joins Hortonworks Technology Partner Program</a>
+      </li>
     
       <li class="list-group-item">
         <a href="/blog/2014/09/29/spark-correlation-and-testing/">Apache Spark - create and test jobs</a>
