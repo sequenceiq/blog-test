@@ -4,7 +4,7 @@
   <title><![CDATA[SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-10-01T14:07:39+00:00</updated>
+  <updated>2014-10-02T05:48:14+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -18,9 +18,9 @@
     <link href="http://blog.sequenceiq.com/blog/2014/10/01/ngrok-docker/"/>
     <updated>2014-10-01T16:00:00+00:00</updated>
     <id>http://blog.sequenceiq.com/blog/2014/10/01/ngrok-docker</id>
-    <content type="html"><![CDATA[<h2>HACK</h2>
+    <content type="html"><![CDATA[<h2>HACK 12.0</h2>
 
-<p>version 3.0</p>
+<p>version 12.0</p>
 
 <p>At <a href="http://sequenceiq.com">SequenceIQ</a> we work quite a lot with different cloud providers and receive callbacks, push notifications and messages broadcasted to subscribed topics. While subscribing and receiving these messages to a <code>public domain/IP address</code> is not an issue, doing development and testing on internal networks can be challenging. Being able to do these we use <strong>ngrok</strong> &ndash; a reverse proxy that creates a secure tunnel between from a public endpoint to a locally running service.</p>
 
@@ -163,7 +163,7 @@ Yet another nice feature we are using is to <code>inspect</code> Docker commands
 <p>SequenceIQ is an innovative big data startup with the mission statement to simplify and automate provisioning of on-demand Hadoop clusters running on different environments. Leaders in “containerizing” Hadoop, SequenceIQ is the first company who provisions and runs the full Hadoop stack and components on Docker containers. The company has further plans to create the industry’s first cloud agnostic, autoscaling and use case driven Platform as a Service API, and break the common significant barriers of entry that exist with most big data projects through a series of As-a-Service API offerings.
 For more information follow up with us on @SequenceIQ and <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>.</p>
 
-<p><a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#58;&#105;&#110;&#102;&#111;&#x40;&#115;&#101;&#113;&#117;&#101;&#110;&#x63;&#x65;&#105;&#113;&#x2e;&#x63;&#x6f;&#x6d;">&#x69;&#x6e;&#x66;&#x6f;&#64;&#115;&#101;&#113;&#x75;&#x65;&#x6e;&#x63;&#x65;&#x69;&#x71;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<p><a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#x69;&#x6e;&#102;&#x6f;&#64;&#115;&#101;&#113;&#x75;&#x65;&#x6e;&#x63;&#101;&#105;&#x71;&#46;&#99;&#x6f;&#109;">&#x69;&#x6e;&#102;&#x6f;&#x40;&#115;&#x65;&#x71;&#x75;&#101;&#x6e;&#x63;&#x65;&#105;&#113;&#46;&#x63;&#111;&#109;</a></p>
 ]]></content>
   </entry>
   
