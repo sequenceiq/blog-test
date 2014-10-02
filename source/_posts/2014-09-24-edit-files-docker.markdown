@@ -148,5 +148,3 @@ If you **really** need to edit files in a docker container, just use volumes.
 
 This process comes handy if you've already started a container, and the file in
 question doesn't sits on a volume.
-
-If you have any questions or suggestions you can reach us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook.com/sequenceiq).
