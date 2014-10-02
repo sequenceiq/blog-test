@@ -147,4 +147,4 @@ You find yourself editing nginx config files? Don't do it, use the great generic
 If you **really** need to edit files in a docker container, just use volumes.
 
 This process comes handy if you've already started a container, and the file in
-question doesn't sits on a volume.
+question doesn't sits on a volume..
