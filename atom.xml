@@ -4,7 +4,7 @@
   <title><![CDATA[SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-10-02T05:50:42+00:00</updated>
+  <updated>2014-10-02T12:00:58+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -12,129 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Running ngrok in Docker]]></title>
-    <link href="http://blog.sequenceiq.com/blog/2014/10/01/ngrok-docker/"/>
-    <updated>2014-10-01T16:00:00+00:00</updated>
-    <id>http://blog.sequenceiq.com/blog/2014/10/01/ngrok-docker</id>
-    <content type="html"><![CDATA[<h2>HACK 12.0 for real</h2>
-
-<p>version 12.0 for real</p>
-
-<p>At <a href="http://sequenceiq.com">SequenceIQ</a> we work quite a lot with different cloud providers and receive callbacks, push notifications and messages broadcasted to subscribed topics. While subscribing and receiving these messages to a <code>public domain/IP address</code> is not an issue, doing development and testing on internal networks can be challenging. Being able to do these we use <strong>ngrok</strong> &ndash; a reverse proxy that creates a secure tunnel between from a public endpoint to a locally running service.</p>
-
-<p>While you can always use hosted and free <a href="https://ngrok.com/">ngrok</a> solution, many time due to security and availability issues you might want to use your own internally deployed <code>ngrok server</code> (with your custom domain name). This post discuss this, and offer a Docker based solution/one-liner for you to start with in less than a minute. As we always <code>containerize</code> everything we did the same with ngrok as well, and made it available in the official Docker <a href="https://registry.hub.docker.com/u/sequenceiq/ngrokd/">repository</a>.</p>
-
-<h2>Pull and use the <code>ngrok</code> server</h2>
-
-<p>To get the container use the following:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>docker pull sequenceiq/ngrokd</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Once you have the container you are ready to start and use it.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>docker run -d --name ngrokd \
-</span><span class='line'>  --restart=always \
-</span><span class='line'>  -p 4480:4480 \
-</span><span class='line'>  -p 4444:4444 \
-</span><span class='line'>  -p 4443:4443 \
-</span><span class='line'>  sequenceiq/ngrokd \
-</span><span class='line'>    -httpAddr=:4480 \
-</span><span class='line'>    -httpsAddr=:4444 \
-</span><span class='line'>    -domain=ngrok.sequenceiq.com</span></code></pre></td></tr></table></div></figure>
-
-
-<!-- more -->
-
-
-<h2>Install the <code>ngrok</code> client</h2>
-
-<p>Since the <code>ngrok</code> client is not distributed <em>officially</em>, we have compiled it for Linux and OSX. Based on the <a href="https://gist.github.com/lyoshenka/002b7fbd801d0fd21f2f">self hosting documentation</a></p>
-
-<blockquote><p>Since the client and server executables are paired, you won&rsquo;t be able to use
-  any other ngrok to connect to this ngrokd, and vice versa.</p></blockquote>
-
-<p>As usual for us &ndash; being automation freaks &ndash; we have created a <code>one-liner</code> for OSX and Linux as well.</p>
-
-<h4>OSX</h4>
-
-<p>Run this and everything is done &ndash; customize it if you wish.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>curl -Ls j.mp/ngrok-seq</span></code></pre></td></tr></table></div></figure>
-
-
-<p>For reference, or if you want to do only the install step:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>brew cask install https://raw.githubusercontent.com/sequenceiq/docker-ngrokd/master/ngrok.rb</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>Linux</h4>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>curl -o /usr/local/bin/ngrok https://s3-eu-west-1.amazonaws.com/sequenceiq/ngrok_linux
-</span><span class='line'>chmod +x /usr/local/bin/ngrok</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Please make sure you check the ngrok version:</p>
-
-<p>You should see the <code>1.7.2</code> on client side:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; ngrok version
-</span><span class='line'>
-</span><span class='line'>1.7.2</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>Client configuration</h4>
-
-<p>In case you have used the <code>one-liner</code> above you wont need this.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cat &gt; ~/.ngrok &lt;&lt;EOF
-</span><span class='line'>server_addr: server.ngrok.sequenceiq.com:4443
-</span><span class='line'>trust_host_root_certs: false
-</span><span class='line'>EOF</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Starting ngrok is business as usual, just use <code>ngrok &lt;port&gt;</code>. Please note that you will need an an <code>A record</code>, something like:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>*.ngrok.YOURDOMAIN.com xx.xx.xx.xx</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Pretty much that’s it, you have a self-hosted ngrok server in Docker.</p>
-
-<h2>Sample use case</h2>
-
-<p>One of the frequent use cases for us (above the ones mentioned in the introduction) is API debug. SequenceIQ being a technology company, we are creating lots of REST APIs and
-would like to have the ability to switch on and off debugging dynamically (without having to modify anything at the application level, logging, etc). Also we’d like to use the same process when we are running over http or https &ndash; and do SSL termination when it’s necessary (note that we are talking about dev/test).
-We like/use <code>ngrok</code> as we can introspect the API and do debugging and call recording/replays in a <strong>non intrusive</strong> way, without modifying the application at all.
-Yet another nice feature we are using is to <code>inspect</code> Docker commands &ndash; over tcp.</p>
-
-<p>If you have any questions or suggestions you can reach us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>,
- <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[SequenceIQ Joins Hortonworks Technology Partner Program]]></title>
@@ -163,7 +40,7 @@ Yet another nice feature we are using is to <code>inspect</code> Docker commands
 <p>SequenceIQ is an innovative big data startup with the mission statement to simplify and automate provisioning of on-demand Hadoop clusters running on different environments. Leaders in “containerizing” Hadoop, SequenceIQ is the first company who provisions and runs the full Hadoop stack and components on Docker containers. The company has further plans to create the industry’s first cloud agnostic, autoscaling and use case driven Platform as a Service API, and break the common significant barriers of entry that exist with most big data projects through a series of As-a-Service API offerings.
 For more information follow up with us on @SequenceIQ and <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>.</p>
 
-<p><a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#105;&#x6e;&#x66;&#x6f;&#x40;&#115;&#101;&#x71;&#117;&#101;&#x6e;&#99;&#101;&#105;&#x71;&#x2e;&#99;&#x6f;&#109;">&#x69;&#x6e;&#102;&#111;&#x40;&#115;&#101;&#x71;&#x75;&#x65;&#x6e;&#99;&#x65;&#105;&#x71;&#46;&#99;&#111;&#109;</a></p>
+<p><a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#x69;&#x6e;&#102;&#111;&#64;&#x73;&#101;&#113;&#117;&#101;&#x6e;&#99;&#x65;&#x69;&#x71;&#x2e;&#x63;&#111;&#x6d;">&#105;&#110;&#x66;&#111;&#x40;&#x73;&#x65;&#113;&#x75;&#x65;&#110;&#99;&#101;&#x69;&#x71;&#x2e;&#x63;&#111;&#x6d;</a></p>
 ]]></content>
   </entry>
   
@@ -705,7 +582,7 @@ an easier way to edit files in a running docker container. First of all try to
 
 <p>But if you have a valid reason, here comes the how-to.</p>
 
-<h2>Why Zedapp 2</h2>
+<h2>Why Zedapp</h2>
 
 <p>Most of the time I use either vi or <a href="https://atom.io/">Atom</a>, but a few months
 ago I stumbled upon <a href="http://zedapp.org/">Zedapp</a> an opinionated editor. It aims to
@@ -850,8 +727,6 @@ considered bad practice.</p>
 
 <p>This process comes handy if you&rsquo;ve already started a container, and the file in
 question doesn&rsquo;t sits on a volume.</p>
-
-<p>If you have any questions or suggestions you can reach us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
 ]]></content>
   </entry>
   
@@ -2883,6 +2758,74 @@ But what if you want to use (for example) an <a href="http://blog.sequenceiq.com
 <p>If you would like to play with Spark, you can use our <a href="https://registry.hub.docker.com/u/sequenceiq/spark/">Spark Docker container</a> available as a trusted build on Docker.io repository.</p>
 
 <p>For updates follow us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Apache Hadoop 2.5.0 on Docker]]></title>
+    <link href="http://blog.sequenceiq.com/blog/2014/08/18/hadoop-2-5-0-docker/"/>
+    <updated>2014-08-18T18:07:18+00:00</updated>
+    <id>http://blog.sequenceiq.com/blog/2014/08/18/hadoop-2-5-0-docker</id>
+    <content type="html"><![CDATA[<p>A few weeks ago we have released an Apache Hadoop 2.3 Docker image &ndash; in a very short time this become the most <a href="https://registry.hub.docker.com/search?q=hadoop">popular</a> Hadoop image in the Docker <a href="https://registry.hub.docker.com/">registry</a>.</p>
+
+<p>Following on the success of our Hadoop 2.3.0, 2.4.0 and 2.4.1 Docker <a href="https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/">image</a>, the feedbacks and requests we have received and aligning with the Hadoop release cycle, we have released an Apache Hadoop 2.5.0 Docker image &ndash; same as the previous version this is available as a trusted and automated build on the official Docker <a href="https://registry.hub.docker.com/">registry</a>.</p>
+
+<p>Please note that beside this Hadoop image, we have released and maintain a <a href="http://blog.sequenceiq.com/blog/2014/06/17/ambari-cluster-on-docker/">pseudo-distributed</a> and <a href="http://blog.sequenceiq.com/blog/2014/06/19/multinode-hadoop-cluster-on-docker/">fully distributed</a> Hadoop Docker image provisioned with Apache Ambari. As they are provisioned with Ambari you have the option to change, add and remove Hadoop components using cluster blueprints.</p>
+
+<p>Also we are happy to let you know that this release of Apache Hadoop contains a few of SequenceIQ&rsquo;s open source <strong>contributions</strong> and <a href="https://issues.apache.org/jira/browse/YARN-2250">fixes</a> around YARN schedulers.
+We are working on an SLA enforcer for Hadoop &ndash; very soon to be open sourced &ndash; and part of that work we are contributing back to the community. Also there is a major contribution of ours coming in the next release of Hadoop &ndash; 2.6.0.
+Stay tuned and follow us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
+
+<h2>Build the image</h2>
+
+<p>In case you&rsquo;d like to try directly from the <a href="https://github.com/sequenceiq/hadoop-docker">Dockerfile</a> you can build the image as:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>docker build  -t sequenceiq/hadoop-docker .</span></code></pre></td></tr></table></div></figure>
+
+
+<!-- more -->
+
+
+<h2>Pull the image</h2>
+
+<p>As it is also released as an official Docker image from Docker&rsquo;s automated build repository &ndash; you can always pull or refer the image when launching containers.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>docker pull sequenceiq/hadoop-docker:2.5.0</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Start a container</h2>
+
+<p>In order to use the Docker image you have just build or pulled use:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>docker run -i -t sequenceiq/hadoop-docker:2.5.0 /etc/bootstrap.sh -bash</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Testing</h2>
+
+<p>You can run one of the stock examples:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd $HADOOP_PREFIX
+</span><span class='line'># run the mapreduce
+</span><span class='line'>bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.5.0.jar grep input output 'dfs[a-z.]+'
+</span><span class='line'>
+</span><span class='line'># check the output
+</span><span class='line'>bin/hdfs dfs -cat output/*</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Hadoop native libraries, build, Bintray, etc</h2>
+
+<p>The Hadoop build process is no easy task &ndash; requires lots of libraries and their right version, protobuf, etc and takes some time &ndash; we have simplified all these, made the build and released a 64b version of Hadoop nativelibs on our <a href="https://bintray.com/sequenceiq/sequenceiq-bin/hadoop-native-64bit/2.4.1/view/files">Bintray repo</a>. Enjoy.</p>
+
+<p>Should you have any questions let us know through our social channels as <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
 ]]></content>
   </entry>
   
