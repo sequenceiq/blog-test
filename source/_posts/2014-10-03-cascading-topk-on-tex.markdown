@@ -5,7 +5,7 @@ date: 2014-10-03 18:00:00 +0200
 comments: true
 categories: [Cascading, Apache Tez]
 author: Oliver Szabo
-published: false
+published: true
 ---
 
 
