@@ -5,11 +5,11 @@ date: 2014-10-03 18:00:00 +0200
 comments: true
 categories: [Cascading, Apache Tez]
 author: Oliver Szabo
-published: true
+published: false
 ---
 
 
-In one of our previous [posts](http://blog.sequenceiq.com/blog/2014/09/23/topn-on-apache-tez/) we show you how to do a topK using the Apache Tez API. In this post we’d like to show how to do it using Cascading - running on Apache Tez.
+In one of our previous [posts](http://blog.sequenceiq.com/blog/2014/09/23/topn-on-apache-tez/) we show you how to do a TopK using the Apache Tez API. In this post we’d like to show how to do it using Cascading - running on Apache Tez.
 At [SequenceIQ](http://sequenceiq.com) we use Cascading and Scalding to write most of our jobs (mostly running on MR2). For a while our big data pipeline API called Banzai Pipeline[http://docs.banzai.apiary.io/] offers a unified view over different runtimes: MR2, Spark and Tez; recently Cascading has announced support for Apache Tez and we’d like to show you that.
 ## TopK Cascading Application
 
