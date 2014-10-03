@@ -4,7 +4,7 @@
   <title><![CDATA[SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-10-03T12:11:13+00:00</updated>
+  <updated>2014-10-03T12:16:31+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -12,6 +12,114 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Cascading on Apache Tez]]></title>
+    <link href="http://blog.sequenceiq.com/blog/2014/10/03/cascading-topk-on-tex/"/>
+    <updated>2014-10-03T16:00:00+00:00</updated>
+    <id>http://blog.sequenceiq.com/blog/2014/10/03/cascading-topk-on-tex</id>
+    <content type="html"><![CDATA[<p>In one of our previous <a href="http://blog.sequenceiq.com/blog/2014/09/23/topn-on-apache-tez/">posts</a> we show you how to do a topK using the Apache Tez API. In this post we’d like to show how to do it using Cascading &ndash; running on Apache Tez.
+At <a href="http://sequenceiq.com">SequenceIQ</a> we use Cascading and Scalding to write most of our jobs (mostly running on MR2). For a while our big data pipeline API called Banzai Pipeline[<a href="http://docs.banzai.apiary.io/">http://docs.banzai.apiary.io/</a>] offers a unified view over different runtimes: MR2, Spark and Tez; recently Cascading has announced support for Apache Tez and we’d like to show you that.</p>
+
+<h2>TopK Cascading Application</h2>
+
+<p>Cascading data flows can be constructed from Source taps (input), Sink taps(output) and Pipes.
+At first, we have to setup our properties for the Cascading flow.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="n">Properties</span> <span class="n">properties</span> <span class="o">=</span> <span class="n">AppProps</span><span class="o">.</span><span class="na">appProps</span><span class="o">()</span>
+</span><span class='line'>            <span class="o">.</span><span class="na">setJarClass</span><span class="o">(</span><span class="n">Main</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span><span class='line'>            <span class="o">.</span><span class="na">buildProperties</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">properties</span> <span class="o">=</span> <span class="n">FlowRuntimeProps</span><span class="o">.</span><span class="na">flowRuntimeProps</span><span class="o">()</span>
+</span><span class='line'>            <span class="o">.</span><span class="na">setGatherPartitions</span><span class="o">(</span><span class="mi">4</span><span class="o">)</span>
+</span><span class='line'>            <span class="o">.</span><span class="na">buildProperties</span><span class="o">(</span><span class="n">properties</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then in order to use Apache Tez, setup the Tez specific Flow Connector.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">FlowConnector</span> <span class="n">flowConnector</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hadoop2TezFlowConnector</span><span class="o">(</span><span class="n">properties</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After that we do the algorithm part of the flow. We need an input and output which comes as command-line arguments.
+We are going to work on CSV files for the sake of simplicity, so we have to use the <code>TextDelimited</code> scheme. Also we need to define our input pipe and taps (<code>source/sink</code>).
+We can compute a TopK with 2 <a href="http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N205A3">groups</a> and 2 <a href="http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N20438">every</a> operations.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="kd">final</span> <span class="n">String</span> <span class="n">inputPath</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="n">String</span> <span class="n">outputPath</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">final</span> <span class="n">Fields</span> <span class="n">fields</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Fields</span><span class="o">(</span><span class="s">&quot;userId&quot;</span><span class="o">,</span> <span class="s">&quot;data1&quot;</span><span class="o">,</span> <span class="s">&quot;data2&quot;</span><span class="o">,</span> <span class="s">&quot;data3&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="n">Scheme</span> <span class="n">scheme</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TextDelimited</span><span class="o">(</span><span class="n">fields</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="s">&quot;,&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">final</span> <span class="n">Pipe</span> <span class="n">inPipe</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Pipe</span><span class="o">(</span><span class="s">&quot;inPipe&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="n">Tap</span> <span class="n">inTap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hfs</span><span class="o">(</span><span class="n">scheme</span><span class="o">,</span> <span class="n">inputPath</span><span class="o">);</span>
+</span><span class='line'>    <span class="c1">// Get TOP K by userId</span>
+</span><span class='line'>    <span class="n">Pipe</span> <span class="n">topUsersPipe</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GroupBy</span><span class="o">(</span><span class="s">&quot;topUsers&quot;</span><span class="o">,</span> <span class="n">inPipe</span><span class="o">,</span> <span class="k">new</span> <span class="n">Fields</span><span class="o">(</span><span class="s">&quot;userId&quot;</span><span class="o">));</span>
+</span><span class='line'>    <span class="n">topUsersPipe</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Every</span><span class="o">(</span><span class="n">topUsersPipe</span><span class="o">,</span> <span class="k">new</span> <span class="n">Fields</span><span class="o">(</span><span class="s">&quot;userId&quot;</span><span class="o">),</span> <span class="k">new</span> <span class="n">Count</span><span class="o">(),</span> <span class="n">Fields</span><span class="o">.</span><span class="na">ALL</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">topUsersPipe</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GroupBy</span><span class="o">(</span><span class="n">topUsersPipe</span><span class="o">,</span> <span class="k">new</span> <span class="n">Fields</span><span class="o">(</span><span class="s">&quot;userId&quot;</span><span class="o">),</span> <span class="k">new</span> <span class="n">Fields</span><span class="o">(</span><span class="s">&quot;count&quot;</span><span class="o">),</span> <span class="kc">true</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">topUsersPipe</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Every</span><span class="o">(</span><span class="n">topUsersPipe</span><span class="o">,</span> <span class="n">Fields</span><span class="o">.</span><span class="na">RESULTS</span><span class="o">,</span> <span class="k">new</span> <span class="n">FirstNBuffer</span><span class="o">(</span><span class="mi">20</span><span class="o">));</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">final</span> <span class="n">Scheme</span> <span class="n">outputScheme</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TextDelimited</span><span class="o">(</span><span class="k">new</span> <span class="n">Fields</span><span class="o">(</span><span class="s">&quot;userId&quot;</span><span class="o">,</span> <span class="s">&quot;count&quot;</span><span class="o">),</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="s">&quot;,&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">Tap</span> <span class="n">sinkTap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hfs</span><span class="o">(</span><span class="n">outputScheme</span><span class="o">,</span> <span class="n">outputPath</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Finally, setup the flow:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>    <span class="n">FlowDef</span> <span class="n">flowDef</span> <span class="o">=</span> <span class="n">FlowDef</span><span class="o">.</span><span class="na">flowDef</span><span class="o">()</span>
+</span><span class='line'>            <span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&quot;TopK-TEZ&quot;</span><span class="o">)</span>
+</span><span class='line'>            <span class="o">.</span><span class="na">addSource</span><span class="o">(</span><span class="n">inPipe</span><span class="o">,</span> <span class="n">inTap</span><span class="o">)</span>
+</span><span class='line'>            <span class="o">.</span><span class="na">addTailSink</span><span class="o">(</span><span class="n">topUsersPipe</span><span class="o">,</span> <span class="n">sinkTap</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">Flow</span> <span class="n">flow</span> <span class="o">=</span> <span class="n">flowConnector</span><span class="o">.</span><span class="na">connect</span><span class="o">(</span><span class="n">flowDef</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">flow</span><span class="o">.</span><span class="na">complete</span><span class="o">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Get the code from our GitHub repository <a href="https://github.com/sequenceiq/sequenceiq-samples">GitHub examples</a> and build the project inside the <code>cascading-topk</code> directory:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>./gradlew clean build
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>First of all you will need a Tez cluster &ndash; we have put together a real one, you can get it from <a href="http://blog.sequenceiq.com/blog/2014/09/19/apache-tez-cluster/">here</a>. Pull the container, and follow the instructions.</p>
+
+<p>If you have any questions or suggestions you can reach us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[SequenceIQ Joins Hortonworks Technology Partner Program]]></title>
@@ -40,7 +148,7 @@
 <p>SequenceIQ is an innovative big data startup with the mission statement to simplify and automate provisioning of on-demand Hadoop clusters running on different environments. Leaders in “containerizing” Hadoop, SequenceIQ is the first company who provisions and runs the full Hadoop stack and components on Docker containers. The company has further plans to create the industry’s first cloud agnostic, autoscaling and use case driven Platform as a Service API, and break the common significant barriers of entry that exist with most big data projects through a series of As-a-Service API offerings.
 For more information follow up with us on @SequenceIQ and <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>.</p>
 
-<p><a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#x3a;&#105;&#x6e;&#102;&#111;&#x40;&#x73;&#x65;&#x71;&#x75;&#x65;&#110;&#99;&#x65;&#x69;&#113;&#x2e;&#x63;&#x6f;&#109;">&#x69;&#110;&#x66;&#111;&#64;&#x73;&#101;&#x71;&#117;&#101;&#110;&#x63;&#101;&#x69;&#113;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p><a href="&#109;&#97;&#x69;&#x6c;&#x74;&#111;&#x3a;&#105;&#x6e;&#x66;&#x6f;&#64;&#x73;&#101;&#x71;&#117;&#x65;&#x6e;&#99;&#101;&#x69;&#113;&#46;&#x63;&#111;&#x6d;">&#105;&#110;&#102;&#x6f;&#x40;&#115;&#x65;&#113;&#x75;&#101;&#x6e;&#99;&#101;&#105;&#113;&#46;&#99;&#x6f;&#109;</a></p>
 ]]></content>
   </entry>
   
@@ -2758,74 +2866,6 @@ But what if you want to use (for example) an <a href="http://blog.sequenceiq.com
 <p>If you would like to play with Spark, you can use our <a href="https://registry.hub.docker.com/u/sequenceiq/spark/">Spark Docker container</a> available as a trusted build on Docker.io repository.</p>
 
 <p>For updates follow us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Apache Hadoop 2.5.0 on Docker]]></title>
-    <link href="http://blog.sequenceiq.com/blog/2014/08/18/hadoop-2-5-0-docker/"/>
-    <updated>2014-08-18T18:07:18+00:00</updated>
-    <id>http://blog.sequenceiq.com/blog/2014/08/18/hadoop-2-5-0-docker</id>
-    <content type="html"><![CDATA[<p>A few weeks ago we have released an Apache Hadoop 2.3 Docker image &ndash; in a very short time this become the most <a href="https://registry.hub.docker.com/search?q=hadoop">popular</a> Hadoop image in the Docker <a href="https://registry.hub.docker.com/">registry</a>.</p>
-
-<p>Following on the success of our Hadoop 2.3.0, 2.4.0 and 2.4.1 Docker <a href="https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/">image</a>, the feedbacks and requests we have received and aligning with the Hadoop release cycle, we have released an Apache Hadoop 2.5.0 Docker image &ndash; same as the previous version this is available as a trusted and automated build on the official Docker <a href="https://registry.hub.docker.com/">registry</a>.</p>
-
-<p>Please note that beside this Hadoop image, we have released and maintain a <a href="http://blog.sequenceiq.com/blog/2014/06/17/ambari-cluster-on-docker/">pseudo-distributed</a> and <a href="http://blog.sequenceiq.com/blog/2014/06/19/multinode-hadoop-cluster-on-docker/">fully distributed</a> Hadoop Docker image provisioned with Apache Ambari. As they are provisioned with Ambari you have the option to change, add and remove Hadoop components using cluster blueprints.</p>
-
-<p>Also we are happy to let you know that this release of Apache Hadoop contains a few of SequenceIQ&rsquo;s open source <strong>contributions</strong> and <a href="https://issues.apache.org/jira/browse/YARN-2250">fixes</a> around YARN schedulers.
-We are working on an SLA enforcer for Hadoop &ndash; very soon to be open sourced &ndash; and part of that work we are contributing back to the community. Also there is a major contribution of ours coming in the next release of Hadoop &ndash; 2.6.0.
-Stay tuned and follow us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
-
-<h2>Build the image</h2>
-
-<p>In case you&rsquo;d like to try directly from the <a href="https://github.com/sequenceiq/hadoop-docker">Dockerfile</a> you can build the image as:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>docker build  -t sequenceiq/hadoop-docker .</span></code></pre></td></tr></table></div></figure>
-
-
-<!-- more -->
-
-
-<h2>Pull the image</h2>
-
-<p>As it is also released as an official Docker image from Docker&rsquo;s automated build repository &ndash; you can always pull or refer the image when launching containers.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>docker pull sequenceiq/hadoop-docker:2.5.0</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Start a container</h2>
-
-<p>In order to use the Docker image you have just build or pulled use:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>docker run -i -t sequenceiq/hadoop-docker:2.5.0 /etc/bootstrap.sh -bash</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Testing</h2>
-
-<p>You can run one of the stock examples:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd $HADOOP_PREFIX
-</span><span class='line'># run the mapreduce
-</span><span class='line'>bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.5.0.jar grep input output 'dfs[a-z.]+'
-</span><span class='line'>
-</span><span class='line'># check the output
-</span><span class='line'>bin/hdfs dfs -cat output/*</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Hadoop native libraries, build, Bintray, etc</h2>
-
-<p>The Hadoop build process is no easy task &ndash; requires lots of libraries and their right version, protobuf, etc and takes some time &ndash; we have simplified all these, made the build and released a 64b version of Hadoop nativelibs on our <a href="https://bintray.com/sequenceiq/sequenceiq-bin/hadoop-native-64bit/2.4.1/view/files">Bintray repo</a>. Enjoy.</p>
-
-<p>Should you have any questions let us know through our social channels as <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
 ]]></content>
   </entry>
   
