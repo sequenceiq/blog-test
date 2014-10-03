@@ -10,10 +10,11 @@ published: false
 
 
 In one of our previous [posts](http://blog.sequenceiq.com/blog/2014/09/23/topn-on-apache-tez/) we show you how to do a TopK using the Apache Tez API. In this post we’d like to show how to do it using Cascading - running on Apache Tez.
-At [SequenceIQ](http://sequenceiq.com) we use Cascading and Scalding to write most of our jobs (mostly running on MR2). For a while our big data pipeline API called Banzai Pipeline[http://docs.banzai.apiary.io/] offers a unified view over different runtimes: MR2, Spark and Tez; recently Cascading has announced support for Apache Tez and we’d like to show you that.
+At [SequenceIQ](http://sequenceiq.com) we use Cascading and Scalding to write most of our jobs (mostly running on MR2). For a while our big data pipeline API called [Banzai Pipeline](http://docs.banzai.apiary.io/) offers a unified API over different runtimes: MR2, Spark and Tez; recently Cascading has announced support for Apache Tez and we’d like to show you that by rewriting the TopK example.
+
 ## TopK Cascading Application
 
-Cascading data flows can be constructed from Source taps (input), Sink taps(output) and Pipes.
+Cascading data flows are be constructed from Source taps (input), Sink taps(output) and Pipes.
 At first, we have to setup our properties for the Cascading flow.
 
 ``` java
@@ -26,7 +27,7 @@ At first, we have to setup our properties for the Cascading flow.
                 .buildProperties(properties);
 ```
 
-Then in order to use Apache Tez, setup the Tez specific Flow Connector.
+Then in order to use Apache Tez, setup the Tez specific `Flow Connector`.
 
 ``` java
 FlowConnector flowConnector = new Hadoop2TezFlowConnector(properties);
@@ -65,6 +66,8 @@ Finally, setup the flow:
         Flow flow = flowConnector.connect(flowDef);
         flow.complete();
 ```
+
+As you can see the codebase is a bit simpler than using directly the Apache Tez API, however you loose the low level features of the expressive data flow API. Basically it's up to the personal preference of a developer whether to use and build directly on top of the Tez API or use Cascading (we have our own internal debate among colleagues) - as Apache Tez improves the performance by multiple times.
 
 Get the code from our GitHub repository [GitHub examples](https://github.com/sequenceiq/sequenceiq-samples) and build the project inside the `cascading-topk` directory:
 
