@@ -75,6 +75,6 @@ Get the code from our GitHub repository [GitHub examples](https://github.com/seq
 ./gradlew clean build
 ```
 
-First of all you will need a Tez cluster - we have put together a real one, you can get it from [here](http://blog.sequenceiq.com/blog/2014/09/19/apache-tez-cluster/). Pull the container, and follow the instructions.
+We have put together a Tez enabled Docker contaier, you can get it from [here](https://github.com/sequenceiq/docker-tez). Pull the container, and follow the instructions.
 
 If you have any questions or suggestions you can reach us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook.com/sequenceiq).
