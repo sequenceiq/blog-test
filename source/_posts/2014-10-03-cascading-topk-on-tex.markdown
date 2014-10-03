@@ -1,21 +1,16 @@
 ---
 layout: post
-title: "Cascading TopK on Tez"
-date: 2014-10-01 18:00:00 +0200
+title: "Cascading on Apache Tez"
+date: 2014-10-03 18:00:00 +0200
 comments: true
 categories: [Cascading, Apache Tez]
 author: Oliver Szabo
 published: false
 ---
 
-## Casxading on Apache Tez
 
-In one of our previous example we shown how to count top-k on Apache Tez.
-Now we show that how to use it with our favorite compute engine, Cascading.
-Earlier we also presented how to write and test jobs with Scalding (Cascading DSL), but be honest, we owe an introduction about Cascading.
-Now Cascading supports Apache Tez, so we are going to play with it.
-Our goal here is to demonstrate that how much simpler to write a Tez job with Cascading.
-
+In one of our previous [posts](http://blog.sequenceiq.com/blog/2014/09/23/topn-on-apache-tez/) we show you how to do a topK using the Apache Tez API. In this post we’d like to show how to do it using Cascading - running on Apache Tez.
+At [SequenceIQ](http://sequenceiq.com) we use Cascading and Scalding to write most of our jobs (mostly running on MR2). For a while our big data pipeline API called Banzai Pipeline[http://docs.banzai.apiary.io/] offers a unified view over different runtimes: MR2, Spark and Tez; recently Cascading has announced support for Apache Tez and we’d like to show you that.
 ## TopK Cascading Application
 
 Cascading data flows can be constructed from Source taps (input), Sink taps(output) and Pipes.
@@ -30,13 +25,15 @@ At first, we have to setup our properties for the Cascading flow.
                 .setGatherPartitions(4)
                 .buildProperties(properties);
 ```
-Then in order to use the Apache Tez, setup the Tez specific Flow Connector.
+
+Then in order to use Apache Tez, setup the Tez specific Flow Connector.
+
 ``` java
 FlowConnector flowConnector = new Hadoop2TezFlowConnector(properties);
 ```
 After that we do the algorithm part of the flow. We need an input and output which comes as command-line arguments.
-We are going to work on CSV files, so we have to use TextDelimited scheme. Also we need to define our input pipe and taps (source/sink).
-We can compute Top K with 2 [group](http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N205A3) and 2 [every](http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N20438) operation.
+We are going to work on CSV files for the sake of simplicity, so we have to use the `TextDelimited` scheme. Also we need to define our input pipe and taps (`source/sink`).
+We can compute a TopK with 2 [groups](http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N205A3) and 2 [every](http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N20438) operations.
 
 ``` java
         final String inputPath = args[0];
@@ -56,7 +53,9 @@ We can compute Top K with 2 [group](http://docs.cascading.org/cascading/2.5/user
         final Scheme outputScheme = new TextDelimited(new Fields("userId", "count"), false, true, ",");
         Tap sinkTap = new Hfs(outputScheme, outputPath);
 ```
+
 Finally, setup the flow:
+
 ``` java
         FlowDef flowDef = FlowDef.flowDef()
                 .setName("TopK-TEZ")
@@ -67,8 +66,12 @@ Finally, setup the flow:
         flow.complete();
 ```
 
-To build the project use this command from our [GitHub examples](https://github.com/sequenceiq/sequenceiq-samples) cascading-topk directory:
+Get the code from our GitHub repository [GitHub examples](https://github.com/sequenceiq/sequenceiq-samples) and build the project inside the `cascading-topk` directory:
 
 ```bash
 ./gradlew clean build
 ```
+
+First of all you will need a Tez cluster - we have put together a real one, you can get it from [here](http://blog.sequenceiq.com/blog/2014/09/19/apache-tez-cluster/). Pull the container, and follow the instructions.
+
+If you have any questions or suggestions you can reach us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook.com/sequenceiq).
