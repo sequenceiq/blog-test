@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Real-time Monitoring of Hadoop Clusters"
-date: 2014-10-04 20:00:00 +0200
+date: 2014-10-07 20:00:00 +0200
 comments: true
 categories: [Docker, Elasticsearch, Kibana, Hadoop, Yarn, metrics]
 author: Attila Kanto
