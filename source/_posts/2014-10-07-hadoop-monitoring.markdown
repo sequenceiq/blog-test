@@ -41,10 +41,12 @@ The metrics data what we are collecting and visualising are provided by [Hadoop 
 In order to be able to access to the metrics data from the monitoring client component - which is running inside a different Docker container - we used the capability of [Docker Volumes](https://docs.docker.com/userguide/dockervolumes) which basically let's you access a directory within one container form other container or even access directories from host systems.
 
 For example if you would like mount the ```/var/log``` from the container named ```ambari-singlenode``` under the ```/amb/log``` in the monitoring client container then following sequence of commands needs to be executed:
+{% raw %}
 ```bash
-EXPOSED_LOG_DIR=$(docker inspect --format='{{index .Volumes "/var/log"}}' ambari-singlenode) && echo $EXPOSED_LOG_DIR
+EXPOSED_LOG_DIR=$(docker inspect --format='{{index .Volumes "/var/log"}}' ambari-singlenode)
 docker run -i -t -v $EXPOSED_LOG_DIR:/amb/log  sequenceiq/docker-elk-client /etc/bootstrap.sh -bash
 ```
+{% endraw %}
 
 Hundreds of different metrics are gathered form Hadoop metrics subsystem and all data is transformed by Logstash to JSON and stored to ElasticSearch to make it ready for querying or displaying it with Kibana.
 
