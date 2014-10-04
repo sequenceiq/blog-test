@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Real-time Monitoring of Hadoop Clusters"
-date: 2014-10-07 20:00:00 +0200
+date: 2014-10-04 20:00:00 +0200
 comments: true
 categories: [Docker, Elasticsearch, Kibana, Hadoop, Yarn, metrics]
 author: Attila Kanto
@@ -46,7 +46,7 @@ EXPOSED_LOG_DIR=$(docker inspect --format='{{index .Volumes "/var/log"}}' ambari
 docker run -i -t -v $EXPOSED_LOG_DIR:/amb/log  sequenceiq/docker-elk-client /etc/bootstrap.sh -bash
 ```
 
-Hundreds of different metrics are gathered form Hasoop metrics subsystem and all data is transformed by Logstash to JSON and stored to ElasticSearch to make it ready for querying or displaying it with Kibana.
+Hundreds of different metrics are gathered form Hadoop metrics subsystem and all data is transformed by Logstash to JSON and stored to ElasticSearch to make it ready for querying or displaying it with Kibana.
 
 The screenshot below has been created about one of our sample dashboard which is displaying Hadoop metrics for a little cluster which was started on my notebook. In this cluster the Yarn's Capacity Scheduler is used and for demonstration purposes I have created a queue called highprio alongside with the default queue. I have reduced the the capacity of default queue to 30 and defined the highprio queue with capacity of 70.
 The red line in the screenshot belongs to the highprio queue the yellow line belongs to default the queue and the green line is the root queue which is the common ancestor both of them.
