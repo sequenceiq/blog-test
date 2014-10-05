@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Real-time Monitoring of Hadoop Clusters"
+title: "Real-time monitoring of Hadoop clusters"
 date: 2014-10-07 20:00:00 +0200
 comments: true
 categories: [Docker, Elasticsearch, Kibana, Hadoop, Yarn, metrics]
@@ -34,6 +34,8 @@ In our monitoring solution one of the design goal was to provide a **generic, pl
 In a nutshell the monitoring solution consist of client and server containers. The server contains the Elasticsearch and the Kibana module. The server container is horizontally scalable and it can be clustered trough the clustering capabilities of Elasticsearch.
 
 The client container - which is deployed on the machine what is needed to be monitored - contains the Logstash and the collectd module. The Logstash connects to Elasticsearch cluster as client and stores the processed and transformed metrics data there.
+
+<!-- more -->
 
 ##Hadoop metics
 The metrics data what we are collecting and visualizing are provided by [Hadoop metrics](http://blog.cloudera.com/blog/2012/10/what-is-hadoop-metrics2), what is a collection of runtime information that are exposed by all Hadoop daemons. We have configured the Metrics subsystem in that way that it writes the valuable metrics information into the filesystem.
