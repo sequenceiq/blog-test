@@ -82,7 +82,7 @@ Once your jar is ready upload it onto a Tez cluster and run the following comman
 hadoop jar cascading-topk-1.0.jar /input /output 10
 ```
 
-Sample data can be generated in the same way as in [this]((http://blog.sequenceiq.com/blog/2014/09/23/topn-on-apache-tez)) example.
+Sample data can be generated in the same way as in [this](http://blog.sequenceiq.com/blog/2014/09/23/topn-on-apache-tez) example.
 
 We have put together a Tez enabled Docker container, you can get it from [here](https://github.com/sequenceiq/docker-tez). Pull the container, and follow the instructions.
 
