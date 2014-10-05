@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Kibana | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/kibana/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-10-05T07:43:49+00:00</updated>
+  <updated>2014-10-05T07:53:03+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -69,9 +69,9 @@ In the benchmark, the jobs were submitted to default queue and a bit later (some
 
 <p>Such kind of dashboard is extremely useful when we are visualizing decisions made by Periscope and check e.g. how the Jobs moved across queues.</p>
 
-<p><a href="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/hadoop-monitoring/hadoop_metrics.png">Click here</a> to see in in large.</p>
-
 <p style="text-align:center;"> <img class="<a" src="href="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/hadoop-monitoring/hadoop_metrics.png">https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/hadoop-monitoring/hadoop_metrics.png</a>"></p>
+
+<p>To see it in large, please <a href="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/hadoop-monitoring/hadoop_metrics.png">click here</a>.</p>
 
 <p>Since all of the Hadoop metrics are stored in the Elasticsearch, therefore there are a lot of possibility to create different dashboards to that particular parameter of the cluster which is interesting for the operator. The dashboards can be configured on the fly and the metrics are displayed in real-time.</p>
 
