@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Docker | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/docker/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-10-05T12:20:59+00:00</updated>
+  <updated>2014-10-05T14:25:21+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Real-time Monitoring of Hadoop Clusters]]></title>
+    <title type="html"><![CDATA[Real-time monitoring of Hadoop clusters]]></title>
     <link href="http://blog.sequenceiq.com/blog/2014/10/07/hadoop-monitoring/"/>
     <updated>2014-10-07T18:00:00+00:00</updated>
     <id>http://blog.sequenceiq.com/blog/2014/10/07/hadoop-monitoring</id>
@@ -46,6 +46,9 @@ are integrated to our stack we kept in mind that it needs to be:</p>
 <p>In a nutshell the monitoring solution consist of client and server containers. The server contains the Elasticsearch and the Kibana module. The server container is horizontally scalable and it can be clustered trough the clustering capabilities of Elasticsearch.</p>
 
 <p>The client container &ndash; which is deployed on the machine what is needed to be monitored &ndash; contains the Logstash and the collectd module. The Logstash connects to Elasticsearch cluster as client and stores the processed and transformed metrics data there.</p>
+
+<!-- more -->
+
 
 <h2>Hadoop metics</h2>
 
