@@ -56,9 +56,9 @@ In the benchmark, the jobs were submitted to default queue and a bit later (some
 
 Such kind of dashboard is extremely useful when we are visualizing decisions made by Periscope and check e.g. how the Jobs moved across queues.
 
-[Click here](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/hadoop-monitoring/hadoop_metrics.png) to see in in large.
-
 -> {% img https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/hadoop-monitoring/hadoop_metrics.png %} <-
+
+To see it in large, please [click here](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/hadoop-monitoring/hadoop_metrics.png).
 
 Since all of the Hadoop metrics are stored in the Elasticsearch, therefore there are a lot of possibility to create different dashboards to that particular parameter of the cluster which is interesting for the operator. The dashboards can be configured on the fly and the metrics are displayed in real-time.
 
