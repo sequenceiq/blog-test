@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Yarn | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/yarn/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-10-05T14:25:21+00:00</updated>
+  <updated>2014-10-06T09:06:28+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -70,7 +70,7 @@ docker run -i -t -v $EXPOSED_LOG_DIR:/amb/log  sequenceiq/docker-elk-client /etc
 The red line in the screenshot belongs to the highprio queue the yellow line belongs to default the queue and the green line is the root queue which is the common ancestor both of them.
 In the benchmark, the jobs were submitted to default queue and a bit later (somewhere around 17:48) the same jobs were submitted to highprio queue. As it is clearly observable for highprio queue the allocated Containers, Memory and VCores were higher and jobs were finished much more faster than those that were submitted to the default queue.</p>
 
-<p>Such kind of dashboard is extremely useful when we are visualizing decisions made by Periscope and check e.g. how the Jobs moved across queues.</p>
+<p>Such kind of dashboard is extremely useful when we are visualizing decisions made by <a href="http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope">Periscope</a> and check e.g. how the applications are moved across <a href="http://blog.sequenceiq.com/blog/2014/07/02/move-applications-between-queues">queues</a>.</p>
 
 <p style="text-align:center;"> <img class="<a" src="href="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/hadoop-monitoring/hadoop_metrics.png">https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/hadoop-monitoring/hadoop_metrics.png</a>"></p>
 
