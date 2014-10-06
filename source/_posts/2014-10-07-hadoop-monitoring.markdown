@@ -8,7 +8,7 @@ author: Attila Kanto
 published: true
 ---
 
-At SequenceIQ[http://sequenceiq.com] we are running Hadoop clusters on different environments using [Cloudbreak](http://sequenceiq.com/cloudbreak/) and apply [SLA autoscaling](http://sequenceiq.com/periscope/) policies on the fly, thus monitoring the cluster is a key operation.
+At [SequenceIQ](http://sequenceiq.com) we are running Hadoop clusters on different environments using [Cloudbreak](http://sequenceiq.com/cloudbreak/) and apply [SLA autoscaling](http://sequenceiq.com/periscope/) policies on the fly, thus monitoring the cluster is a key operation.
 
 Although various solutions have been created in software industry for monitoring of activities taking place in a cluster, but it turned out that only a very few of them satisfies most of our needs. When we made the decision about which monitoring libraries and components
 are integrated to our stack we kept in mind that it needs to be:
