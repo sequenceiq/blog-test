@@ -56,7 +56,7 @@ The screenshot below has been created about one of our sample dashboard which is
 The red line in the screenshot belongs to the highprio queue the yellow line belongs to default the queue and the green line is the root queue which is the common ancestor both of them.
 In the benchmark, the jobs were submitted to default queue and a bit later (somewhere around 17:48) the same jobs were submitted to highprio queue. As it is clearly observable for highprio queue the allocated Containers, Memory and VCores were higher and jobs were finished much more faster than those that were submitted to the default queue.
 
-Such kind of dashboard is extremely useful when we are visualizing decisions made by Periscope and check e.g. how the Jobs moved across queues.
+Such kind of dashboard is extremely useful when we are visualizing decisions made by [Periscope](http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope) and check e.g. how the applications are moved across [queues](http://blog.sequenceiq.com/blog/2014/07/02/move-applications-between-queues).
 
 -> {% img https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/hadoop-monitoring/hadoop_metrics.png %} <-
 
