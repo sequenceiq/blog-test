@@ -5,7 +5,7 @@ date: 2014-10-07 20:00:00 +0200
 comments: true
 categories: [Docker, Elasticsearch, Kibana, Hadoop, Yarn, metrics]
 author: Attila Kanto
-published: true
+published: false
 ---
 
 At [SequenceIQ](http://sequenceiq.com) we are running Hadoop clusters on different environments using [Cloudbreak](http://sequenceiq.com/cloudbreak/) and apply [SLA autoscaling](http://sequenceiq.com/periscope/) policies on the fly, thus monitoring the cluster is a key operation.
@@ -19,7 +19,7 @@ are integrated to our stack we kept in mind that it needs to be:
 
  * **extensible** to be able to use the gathered and stored data by extensions written by 3rd parties, e.g. a module which processes the stored (metrics) data and does real-time anomaly detection
 
- * **zero-configuration** to be able tp plug into any existing Hadoop cluster without additional configurations, component installations  
+ * **zero-configuration** to be able to plug into any existing Hadoop cluster without additional configuration, component installation
 
 Based on the requirements above our choice were the followings:
 
