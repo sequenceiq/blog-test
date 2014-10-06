@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Docker | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/docker/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-10-06T09:06:28+00:00</updated>
+  <updated>2014-10-06T13:17:28+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -50,7 +50,7 @@ are integrated to our stack we kept in mind that it needs to be:</p>
 <!-- more -->
 
 
-<h2>Hadoop metics</h2>
+<h2>Hadoop metrics</h2>
 
 <p>The metrics data what we are collecting and visualizing are provided by <a href="http://blog.cloudera.com/blog/2012/10/what-is-hadoop-metrics2">Hadoop metrics</a>, what is a collection of runtime information that are exposed by all Hadoop daemons. We have configured the Metrics subsystem in that way that it writes the valuable metrics information into the filesystem.</p>
 
