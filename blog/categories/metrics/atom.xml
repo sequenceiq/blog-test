@@ -4,7 +4,7 @@
   <title><![CDATA[Category: metrics | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/metrics/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-10-06T15:09:03+00:00</updated>
+  <updated>2014-10-06T15:10:03+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -18,7 +18,7 @@
     <link href="http://blog.sequenceiq.com/blog/2014/10/07/hadoop-monitoring/"/>
     <updated>2014-10-07T18:00:00+00:00</updated>
     <id>http://blog.sequenceiq.com/blog/2014/10/07/hadoop-monitoring</id>
-    <content type="html"><![CDATA[<p>At SequenceIQ[<a href="http://sequenceiq.com">http://sequenceiq.com</a>] we are running Hadoop clusters on different environments using <a href="http://sequenceiq.com/cloudbreak/">Cloudbreak</a> and apply <a href="http://sequenceiq.com/periscope/">SLA autoscaling</a> policies on the fly, thus monitoring the cluster is a key operation.</p>
+    <content type="html"><![CDATA[<p>At <a href="http://sequenceiq.com">SequenceIQ</a> we are running Hadoop clusters on different environments using <a href="http://sequenceiq.com/cloudbreak/">Cloudbreak</a> and apply <a href="http://sequenceiq.com/periscope/">SLA autoscaling</a> policies on the fly, thus monitoring the cluster is a key operation.</p>
 
 <p>Although various solutions have been created in software industry for monitoring of activities taking place in a cluster, but it turned out that only a very few of them satisfies most of our needs. When we made the decision about which monitoring libraries and components
 are integrated to our stack we kept in mind that it needs to be:</p>
