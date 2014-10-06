@@ -37,7 +37,7 @@ The client container - which is deployed on the machine what is needed to be mon
 
 <!-- more -->
 
-##Hadoop metics
+##Hadoop metrics
 The metrics data what we are collecting and visualizing are provided by [Hadoop metrics](http://blog.cloudera.com/blog/2012/10/what-is-hadoop-metrics2), what is a collection of runtime information that are exposed by all Hadoop daemons. We have configured the Metrics subsystem in that way that it writes the valuable metrics information into the filesystem.
 
 In order to be able to access to the metrics data from the monitoring client component - which is running inside a different Docker container - we used the capability of [Docker Volumes](https://docs.docker.com/userguide/dockervolumes) which basically let's you access a directory within one container form other container or even access directories from host systems.
