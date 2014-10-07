@@ -76,7 +76,7 @@ Beside Hadoop metrics, "traditional" system resource data (cpu, memory, io, netw
 
 ##Summary
 
-So far the Hadoop metrics and system resource metrics have been processed, but it is planned to use the information written into the history file (or fetch from History server) an make it also `queryable` trough Elasticsearch and to be able to provide information about what is happening inside the jobs.
+So far the Hadoop metrics and system resource metrics have been processed, but it is planned to use the information written into the history file (or fetch from History server) and make it also `queryable` trough Elasticsearch to be able to provide information about what is happening inside the jobs.
 
 The development preview of the monitoring server and client is already available on our GitHub [here](https://github.com/sequenceiq/docker-elk) and [here](https://github.com/sequenceiq/docker-elk-client). In the next release this will be part of **Periscope** and **Cloudbreak**.
 
