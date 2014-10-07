@@ -5,7 +5,7 @@ date: 2014-10-07 20:00:00 +0200
 comments: true
 categories: [Docker, Elasticsearch, Kibana, Hadoop, Yarn, metrics]
 author: Attila Kanto
-published: false
+published: true
 ---
 
 At [SequenceIQ](http://sequenceiq.com) we are running Hadoop clusters on different environments using [Cloudbreak](http://sequenceiq.com/cloudbreak/) and apply [SLA autoscaling](http://sequenceiq.com/periscope/) policies on the fly, thus monitoring the cluster is a key operation.
