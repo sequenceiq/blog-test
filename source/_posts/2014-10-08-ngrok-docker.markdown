@@ -132,7 +132,7 @@ Docker client communicates with the Docker server. You can just use ngrok
 to introspect the Docker API.
 
 ```
-ngrok -subdomain docker 127.0.0.1:2375
+ngrok -subdomain=docker 127.0.0.1:2375
 ```
 
 then if you want to record API calls you have to configure
