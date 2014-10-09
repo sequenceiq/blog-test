@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Selfhosted ngrok server in Docker - SequenceIQ Blog</title>
+  <title>Self hosted ngrok server in Docker - SequenceIQ Blog</title>
   <meta name="author" content="SequenceIQ">
 
    
@@ -129,7 +129,7 @@
        
          
        
-       <h1 class="article-style"> Selfhosted ngrok server in Docker
+       <h1 class="article-style"> Self hosted ngrok server in Docker
 
        <span class="badge name-badge">Lajos Papp</span>
        <span class="badge name-badge">09 October 2014</span>
@@ -145,8 +145,8 @@
 
   <div class="row-fluid">
     <div class="span12">
-      <p><a href="vhttps://ngrok.com/">Ngrok</a> is used for Introspected tunnels to localhost.
-In integration testing situations is really common, that you want to bind some webhooks
+      <p><a href="vhttps://ngrok.com/">Ngrok</a> is used for <code>introspected</code> tunnels to localhost.
+In integration testing situations is really common that you want to bind some webhooks
 to localhost. For example you want AWS SNS deliver messages to your service,
 but is not reachable publicly, as it runs only on localhost.</p>
 
@@ -283,7 +283,7 @@ in <code>/etc/hosts</code></p>
 </pre></td><td class='code'><pre><code class=''><span class='line'>&lt;NGROKD_IP&gt; ngrok.mydomain.com subdomain1.mydomain.com subdomain2.mydomain.com</span></code></pre></td></tr></table></div></figure>
 
 
-<p>If you want a proper subdomain you need an <code>A record</code> suche as:
+<p>If you want a proper subdomain you need an <code>A record</code> such as:
 <code>*.ngrok.mydomain.com 54.72.21.93</code></p>
 
 <h2>Usage</h2>
@@ -308,6 +308,8 @@ to introspect the Docker API.</p>
 </pre></td><td class='code'><pre><code class=''><span class='line'>alias docker='docker --host=tcp://docker.ngrok.mydomain.com:4480'</span></code></pre></td></tr></table></div></figure>
 
 
+<p>For updates follow us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
+
     </div>
   </div>
 
@@ -331,6 +333,8 @@ to introspect the Docker API.</p>
 
 
   <a href="/blog/categories/docker/"><span class="label label-warning">docker</span></a>
+
+  <a href="/blog/categories/ngrok/"><span class="label label-warning">ngrok</span></a>
 
 
 
@@ -390,7 +394,7 @@ to introspect the Docker API.</p>
   <ul id="recent_posts" class="list-group">
     
       <li class="list-group-item">
-        <a href="/blog/2014/10/09/ngrok-docker/">Selfhosted ngrok server in Docker</a>
+        <a href="/blog/2014/10/09/ngrok-docker/">Self hosted ngrok server in Docker</a>
       </li>
     
       <li class="list-group-item">

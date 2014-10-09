@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: docker | SequenceIQ Blog]]></title>
-  <link href="http://blog.sequenceiq.com/blog/categories/docker/atom.xml" rel="self"/>
+  <title><![CDATA[Category: ngrok | SequenceIQ Blog]]></title>
+  <link href="http://blog.sequenceiq.com/blog/categories/ngrok/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
   <updated>2014-10-09T12:30:27+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
