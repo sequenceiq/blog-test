@@ -4,7 +4,7 @@
   <title><![CDATA[Category: docker | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/docker/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-10-09T09:51:30+00:00</updated>
+  <updated>2014-10-09T10:03:58+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -77,7 +77,7 @@ docker run -d &mdash;name ngrokd \
 <p>It will expose 3 ports:</p>
 
 <ul>
-<li><strong>4444</strong>: that is the so called control port, ngrock clients connect there</li>
+<li><strong>4444</strong>: that is the so called control port, ngrok clients connect there</li>
 <li><strong>4480/4443</strong>: this to port is used for the tunneled http/https connections</li>
 <li><strong>domain</strong>: this is the domain name, clients need to use to connect to the
 server, and the ngrok server will assign <code>&lt;SUBDOMAIN&gt;.ngrok.mydomain.com</code>
