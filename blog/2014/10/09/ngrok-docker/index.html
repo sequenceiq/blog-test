@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: Multi-node - SequenceIQ Blog</title>
+  <title>Selfhosted ngrok server in Docker - SequenceIQ Blog</title>
   <meta name="author" content="SequenceIQ">
 
    
-  <meta name="description" content="Category: Multi-node">
+  <meta name="description" content="">
   
   <meta name="keywords" content="">
 
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.sequenceiq.comblog/categories/multi-node">
+  <link rel="canonical" href="http://blog.sequenceiq.com/blog/2014/10/09/ngrok-docker">
   <link href="/favicon.png" rel="icon">
   <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
@@ -117,59 +117,252 @@
               <div class="col-md-9" id="">
                   <div class="">
                    <!-- <div id="content">-->
-                      <article role="article">
-  
- <!-- <header>
+                      <div>
 
-    
-  </header>-->
-  
-  <div id="blog-archives" class="category">
+<div class="container-fluid">
+     <div class="row">
+       
+         
+       
+       
 
-  
-  <div class="row">
-    <div class="col-md-1">
-  	
-  	
-  	  
-  	    <h2>2014</h2>
-  	
-    </div>
-    <div class="col-md-11">
-      <article>
-  	
-<div class="row">
-	<div class="col-md-2">
-		<h1 class="date-time"><time datetime="2014-06-19T20:29:10+00:00" pubdate><span class='month'>Jun</span> <span class='day'>19</span><span class='year'><!--2014--></span></time></h1>
-	</div>
-	<div class="col-md-10">
-		<h1 class="article-style"><a href="/blog/2014/06/19/multinode-hadoop-cluster-on-docker/">Multi-node Hadoop cluster on Docker</a></h1>
-	</div>
+       
+         
+       
+       <h1 class="article-style"> Selfhosted ngrok server in Docker
+
+       <span class="badge name-badge">Lajos Papp</span>
+       <span class="badge name-badge">09 October 2014</span>
+       </h1>
+
+
+
 </div>
-
-<div class="row">
-	<div class="col-md-2">
-	</div>
-	<div class="col-md-10">
-		
-
-		<footer class="archive">
-		  <span class="categories">posted in <a class='category' href='/blog/categories/apache-ambari/'>Apache Ambari</a>, <a class='category' href='/blog/categories/devops/'>DevOps</a>, <a class='category' href='/blog/categories/docker/'>Docker</a>, <a class='category' href='/blog/categories/hadoop/'>Hadoop</a>, <a class='category' href='/blog/categories/multi-node/'>Multi-node</a></span>
-		</footer>
-		
-	</div>
 </div>
+<article class="hentry" role="article">
+  
 
 
-  	</article>
+  <div class="row-fluid">
+    <div class="span12">
+      <p><a href="vhttps://ngrok.com/">Ngrok</a> is used for Introspected tunnels to localhost.
+In integration testing situations is really common, that you want to bind some webhooks
+to localhost. For example you want AWS SNS deliver messages to your service,
+but is not reachable publicly, as it runs only on localhost.</p>
+
+<p>So its really 2 in 1: <strong>local tunnel</strong> and <strong>introspection</strong>. Sometimes you
+just want to use its <strong>introspection</strong> feature, to get insight about how a
+specific API works. It&rsquo;s like a local <a href="https://www.runscope.com/">runscope</a>.</p>
+
+<p>While you can always use the free hosted version: <a href="https://ngrok.com/">ngrok</a>,
+there are reasons to roll you own:</p>
+
+<ul>
+<li>Sometimes the free hosted version has <strong>availability</strong> issues,when it gets heavy traffic</li>
+<li>Yo don&rsquo;t want your messages/calls go through a public free service, for
+<strong>security</strong> concerns</li>
+<li>You just want to use its <strong>introspection</strong> feature, and want to avoid the
+extra <strong>network</strong> round trip to ngrok.com and back.</li>
+</ul>
+
+
+<p>There is documentation about <a href="https://github.com/inconshreveable/ngrok/blob/master/docs/SELFHOSTING.md">self hosting ngrok</a>
+But it include steps, like:</p>
+
+<ul>
+<li>create an SSL certificate</li>
+<li>build server/client binaries using the cert above</li>
+<li>configure, and install it on your server</li>
+</ul>
+
+
+<p>How about using a <strong>single click</strong> version of this? Easy: we have already containerized
+this process and made it available in the official Docker
+<a href="https://registry.hub.docker.com/u/sequenceiq/ngrokd/">repository</a>.</p>
+
+<!-- more -->
+
+
+<h2>Running</h2>
+
+<p>You just have to start the <code>sequenceiq/ngrokd</code> Docker image:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>docker run -d --name ngrokd \
+</span><span class='line'>  -p 4480:4480 \
+</span><span class='line'>  -p 4444:4444 \
+</span><span class='line'>  -p 4443:4443 \
+</span><span class='line'>  sequenceiq/ngrokd \
+</span><span class='line'>    -httpAddr=:4480 \
+</span><span class='line'>    -httpsAddr=:4444 \
+</span><span class='line'>    -domain=ngrok.mydomain.com</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Install the custom <code>ngrok</code> client</h2>
+
+<p>You remember we have a custom ngrok daemon inside the Docker image. Based on the
+<a href="https://gist.github.com/lyoshenka/002b7fbd801d0fd21f2f">self hosting documentation</a></p>
+
+<blockquote><p>Since the client and server executables are paired, you won&rsquo;t be able to use
+  any other ngrok to connect to this ngrokd, and vice versa.</p></blockquote>
+
+<p>So we need the <em>paired</em> ngrok client</p>
+
+<h3>OSX</h3>
+
+<p>If you use brew:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew cask install https://raw.githubusercontent.com/sequenceiq/docker-ngrokd/master/ngrok.rb</span></code></pre></td></tr></table></div></figure>
+
+
+<p>otherwise:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -o /usr/local/bin/ngrok https://s3-eu-west-1.amazonaws.com/sequenceiq/ngrok_darwin
+</span><span class='line'>chmod +x /usr/local/bin/ngrok</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Linux</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -o /usr/local/bin/ngrok https://s3-eu-west-1.amazonaws.com/sequenceiq/ngrok_linux
+</span><span class='line'>chmod +x /usr/local/bin/ngrok</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Please make sure you check the ngrok version:</p>
+
+<p>You should see the <code>1.7.2</code> on client side:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&gt; ngrok version
+</span><span class='line'>
+</span><span class='line'>1.7.2</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Client configuration</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat &gt; ~/.ngrok &lt;&lt;EOF
+</span><span class='line'>server_addr: ngrok.mydomain.com:4443
+</span><span class='line'>trust_host_root_certs: false
+</span><span class='line'>EOF</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Hostname workaround</h2>
+
+<p>If you want to run ngrokd internally just use a new entry
+in <code>/etc/hosts</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;NGROKD_IP&gt; ngrok.mydomain.com</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you want a proper subdomain you need an <code>A record</code> suche as: <code>
+</code>*.ngrok.mydomain.com 54.72.21.93`</p>
+
+<h2>Usage</h2>
+
+<p>Starting ngrok is business as usual, just use <code>ngrok &lt;port&gt;</code>.
+Pretty much that’s it, you have a self-hosted ngrok server in Docker.</p>
+
+<h2>Sample use case</h2>
+
+<p>One of the frequent use cases for us (above the ones mentioned in the introduction)
+is API debug. SequenceIQ being a technology company, we are creating lots of REST APIs and
+would like to have the ability to switch on and off debugging dynamically
+(without having to modify anything at the application level, logging, etc).
+Also we’d like to use the same process when we are running over http or
+https &ndash; and do SSL termination when it’s necessary (note that we are talking
+about dev/test). We like/use <code>ngrok</code> as we can introspect the API and do debugging
+and call recording/replays in a <strong>non intrusive</strong> way, without modifying the
+application at all. Yet another nice feature we are using is to <code>inspect</code> Docker
+commands &ndash; over tcp.</p>
+
     </div>
   </div>
 
+
+
+  <footer>
+    <hr>
+    
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Lajos Papp</span></span>
+
+    
+    <div class="row">
+      
+      <div class="col-md-6 span6">
+        <p class="meta">
+        
+        
+
+
+
+  <a href="/blog/categories/docker/"><span class="label label-warning">docker</span></a>
+
+
+
+
+        </p>
+      </div>
+      
+      <div class="col-md-5 social-sharing pull-right">
+        <div class="sharing">
+  <div class="addthis_toolbox addthis_default_style ">
+  
+  <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+  
+  
+  <a class="addthis_button_tweet"></a>
+  
+  
+  <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
 </div>
 
+      </div>
+      
+      
+    </div>
+    
+    <div class="row">
+      <div class="span12">
+        <p class="meta">
+          
+            <a class="basic-alignment left" href="/blog/2014/10/07/hadoop-monitoring/" title="Previous Post: Real-time monitoring of Hadoop clusters">&laquo; Real-time monitoring of Hadoop clusters</a>
+          
+          
+        </p>
+      </div>
+    </div>
+  </footer>
 </article>
 
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
+</div>
 
 
                     <!--</div>-->
@@ -461,7 +654,10 @@
       var disqus_shortname = 'sequenceiqblog';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.sequenceiq.com/blog/2014/10/09/ngrok-docker/';
+        var disqus_url = 'http://blog.sequenceiq.com/blog/2014/10/09/ngrok-docker/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
