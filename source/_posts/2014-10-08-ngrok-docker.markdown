@@ -55,7 +55,7 @@ docker run -d --name ngrokd \
 
 It will expose 3 ports:
 
-- **4444**: that is the so called control port, ngrock clients connect there
+- **4444**: that is the so called control port, ngrok clients connect there
 - **4480/4443**: this to port is used for the tunneled http/https connections
 - **domain**: this is the domain name, clients need to use to connect to the
   server, and the ngrok server will assign `<SUBDOMAIN>.ngrok.mydomain.com`
