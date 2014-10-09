@@ -40,7 +40,7 @@ this process and made it available in the official Docker
 
 ## Running
 
-You just have to start the `sequenceiq/ngrokd` Docker image:
+To launch the ngrok daemon, you just have to start the `sequenceiq/ngrokd` Docker image:
 
 ```
 docker run -d --name ngrokd \
@@ -52,6 +52,14 @@ docker run -d --name ngrokd \
     -httpsAddr=:4444 \
     -domain=ngrok.mydomain.com
 ```
+
+It will expose 3 ports:
+
+- **4444**: that is the so called control port, ngrock clients connect there
+- **4480/4443**: this to port is used for the tunneled http/https connections
+- **domain**: this is the domain name, clients need to use to connect to the
+  server, and the ngrok server will assign `<SUBDOMAIN>.ngrok.mydomain.com`
+  addresses to each tunnel.
 
 ## Install the custom `ngrok` client
 
@@ -105,16 +113,17 @@ If you want to run ngrokd internally just use a new entry
 in `/etc/hosts`
 
 ```
-<NGROKD_IP> ngrok.mydomain.com
+<NGROKD_IP> ngrok.mydomain.com subdomain1.mydomain.com subdomain2.mydomain.com
 ```
 
-If you want a proper subdomain you need an `A record` suche as: `
+If you want a proper subdomain you need an `A record` suche as:
 `*.ngrok.mydomain.com 54.72.21.93`
 
 ## Usage
 
 Starting ngrok is business as usual, just use `ngrok <port>`.
 Pretty much that’s it, you have a self-hosted ngrok server in Docker.
+Then you can introspect the tunnel on http://127.0.0.0:4444
 
 ## Sample use case
 
