@@ -294,16 +294,19 @@ Then you can introspect the tunnel on <a href="http://127.0.0.0:4444">http://127
 
 <h2>Sample use case</h2>
 
-<p>One of the frequent use cases for us (above the ones mentioned in the introduction)
-is API debug. SequenceIQ being a technology company, we are creating lots of REST APIs and
-would like to have the ability to switch on and off debugging dynamically
-(without having to modify anything at the application level, logging, etc).
-Also we’d like to use the same process when we are running over http or
-https &ndash; and do SSL termination when it’s necessary (note that we are talking
-about dev/test). We like/use <code>ngrok</code> as we can introspect the API and do debugging
-and call recording/replays in a <strong>non intrusive</strong> way, without modifying the
-application at all. Yet another nice feature we are using is to <code>inspect</code> Docker
-commands &ndash; over tcp.</p>
+<p>To fully understand how Docker works, sometimes it&rsquo;s useful to see how the
+Docker client communicates with the Docker server. You can just use ngrok
+to introspect the Docker API.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ngrok -subdomain docker 127.0.0.1:2375</span></code></pre></td></tr></table></div></figure>
+
+
+<p>then if you want to record API calls you have to configure</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alias docker='docker --host=tcp://docker.ngrok.mydomain.com:4480'</span></code></pre></td></tr></table></div></figure>
+
 
     </div>
   </div>
