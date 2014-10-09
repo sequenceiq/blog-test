@@ -127,13 +127,16 @@ Then you can introspect the tunnel on http://127.0.0.0:4444
 
 ## Sample use case
 
-One of the frequent use cases for us (above the ones mentioned in the introduction)
-is API debug. SequenceIQ being a technology company, we are creating lots of REST APIs and
-would like to have the ability to switch on and off debugging dynamically
-(without having to modify anything at the application level, logging, etc).
-Also we’d like to use the same process when we are running over http or
-https - and do SSL termination when it’s necessary (note that we are talking
-about dev/test). We like/use `ngrok` as we can introspect the API and do debugging
-and call recording/replays in a **non intrusive** way, without modifying the
-application at all. Yet another nice feature we are using is to `inspect` Docker
-commands - over tcp.
+To fully understand how Docker works, sometimes it's useful to see how the
+Docker client communicates with the Docker server. You can just use ngrok
+to introspect the Docker API.
+
+```
+ngrok -subdomain docker 127.0.0.1:2375
+```
+
+then if you want to record API calls you have to configure
+
+```
+alias docker='docker --host=tcp://docker.ngrok.mydomain.com:4480'
+```
