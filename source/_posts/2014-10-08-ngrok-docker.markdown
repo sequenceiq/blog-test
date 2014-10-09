@@ -1,14 +1,14 @@
 ---
 layout: post
-title: "Selfhosted ngrok server in Docker"
+title: "Self hosted ngrok server in Docker"
 date: 2014-10-09 10:00:00 +0200
 comments: true
-categories: [docker]
+categories: [docker, ngrok]
 author: Lajos Papp
 published: true
 ---
-[Ngrok](vhttps://ngrok.com/) is used for Introspected tunnels to localhost.
-In integration testing situations is really common, that you want to bind some webhooks
+[Ngrok](vhttps://ngrok.com/) is used for `introspected` tunnels to localhost.
+In integration testing situations is really common that you want to bind some webhooks
 to localhost. For example you want AWS SNS deliver messages to your service,
 but is not reachable publicly, as it runs only on localhost.
 
@@ -116,7 +116,7 @@ in `/etc/hosts`
 <NGROKD_IP> ngrok.mydomain.com subdomain1.mydomain.com subdomain2.mydomain.com
 ```
 
-If you want a proper subdomain you need an `A record` suche as:
+If you want a proper subdomain you need an `A record` such as:
 `*.ngrok.mydomain.com 54.72.21.93`
 
 ## Usage
@@ -140,3 +140,5 @@ then if you want to record API calls you have to configure
 ```
 alias docker='docker --host=tcp://docker.ngrok.mydomain.com:4480'
 ```
+
+For updates follow us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook.com/sequenceiq).
