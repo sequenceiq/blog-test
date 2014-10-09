@@ -4,7 +4,7 @@
   <title><![CDATA[Category: docker | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/docker/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-10-09T05:43:58+00:00</updated>
+  <updated>2014-10-09T09:51:30+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -58,7 +58,7 @@ this process and made it available in the official Docker
 
 <h2>Running</h2>
 
-<p>You just have to start the <code>sequenceiq/ngrokd</code> Docker image:</p>
+<p>To launch the ngrok daemon, you just have to start the <code>sequenceiq/ngrokd</code> Docker image:</p>
 
 <p>```
 docker run -d &mdash;name ngrokd \
@@ -73,6 +73,17 @@ docker run -d &mdash;name ngrokd \
 </code></pre>
 
 <p>```</p>
+
+<p>It will expose 3 ports:</p>
+
+<ul>
+<li><strong>4444</strong>: that is the so called control port, ngrock clients connect there</li>
+<li><strong>4480/4443</strong>: this to port is used for the tunneled http/https connections</li>
+<li><strong>domain</strong>: this is the domain name, clients need to use to connect to the
+server, and the ngrok server will assign <code>&lt;SUBDOMAIN&gt;.ngrok.mydomain.com</code>
+addresses to each tunnel.</li>
+</ul>
+
 
 <h2>Install the custom <code>ngrok</code> client</h2>
 
@@ -128,16 +139,17 @@ EOF
 in <code>/etc/hosts</code></p>
 
 <p><code>
-&lt;NGROKD_IP&gt; ngrok.mydomain.com
+&lt;NGROKD_IP&gt; ngrok.mydomain.com subdomain1.mydomain.com subdomain2.mydomain.com
 </code></p>
 
-<p>If you want a proper subdomain you need an <code>A record</code> suche as: <code>
-</code>*.ngrok.mydomain.com 54.72.21.93`</p>
+<p>If you want a proper subdomain you need an <code>A record</code> suche as:
+<code>*.ngrok.mydomain.com 54.72.21.93</code></p>
 
 <h2>Usage</h2>
 
 <p>Starting ngrok is business as usual, just use <code>ngrok &lt;port&gt;</code>.
-Pretty much that’s it, you have a self-hosted ngrok server in Docker.</p>
+Pretty much that’s it, you have a self-hosted ngrok server in Docker.
+Then you can introspect the tunnel on <a href="http://127.0.0.0:4444">http://127.0.0.0:4444</a></p>
 
 <h2>Sample use case</h2>
 

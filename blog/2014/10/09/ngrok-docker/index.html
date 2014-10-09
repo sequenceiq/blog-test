@@ -185,7 +185,7 @@ this process and made it available in the official Docker
 
 <h2>Running</h2>
 
-<p>You just have to start the <code>sequenceiq/ngrokd</code> Docker image:</p>
+<p>To launch the ngrok daemon, you just have to start the <code>sequenceiq/ngrokd</code> Docker image:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -203,6 +203,17 @@ this process and made it available in the official Docker
 </span><span class='line'>    -httpAddr=:4480 \
 </span><span class='line'>    -httpsAddr=:4444 \
 </span><span class='line'>    -domain=ngrok.mydomain.com</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It will expose 3 ports:</p>
+
+<ul>
+<li><strong>4444</strong>: that is the so called control port, ngrock clients connect there</li>
+<li><strong>4480/4443</strong>: this to port is used for the tunneled http/https connections</li>
+<li><strong>domain</strong>: this is the domain name, clients need to use to connect to the
+server, and the ngrok server will assign <code>&lt;SUBDOMAIN&gt;.ngrok.mydomain.com</code>
+addresses to each tunnel.</li>
+</ul>
 
 
 <h2>Install the custom <code>ngrok</code> client</h2>
@@ -269,16 +280,17 @@ this process and made it available in the official Docker
 in <code>/etc/hosts</code></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;NGROKD_IP&gt; ngrok.mydomain.com</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;NGROKD_IP&gt; ngrok.mydomain.com subdomain1.mydomain.com subdomain2.mydomain.com</span></code></pre></td></tr></table></div></figure>
 
 
-<p>If you want a proper subdomain you need an <code>A record</code> suche as: <code>
-</code>*.ngrok.mydomain.com 54.72.21.93`</p>
+<p>If you want a proper subdomain you need an <code>A record</code> suche as:
+<code>*.ngrok.mydomain.com 54.72.21.93</code></p>
 
 <h2>Usage</h2>
 
 <p>Starting ngrok is business as usual, just use <code>ngrok &lt;port&gt;</code>.
-Pretty much that’s it, you have a self-hosted ngrok server in Docker.</p>
+Pretty much that’s it, you have a self-hosted ngrok server in Docker.
+Then you can introspect the tunnel on <a href="http://127.0.0.0:4444">http://127.0.0.0:4444</a></p>
 
 <h2>Sample use case</h2>
 
