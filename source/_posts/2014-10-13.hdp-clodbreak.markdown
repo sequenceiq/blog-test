@@ -1,0 +1,47 @@
+---
+layout: post
+title: "Docker ships Hortonworks HDP into the cloud"
+date: 2014-10-13 10:00:00 +0200
+comments: true
+categories: [HDO, Cloudbreak, Periscope, autoscaling, provisioning]
+author: Janos Matyas
+published: false
+---
+
+Recently we became Hortonworks technology [partners](http://hortonworks.com/partner/sequenceiq/), and our product stack has been certified and recognized as `YARN ready`. 
+
+During our daily work at [SequenceIQ](http://sequenceiq.com/) we are provisioning HDP clusters on different environments. Let it be a random cloud provider or [bare metal](http://blog.sequenceiq.com/blog/2014/06/19/multinode-hadoop-cluster-on-docker/) we are looking for a common solution to automate and speed up the process. Welcome Docker - this case study shows how easy it is to provision a certified and YARN-ready autoscaling HDP cluster using [Cloudbreak](http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/).
+
+The provisioning challenge
+
+As we have discussed in one of our previous blog posts, we use Apache Ambari quite a lot and have build toolsets around (Ambari Shell, Ambari REST client) and contributed these back to the Ambari community. While with our contribution we were able to automate most of the HDP provisioning, the infrastructure part was still a missing piece. We needed to find a way to be able to use the same process, toolset and API’s to provision HDP - literarily anywhere. We were among the first Docker adopters and started to use the “containerized” version of the HDP sandbox to ease our development process - and from there it was only a step away to have a fully functional Docker based HDP cluster on bare metal, initially merely for development purposes.
+We use different cloud providers quite a lot and after we have “containerized” HDP for bare metal we came up with the idea of [Cloudbreak](http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/) - the open source, cloud agnostic and autoscaling Hadoop as a service API. While Cloudbreak’s primary role is to launch on-demand Hadoop clusters in the cloud, the underlying technology actually does more. It can launch on-demand Hadoop clusters in any environment which supports Docker – in a dynamic way. There is no predefined configuration needed as all the setup, orchestration, networking and cluster membership is done dynamically.
+
+Docker containers – all the Hadoop services are installed and running inside Docker containers, and these containers are shipped between different cloud vendors, keeping Cloudbreak cloud agnostic
+Apache Ambari – to declaratively define a Hadoop cluster
+Serf – for cluster membership, failure detection, and orchestration that is decentralized, fault-tolerant and highly available for dynamic clusters
+dnsmasq – to provide resolvable fully qualified domain names between dynamically created Docker containers.
+
+Autoscaling and SLA policies
+
+Now that we have an open source Hadoop as a Service API which runs HDP in the cloud, we moved forward, and wanted to have an open source [SLA policy based autoscaling API](http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/) which works with Cloudbreak or a Hadoop YARN cluster. Welcome [Periscope](http://sequenceiq.com/periscope/). 
+
+Periscope is a powerful, fast, thick and top-to-bottom right-hander, eastward from Sumbawa's famous west-coast. Timing is critical, as it needs a number of elements to align before it shows its true colors.
+Periscope brings QoS and autoscaling to Hadoop YARN. Built on cloud resource management and YARN schedulers,  it allows to associate SLA policies to applications.
+
+We followed up the same route as we did with Ambari - identified the key components and features we considered that would better fit into the Apache Hadoop and YARN codebase and contributed there. The API allows configuring metric based alarms, and create [SLA scaling policies](http://blog.sequenceiq.com/blog/2014/09/01/sla-samples-periscope/) to dynamically adjust the size of your HDP cluster. 
+Beside the policies, we provide a visual monitoring dashboard - collecting over 400 metrics from the cluster from different sources (RM, timeline/history server, Metrics2 sinks). End users can drill down at node or component level and identify problems and view logs - by using the default queries or configuring custom ones. 
+
+DevOps toolsets, resources
+
+When we start a project we always approach it from a very strong  DevOps perspective - it was the same for Cloudbreak and Periscope and we have created toolsets to ease and automate your HDP cluster provision on any environment.
+
+[Cloudbreak UI](https://cloudbreak.sequenceiq.com/) - a responsive and intuitive UI to create HDP clusters
+[Cloudbreak REST client](https://github.com/sequenceiq/cloudbreak-rest-client) - a Groovy based REST client to work with Cloudbreak’s REST API
+[Cloudbreak CLI/shell](https://github.com/sequenceiq/cloudbreak-shell) - a CLI to provision HDP clusters using a shell
+[Cloudbreak API](http://docs.cloudbreak.apiary.io/) - a secure REST API to create HDP clusters on your favorite cloud
+[Periscope API](http://docs.periscope.apiary.io/) -  a secure REST API to configure SLA policies for your cluster
+
+Try it out
+
+We have a hosted version of [Cloubreak](https://cloudbreak.sequenceiq.com/) where you can create your arbitrary size HDP cluster with support for the full stack on your favorite cloud provider. Give it a try and let us know how it works for you. Provisioning a HDP cluster has never been easier and faster - and the options to do so are listed above (UI, REST client, CLI shell, REST calls). Stay tuned, as we will be announcing cool things with the next release - and will come up with a follow up post for deeper technical details.
