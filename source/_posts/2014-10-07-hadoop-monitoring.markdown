@@ -49,7 +49,7 @@ For example if you would like mount the ```/var/log``` from the container named 
 {% raw %}
 ```bash
 EXPOSED_LOG_DIR=$(docker inspect --format='{{index .Volumes "/var/log"}}' ambari-singlenode)
-docker run -i -t -v $EXPOSED_LOG_DIR:/amb/log  sequenceiq/docker-baywatch-client /etc/bootstrap.sh -bash
+docker run -i -t -v $EXPOSED_LOG_DIR:/amb/log  sequenceiq/baywatch-client /etc/bootstrap.sh -bash
 ```
 {% endraw %}
 
