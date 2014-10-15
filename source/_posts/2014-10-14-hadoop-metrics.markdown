@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Real-time adjustments with Hadoop metrics"
-date: 2014-10-14 15:56:32 +0200
+date: 2014-10-15 15:56:32 +0200
 comments: true
 categories: [Hadoop, Periscope, Baywatch, metrics]
 author: Krisztian Horvath
@@ -10,21 +10,17 @@ published: true
 
 To properly understand and to be fully aware of the state of our Hadoop clusters at any time we needed a scalable and flexible solution
 to monitor our Hadoop nodes. After investigating the possible solutions we realized that there is no available solution which satisfies
-all our needs thus we've created one and recently just open sourced it, called [Baywatch](link). Baywatch is capable to capture a visualize
-real-time changes on our Hadoop clusters which is extremely important in case if we'd want to adjust based on our submitted jobs resource
-allocation needs and more importantly based on our customers needs. To plan ahead, viewing and comparing old a new metrics is just as
+all our needs thus we've created one and recently just open sourced it, called [Baywatch](http://sequenceiq.com/periscope/#monitoring). Baywatch is capable to capture and visualize real-time changes on Hadoop clusters to understand and make adjustments based on the submitted jobs resource
+allocation needs. To plan ahead, viewing and comparing old and new metrics is just as
 important as analyzing real-time ones, not to mention that we can find possible weaknesses and defects in our clusters.
 
-To be able to do all of the above mentioned, Baywatch processes the metrics information produced by the Hadoop daemons. If you follow us
-(I hope you do) this might sound familiar as we have another project called [Periscope](link) in which you can create alarms and
-even scaling activities (yes, you read right) making use of the same metrics, but just consuming it in a different way. Combine these 2
+To be able to do all of the above mentioned, Baywatch processes the metrics information produced by the Hadoop daemons. This might already sound familiar as we have another project called [Periscope](http://sequenceiq.com/periscope/) where you can create alarms and cluster scaling activities making use of the same metrics, but just consuming it in a different way. Combine these 2
 components and you'll have a powerful tool and you'll be able to view your cluster's state and based on that `make smart decisions`
-to scale up or down, or simply just set alarms. If you're thrilled to see it in action we'll be there at [Strata](link) and we
-happily show you a quick demo.
+to scale up or down, or simply just set alarms. If you're thrilled to see it in action we are at [Strata](http://strataconf.com/stratany2014) and happy to show you a quick demo.
 
 ## Hadoop metrics
 
-So what are these precious metrics? As I mentioned it earlier metrics are collections of information about Hadoop daemons, e.g:
+So what are these metrics? As I mentioned it earlier metrics are collections of information about Hadoop daemons, e.g:
 the `ResourceManager` produces information about the queue statuses which we use in Periscope when we `re-prioritise applications`.
 To distinguish these metrics they are grouped into named contexts, e.g `jvm` for java virtual machine metrics, `rpc` for debugging
 rcp calls, but there are many more:
@@ -136,7 +132,13 @@ by Hadoop. `Jax-RS` is used to define the mappings, e.g collect the `ResourceMan
 The only difference is that you're application have to poll now, while the other way you can create forwarders to create push events
 just like we did with Baywatch. To which to use depends on you're needs.
 
-## Summary
-I cannot express further how valuable these metrics are, so if you're not familiar with it now is the time. For updates follow us
+## Summary and resources
+As you see using **Baywatch** and **Periscope** yu can monitor and scale your cluster based on the configurted policies - all available open sources in our [GitHub](https://github.com/sequenceiq) page.
+
+* [Periscope](http://sequenceiq.com/periscope/)
+* [Baywatch client](https://github.com/sequenceiq/docker-baywatch-client)
+* [Baywatch](https://github.com/sequenceiq/docker-baywatch)
+
+For updates follow us
 on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or
 [Facebook](https://www.facebook.com/sequenceiq).
