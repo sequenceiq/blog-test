@@ -43,6 +43,8 @@ sources periodically and pass the metrics records to metrics sinks.
 
 {% img http://yuml.me/0faf3738 %}
 
+<!-- more -->
+
 It is really easy to implement new sinks and sources, just for reference here's the `FileSink`:
 ```java
   @Override
