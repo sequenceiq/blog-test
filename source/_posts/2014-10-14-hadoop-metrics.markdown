@@ -133,7 +133,7 @@ The only difference is that you're application have to poll now, while the other
 just like we did with Baywatch. To which to use depends on you're needs.
 
 ## Summary and resources
-As you see using **Baywatch** and **Periscope** yu can monitor and scale your cluster based on the configurted policies - all available open sources in our [GitHub](https://github.com/sequenceiq) page.
+As you see using **Baywatch** and **Periscope** you can monitor and scale your cluster based on the configured policies - all available open sources in our [GitHub](https://github.com/sequenceiq) page.
 
 * [Periscope](http://sequenceiq.com/periscope/)
 * [Baywatch client](https://github.com/sequenceiq/docker-baywatch-client)
