@@ -5,7 +5,7 @@ date: 2014-10-14 15:56:32 +0200
 comments: true
 categories: [Hadoop, Periscope, Baywatch, metrics]
 author: Krisztian Horvath
-published: false
+published: true
 ---
 
 To properly understand and to be fully aware of the state of our Hadoop clusters at any time we needed a scalable and flexible solution
