@@ -1,14 +1,14 @@
 ---
 layout: post
-title: "Using UAA as an identity server"
+title: "Securing Cloudbreak with OAuth2"
 date: 2014-10-16 16:23:59 +0200
 comments: true
-categories: [OAuth2, CloudFoundry, UAA, Docker]
+categories: [OAuth2, CloudFoundry, UAA, Docker, Cloudbreak]
 author: Marton Sereg
 published: true
 ---
 
-When we first released [Cloudbreak](https://cloudbreak.sequenceiq.com/) it contained its own authentication and user management layer.
+When we first released [Cloudbreak](https://cloudbreak.sequenceiq.com/) - our Hadoop as a Service API - it contained its own authentication and user management layer.
 We were using basic authentication for the API calls so every request had to contain a username and a password *Base64* encoded in the authorization header.
 Cloudbreak also had its own user representation and we were binding the resources - like clusters - to these users.
 
@@ -38,7 +38,7 @@ To achieve these things it uses these specifications:
 UAA adds a few more things on top of these like client management endpoints which makes it a complete solution as an identity server.
 And the best thing is that it is **fully configurable through environment variables and a YAML file**.
 
-<!-- more --> 
+<!-- more -->
 
 ##Deploying the UAA server
 
@@ -126,4 +126,3 @@ If you'd like to learn more about UAA, check out its [documentation](https://git
 We'll also have another blog post soon where I'll show some code examples of the OAuth2 flows we're using with UAA as an identity server so check back in a few days if you're interested.
 
 For updates follow us on [LinkedIn](https://www.linkedin.com/company/sequenceiq), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook.com/sequenceiq).
-
