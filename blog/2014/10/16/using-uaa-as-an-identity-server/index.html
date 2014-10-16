@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Using UAA as an identity server - SequenceIQ Blog</title>
+  <title>Securing Cloudbreak with OAuth2 - SequenceIQ Blog</title>
   <meta name="author" content="SequenceIQ">
 
    
@@ -129,7 +129,7 @@
        
          
        
-       <h1 class="article-style"> Using UAA as an identity server
+       <h1 class="article-style"> Securing Cloudbreak with OAuth2
 
        <span class="badge name-badge">Marton Sereg</span>
        <span class="badge name-badge">16 October 2014</span>
@@ -145,7 +145,7 @@
 
   <div class="row-fluid">
     <div class="span12">
-      <p>When we first released <a href="https://cloudbreak.sequenceiq.com/">Cloudbreak</a> it contained its own authentication and user management layer.
+      <p>When we first released <a href="https://cloudbreak.sequenceiq.com/">Cloudbreak</a> &ndash; our Hadoop as a Service API &ndash; it contained its own authentication and user management layer.
 We were using basic authentication for the API calls so every request had to contain a username and a password <em>Base64</em> encoded in the authorization header.
 Cloudbreak also had its own user representation and we were binding the resources &ndash; like clusters &ndash; to these users.</p>
 
@@ -178,8 +178,6 @@ And the best thing is that it is <strong>fully configurable through environment 
 
 <!-- more -->
 
-
-<p></p>
 
 <h2>Deploying the UAA server</h2>
 
@@ -321,6 +319,8 @@ We&rsquo;ll also have another blog post soon where I&rsquo;ll show some code exa
 
   <a href="/blog/categories/cloudfoundry/"><span class="label label-warning">CloudFoundry</span></a>
 
+  <a href="/blog/categories/cloudbreak/"><span class="label label-warning">Cloudbreak</span></a>
+
   <a href="/blog/categories/docker/"><span class="label label-warning">Docker</span></a>
 
   <a href="/blog/categories/oauth2/"><span class="label label-warning">OAuth2</span></a>
@@ -385,7 +385,7 @@ We&rsquo;ll also have another blog post soon where I&rsquo;ll show some code exa
   <ul id="recent_posts" class="list-group">
     
       <li class="list-group-item">
-        <a href="/blog/2014/10/16/using-uaa-as-an-identity-server/">Using UAA as an identity server</a>
+        <a href="/blog/2014/10/16/using-uaa-as-an-identity-server/">Securing Cloudbreak with OAuth2</a>
       </li>
     
       <li class="list-group-item">

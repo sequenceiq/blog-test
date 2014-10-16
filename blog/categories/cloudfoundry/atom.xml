@@ -4,7 +4,7 @@
   <title><![CDATA[Category: CloudFoundry | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/cloudfoundry/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-10-16T14:47:03+00:00</updated>
+  <updated>2014-10-16T14:59:00+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -14,11 +14,11 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Using UAA as an identity server]]></title>
+    <title type="html"><![CDATA[Securing Cloudbreak with OAuth2]]></title>
     <link href="http://blog.sequenceiq.com/blog/2014/10/16/using-uaa-as-an-identity-server/"/>
     <updated>2014-10-16T14:23:59+00:00</updated>
     <id>http://blog.sequenceiq.com/blog/2014/10/16/using-uaa-as-an-identity-server</id>
-    <content type="html"><![CDATA[<p>When we first released <a href="https://cloudbreak.sequenceiq.com/">Cloudbreak</a> it contained its own authentication and user management layer.
+    <content type="html"><![CDATA[<p>When we first released <a href="https://cloudbreak.sequenceiq.com/">Cloudbreak</a> &ndash; our Hadoop as a Service API &ndash; it contained its own authentication and user management layer.
 We were using basic authentication for the API calls so every request had to contain a username and a password <em>Base64</em> encoded in the authorization header.
 Cloudbreak also had its own user representation and we were binding the resources &ndash; like clusters &ndash; to these users.</p>
 
@@ -51,8 +51,6 @@ And the best thing is that it is <strong>fully configurable through environment 
 
 <!-- more -->
 
-
-<p></p>
 
 <h2>Deploying the UAA server</h2>
 
