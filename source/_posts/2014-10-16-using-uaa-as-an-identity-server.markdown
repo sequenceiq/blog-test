@@ -5,7 +5,7 @@ date: 2014-10-16 16:23:59 +0200
 comments: true
 categories: [OAuth2, CloudFoundry, UAA, Docker]
 author: Marton Sereg
-published: false
+published: true
 ---
 
 When we first released [Cloudbreak](https://cloudbreak.sequenceiq.com/) it contained its own authentication and user management layer.
