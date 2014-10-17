@@ -39,6 +39,7 @@ Now you can reach Docker the *old* way:
 curl http://192.168.59.103:2375/_ping
 OK
 ```
+<!-- more -->
 
 ## tl;dr
 
