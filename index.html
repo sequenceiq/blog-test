@@ -182,35 +182,9 @@ socket file <code>/var/run/docker.sock</code> as a tcp port. It is containerized
 </span><span class='line'>OK</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>tl;dr</h2>
-
-<p>The one-liner <code>$(docker run sequenceiq/socat)</code> does the following trick under the hood:</p>
-
-<ul>
-<li>it start the <strong>sequenceiq/socat</strong> container without any volume/port or CMD specification</li>
-<li>so the default <code>/start</code> bash script takes command</li>
-<li>the <code>/start</code> script (<a href="https://github.com/sequenceiq/docker-socat/blob/master/start">see source</a>) recognizes that it didn&rsquo;t started the proper way, so it
-<strong>prints the correct docker command</strong> to stdout (see below)</li>
-<li>the <code>$( ... )</code> notation executes the correct docker command</li>
-</ul>
-
-
-<p>So for reference, or you want to start it by hand, here is the full command:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>docker run -d \
-</span><span class='line'>  -p 2375:2375
-</span><span class='line'>  --volume=/var/run/docker.sock:/var/run/docker.sock \
-</span><span class='line'>  --name=docker-http \
-</span><span class='line'>  sequenceiq/socat</span></code></pre></td></tr></table></div></figure>
-
 
       
-      
+       <a href="/blog/2014/10/17/boot2docker-tls-workaround/">Read on &rarr;</a> 
     </div>
   </div>
 
