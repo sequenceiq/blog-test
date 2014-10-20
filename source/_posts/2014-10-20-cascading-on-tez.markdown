@@ -53,7 +53,7 @@ First, we group by user ids (count them with every operation), then in the secon
         Pipe usersPipe = new GroupBy("usersWithCount", inPipe, groupFields);
         usersPipe = new Every(usersPipe, groupFields, new Count(), Fields.ALL);
         usersPipe = new GroupBy(usersPipe, Fields.NONE, new Fields("count", "userId"), true);
-        usersPipe = new Each(usersPipe, new RegexFilter( "[2-9][0-9]*" ));
+        usersPipe = new Each(usersPipe, new Fields("count"), new RegexFilter( "^(?:[2-9]|(?:[1-9][0-9]+))" ));
 
         final Fields resultFields = new Fields("userId", "count");
         final Scheme outputScheme = new TextDelimited(resultFields, false, true, ",");
@@ -74,7 +74,7 @@ Finally, setup the flow:
 
 As you can see the codebase is a bit simpler than using directly the Apache Tez API, however you loose the low level features of the expressive data flow API. Basically it's up to the personal preference of a developer whether to use and build directly on top of the Tez API or use Cascading (we have our own internal debate among colleagues) - as Apache Tez improves the performance by multiple times.
 
-Get the code from our GitHub repository [GitHub examples](https://github.com/sequenceiq/sequenceiq-samples) and build the project inside the `cascading-topk` directory:
+Get the code from our GitHub repository [GitHub examples](https://github.com/sequenceiq/sequenceiq-samples) and build the project inside the `cascading-tez-sample` directory:
 
 ```bash
 ./gradlew clean build
