@@ -1,18 +1,19 @@
 ---
 layout: post
 title: "Cascading on Apache Tez"
-date: 2014-10-03 18:00:00 +0200
+date: 2014-10-20 18:00:00 +0200
 comments: true
 categories: [Cascading, Apache Tez]
 author: Oliver Szabo
 published: false
 ---
 
+## Introduction
 
-In one of our previous [posts](http://blog.sequenceiq.com/blog/2014/09/23/topn-on-apache-tez/) we show you how to do a TopK using the Apache Tez API. In this post we’d like to show how to do it using Cascading - running on Apache Tez.
-At [SequenceIQ](http://sequenceiq.com) we use Cascading and Scalding to write most of our jobs (mostly running on MR2). For a while our big data pipeline API called [Banzai Pipeline](http://docs.banzai.apiary.io/) offers a unified API over different runtimes: MR2, Spark and Tez; recently Cascading has announced support for Apache Tez and we’d like to show you that by rewriting the TopK example.
+In one of our previous [posts](http://blog.sequenceiq.com/blog/2014/09/23/topn-on-apache-tez/) we show you how to do a TopK using the Apache Tez API. In this post we’d like to show how to do a similarly complex algorithm with Cascading - running on Apache Tez.
+At [SequenceIQ](http://sequenceiq.com) we use Cascading and Scalding to write most of our jobs (mostly running on MR2). For a while our big data pipeline API called [Banzai Pipeline](http://docs.banzai.apiary.io/) offers a unified API over different runtimes: MR2, Spark and Tez; recently Cascading has announced support for Apache Tez and we’d like to show you that by writing a detailed example.
 
-## TopK Cascading Application
+## Cascading Application - GroupBy, Each, Every
 
 Cascading data flows are be constructed from Source taps (input), Sink taps(output) and Pipes.
 At first, we have to setup our properties for the Cascading flow.
@@ -34,12 +35,13 @@ FlowConnector flowConnector = new Hadoop2TezFlowConnector(properties);
 ```
 After that we do the algorithm part of the flow. We need an input and output which comes as command-line arguments.
 We are going to work on CSV files for the sake of simplicity, so we have to use the `TextDelimited` scheme. Also we need to define our input pipe and taps (`source/sink`).
-We can compute a TopK with 2 [GroupBy](http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N205A3) and 2 [Every](http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N20438) operations. First, we group by user ids, then in the second grouping we need to sort on the whole data set (by `count`) and select the first K elements. (here we grouping by `Fields.NONE`, that means we take all data into 1 group, in other words we force to use 1 reducer)
+Suppose that we want to count the occurrences of users and keep them only if they occur more than once.
+We can compute this with 2 [GroupBy](http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N205A3), 1 [Every](http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N20438) and 1 [Each](http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N20438) operations.
+First, we group by user ids (count them with every operation), then in the second grouping we need to sort on the whole data set (by `count`) and use [Filter](http://docs.cascading.org/cascading/2.5/javadoc/cascading/operation/Filter.html) operation to remove the unneeded lines. (here we grouping by `Fields.NONE`, that means we take all data into 1 group, in other words we force to use 1 reducer)
 
 ``` java
         final String inputPath = args[0];
         final String outputPath = args[1];
-        final int top = Integer.parseInt(args[2]);
 
         final Fields fields = new Fields("userId", "data1", "data2", "data3");
         final Scheme scheme = new TextDelimited(fields, false, true, ",");
@@ -48,10 +50,10 @@ We can compute a TopK with 2 [GroupBy](http://docs.cascading.org/cascading/2.5/u
         final Tap inTap = new Hfs(scheme, inputPath);
         final Fields groupFields = new Fields("userId");
 
-        Pipe topUsersPipe = new GroupBy("topUsers", inPipe, groupFields);
-        topUsersPipe = new Every(topUsersPipe, groupFields, new Count(), Fields.ALL);
-        topUsersPipe = new GroupBy(topUsersPipe, Fields.NONE, new Fields("count", "userId"), true);
-        topUsersPipe = new Every(topUsersPipe, Fields.ALL, new FirstNBuffer(top), Fields.ARGS);
+        Pipe usersPipe = new GroupBy("usersWithCount", inPipe, groupFields);
+        usersPipe = new Every(usersPipe, groupFields, new Count(), Fields.ALL);
+        usersPipe = new GroupBy(usersPipe, Fields.NONE, new Fields("count", "userId"), true);
+        usersPipe = new Each(usersPipe, new RegexFilter( "[2-9][0-9]*" ));
 
         final Fields resultFields = new Fields("userId", "count");
         final Scheme outputScheme = new TextDelimited(resultFields, false, true, ",");
@@ -62,9 +64,9 @@ Finally, setup the flow:
 
 ``` java
         FlowDef flowDef = FlowDef.flowDef()
-                .setName("TopK-TEZ")
+                .setName("Cascading-TEZ")
                 .addSource(inPipe, inTap)
-                .addTailSink(topUsersPipe, sinkTap);
+                .addTailSink(usersPipe, sinkTap);
 
         Flow flow = flowConnector.connect(flowDef);
         flow.complete();
@@ -79,7 +81,7 @@ Get the code from our GitHub repository [GitHub examples](https://github.com/seq
 ```
 Once your jar is ready upload it onto a Tez cluster and run the following command:
 ```bash
-hadoop jar cascading-topk-1.0.jar /input /output 10
+hadoop jar cascading-tez-sample-1.0.jar /input /output
 ```
 
 Sample data can be generated in the same way as in [this](http://blog.sequenceiq.com/blog/2014/09/23/topn-on-apache-tez) example.
