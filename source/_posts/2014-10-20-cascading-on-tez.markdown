@@ -8,8 +8,8 @@ author: Oliver Szabo
 published: true
 ---
 
-In one of our previous [posts](http://blog.sequenceiq.com/blog/2014/09/23/topn-on-apache-tez/) we showed how to do a TopK using directly the Apache Tez API. In this post we’d like to show how to do a similarly complex algorithm with Cascading - running on Apache Tez. _Note: initially we wanted to do the similar algorithm but currently there are some issues - the Cascading 3.0 is still WIP._
-At [SequenceIQ](http://sequenceiq.com) we use Scalding, Cascading and Spark  to write most of our jobs. For a while our big data pipeline API called [Banzai Pipeline](http://docs.banzai.apiary.io/) offers a unified API over different runtimes: MR2, Spark and Tez; recently Cascading has announced support for Apache Tez and we’d like to show you that by writing a detailed example.
+In one of our previous [posts](http://blog.sequenceiq.com/blog/2014/09/23/topn-on-apache-tez/) we showed how to do a TopK using directly the Apache Tez API. In this post we’d like to show how to do a similarly complex algorithm with Cascading - running on Apache Tez.
+At [SequenceIQ](http://sequenceiq.com) we use Scalding, Cascading and Spark to write most of our jobs. For a while our big data pipeline API called [Banzai Pipeline](http://docs.banzai.apiary.io/) offers a unified API over different runtimes: MR2, Spark and Tez; recently Cascading has announced support for Apache Tez and we’d like to show you that by writing a detailed example.
 
 ## Cascading Application - GroupBy, Each, Every
 
