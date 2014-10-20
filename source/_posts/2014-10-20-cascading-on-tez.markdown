@@ -5,17 +5,15 @@ date: 2014-10-20 18:00:00 +0200
 comments: true
 categories: [Cascading, Apache Tez]
 author: Oliver Szabo
-published: false
+published: true
 ---
 
-## Introduction
-
-In one of our previous [posts](http://blog.sequenceiq.com/blog/2014/09/23/topn-on-apache-tez/) we show you how to do a TopK using the Apache Tez API. In this post we’d like to show how to do a similarly complex algorithm with Cascading - running on Apache Tez.
-At [SequenceIQ](http://sequenceiq.com) we use Cascading and Scalding to write most of our jobs (mostly running on MR2). For a while our big data pipeline API called [Banzai Pipeline](http://docs.banzai.apiary.io/) offers a unified API over different runtimes: MR2, Spark and Tez; recently Cascading has announced support for Apache Tez and we’d like to show you that by writing a detailed example.
+In one of our previous [posts](http://blog.sequenceiq.com/blog/2014/09/23/topn-on-apache-tez/) we showed how to do a TopK using directly the Apache Tez API. In this post we’d like to show how to do a similarly complex algorithm with Cascading - running on Apache Tez. _Note: initially we wanted to do the similar algorithm but currently there are some issues - the Cascading 3.0 is still WIP._
+At [SequenceIQ](http://sequenceiq.com) we use Scalding, Cascading and Spark  to write most of our jobs. For a while our big data pipeline API called [Banzai Pipeline](http://docs.banzai.apiary.io/) offers a unified API over different runtimes: MR2, Spark and Tez; recently Cascading has announced support for Apache Tez and we’d like to show you that by writing a detailed example.
 
 ## Cascading Application - GroupBy, Each, Every
 
-Cascading data flows are be constructed from Source taps (input), Sink taps(output) and Pipes.
+Cascading data flows are to be constructed from Source taps (input), Sink taps (output) and Pipes.
 At first, we have to setup our properties for the Cascading flow.
 
 ``` java
@@ -33,11 +31,11 @@ Then in order to use Apache Tez, setup the Tez specific `Flow Connector`.
 ``` java
 FlowConnector flowConnector = new Hadoop2TezFlowConnector(properties);
 ```
+
 After that we do the algorithm part of the flow. We need an input and output which comes as command-line arguments.
-We are going to work on CSV files for the sake of simplicity, so we have to use the `TextDelimited` scheme. Also we need to define our input pipe and taps (`source/sink`).
-Suppose that we want to count the occurrences of users and keep them only if they occur more than once.
-We can compute this with 2 [GroupBy](http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N205A3), 1 [Every](http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N20438) and 1 [Each](http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N20438) operations.
-First, we group by user ids (count them with every operation), then in the second grouping we need to sort on the whole data set (by `count`) and use [Filter](http://docs.cascading.org/cascading/2.5/javadoc/cascading/operation/Filter.html) operation to remove the unneeded lines. (here we grouping by `Fields.NONE`, that means we take all data into 1 group, in other words we force to use 1 reducer)
+We are going to work on CSV files for the sake of simplicity, so we will use the `TextDelimited` scheme. Also we need to define our input pipe and taps (`source/sink`).
+Suppose that we want to count the occurrences of users and keep them only if they occur more than once. We can compute this with 2 [GroupBy](http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N205A3), 1 [Every](http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N20438) and 1 [Each](http://docs.cascading.org/cascading/2.5/userguide/html/ch03s03.html#N20438) operation.
+First, we group by user ids (count them with every operation), then in the second grouping we need to sort on the whole data set (by `count`) and use the [Filter](http://docs.cascading.org/cascading/2.5/javadoc/cascading/operation/Filter.html) operation to remove the unneeded lines. (here we grouping by `Fields.NONE`, that means we take all data into 1 group, in other words we force to use 1 reducer)
 
 ``` java
         final String inputPath = args[0];
