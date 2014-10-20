@@ -28,6 +28,8 @@ At first, we have to setup our properties for the Cascading flow.
 
 Then in order to use Apache Tez, setup the Tez specific `Flow Connector`.
 
+<!-- more -->
+
 ``` java
 FlowConnector flowConnector = new Hadoop2TezFlowConnector(properties);
 ```
