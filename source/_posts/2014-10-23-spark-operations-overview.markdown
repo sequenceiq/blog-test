@@ -28,6 +28,8 @@ Recently we blogged about how you can write simple Apache Spark jobs and how to 
 Get the code from our GitHub repository [GitHub examples](https://github.com/sequenceiq/sequenceiq-samples) and build the project inside the `spark-samples` directory. For running the examples, you do not need any pre-installed Hadoop/Spark clusters or anything else.
 
 ```bash
+git clone https://github.com/sequenceiq/sequenceiq-samples.git
+cd sequenceiq-samples/spark-samples/
 ./gradlew clean build
 ```
 
