@@ -22,6 +22,7 @@ Recently we blogged about how you can write simple Apache Spark jobs and how to 
     Assert.assertEquals(output.collect(), expectedOutput)
   }
 ```
+<!-- more -->
 
 ##Sample
 
