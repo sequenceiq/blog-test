@@ -5,7 +5,7 @@ date: 2014-10-23 16:00:00 +0200
 comments: true
 categories: [Spark, YARN]
 author: Oliver Szabo
-published: false
+published: true
 ---
 
 Recently we blogged about how you can write simple Apache Spark jobs and how to test them. Now we'd like to introduce all basic RDD operations with easy examples (our goal is to come up with examples as simply as possible). The Spark [documentation](http://spark.apache.org/docs/latest/programming-guide.html#rdd-operations) explains well what each operations is doing in detail. We made tests for most of the RDD operations with good ol' `TestNG`. e.g.:
