@@ -32,3 +32,5 @@ Using this connector developed by Google allows you to choose `Google Cloud Stor
 ## Performance results
 
 
+For updates follow us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or
+[Facebook](https://www.facebook.com/sequenceiq).
