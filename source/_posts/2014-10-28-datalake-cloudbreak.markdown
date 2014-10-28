@@ -5,7 +5,7 @@ date: 2014-10-28 15:56:32 +0200
 comments: true
 categories: [Cloudbreak]
 author: Tamas Bihari
-published: false 
+published: true 
 ---
 Building the data lake in the cloud - Part1
 
@@ -37,8 +37,8 @@ Follow these steps in order to create your own `data lake`.
 
 1. Create your [Cloudbreak account](https://cloudbreak.sequenceiq.com/)
 2. Configure your Google Cloud account following these [steps](http://sequenceiq.com/cloudbreak/#accounts)
-3. Copy the appropriate version of the [connector jar](https://cloud.google.com/hadoop/google-cloud-storage-connector) to the Hadoop classpath and the key file for auth on every node of the cluster - use this [script](https://gist.github.com/biharitomi/61fbd00495e72a92d1ff) to automate the process
-4. Use this Ambari [blueprint](https://gist.github.com/biharitomi/b949cf09a7ef1f6a2050) to configure the connector
+3. Copy the appropriate version of the [connector jar](https://cloud.google.com/hadoop/google-cloud-storage-connector) to the Hadoop classpath and the key file for auth on every node of the cluster - use this [script](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/data-lake/copyscripts.sh) to automate the process
+4. Use this Ambari [blueprint](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/data-lake/gcs-con-multi-node-hdfs-yarn.blueprint) to configure the connector
 5. Restart the following services: HDFS, YARN and MapReduce2
 
 That's it - you are done, you can work on your data stored in Google Storage. The next release of [Cloudbreak](https://github.com/sequenceiq/cloudbreak) will incorporate and automate these steps for you - and will use HCatalog to allow you to configure an `always on` data store using object storages. 
