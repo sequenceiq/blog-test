@@ -4,7 +4,7 @@
   <title><![CDATA[SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-10-28T15:42:16+00:00</updated>
+  <updated>2014-10-28T15:47:58+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -26,18 +26,26 @@
 
 <h2>Object storage</h2>
 
-<p>An object storage usually is an <code>internet service</code> to store data in the cloud and comes with a programming interface which allows to retrieve data in a secure, durable and highly-scalable way. The most well know object storage is <strong>Amazon S3</strong> &ndash; with a pretty well covered literature, thus in this example we will use the <strong>Google Cloud Storage</strong>. Google Cloud Storage enables application developers to store their data on Google’s infrastructure with very high reliability, performance and availability, and can be used to distribute large data objects &ndash; like HDFS. In many occasions companies stores their data in objects storages &ndash; but for analytics they would like to access it from their Hadoop cluster. There are several options available:
-* replicate the full dataset in HDFS
-* read and write from <code>object storage</code> at start/stop of the flow and use HDFS for intermediary data
-* use a connector such as Google Cloud Storage Connector for Hadoop</p>
+<p>An object storage usually is an <code>internet service</code> to store data in the cloud and comes with a programming interface which allows to retrieve data in a secure, durable and highly-scalable way. The most well know object storage is <strong>Amazon S3</strong> &ndash; with a pretty well covered literature, thus in this example we will use the <strong>Google Cloud Storage</strong>. Google Cloud Storage enables application developers to store their data on Google’s infrastructure with very high reliability, performance and availability, and can be used to distribute large data objects &ndash; like HDFS. In many occasions companies stores their data in objects storages &ndash; but for analytics they would like to access it from their Hadoop cluster. There are several options available:</p>
+
+<ul>
+<li>replicate the full dataset in HDFS</li>
+<li>read and write from <code>object storage</code> at start/stop of the flow and use HDFS for intermediary data</li>
+<li>use a connector such as Google Cloud Storage Connector for Hadoop</li>
+</ul>
+
 
 <h2>Google Cloud Storage Connector for Hadoop</h2>
 
-<p>Using <a href="https://cloud.google.com/hadoop/google-cloud-storage-connector">this</a> connector developed by Google allows you to choose <code>Google Cloud Storage</code> as the default file system for Hadoop, and run all your jobs on top (we will come up with MR2 and Spark examples). Using the connector can have several benefits, to name a few:
-* Direct data access &ndash; data is stored in GCS, no need to transfer it into HDFS
-* HDFS compatibility &ndash; data stored in HDFS can be accessed through the connector
-* Data accessibility &ndash; data is always accessible, even when the Hadoop cluster is shut down
-* High data availability &ndash; data is highly available and globally replicated</p>
+<p>Using <a href="https://cloud.google.com/hadoop/google-cloud-storage-connector">this</a> connector developed by Google allows you to choose <code>Google Cloud Storage</code> as the default file system for Hadoop, and run all your jobs on top (we will come up with MR2 and Spark examples). Using the connector can have several benefits, to name a few:</p>
+
+<ul>
+<li>Direct data access &ndash; data is stored in GCS, no need to transfer it into HDFS</li>
+<li>HDFS compatibility &ndash; data stored in HDFS can be accessed through the connector</li>
+<li>Data accessibility &ndash; data is always accessible, even when the Hadoop cluster is shut down</li>
+<li>High data availability &ndash; data is highly available and globally replicated</li>
+</ul>
+
 
 <!-- more -->
 
@@ -1044,7 +1052,7 @@ In the benchmark, the jobs were submitted to the <code>default</code> queue and 
 <p>SequenceIQ is an innovative big data startup with the mission statement to simplify and automate provisioning of on-demand Hadoop clusters running on different environments. Leaders in “containerizing” Hadoop, SequenceIQ is the first company who provisions and runs the full Hadoop stack and components on Docker containers. The company has further plans to create the industry’s first cloud agnostic, autoscaling and use case driven Platform as a Service API, and break the common significant barriers of entry that exist with most big data projects through a series of As-a-Service API offerings.
 For more information follow up with us on @SequenceIQ and <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>.</p>
 
-<p><a href="&#109;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#x69;&#110;&#102;&#x6f;&#64;&#x73;&#101;&#113;&#x75;&#101;&#x6e;&#99;&#x65;&#105;&#x71;&#46;&#99;&#111;&#109;">&#105;&#110;&#x66;&#x6f;&#64;&#x73;&#x65;&#113;&#x75;&#101;&#x6e;&#99;&#101;&#x69;&#113;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p><a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#x69;&#x6e;&#102;&#x6f;&#64;&#115;&#101;&#x71;&#117;&#x65;&#110;&#x63;&#101;&#105;&#x71;&#x2e;&#x63;&#x6f;&#x6d;">&#x69;&#x6e;&#102;&#111;&#64;&#x73;&#x65;&#113;&#x75;&#x65;&#x6e;&#x63;&#101;&#105;&#x71;&#x2e;&#99;&#x6f;&#x6d;</a></p>
 ]]></content>
   </entry>
   

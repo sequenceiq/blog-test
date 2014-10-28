@@ -157,18 +157,26 @@
 
 <h2>Object storage</h2>
 
-<p>An object storage usually is an <code>internet service</code> to store data in the cloud and comes with a programming interface which allows to retrieve data in a secure, durable and highly-scalable way. The most well know object storage is <strong>Amazon S3</strong> &ndash; with a pretty well covered literature, thus in this example we will use the <strong>Google Cloud Storage</strong>. Google Cloud Storage enables application developers to store their data on Google’s infrastructure with very high reliability, performance and availability, and can be used to distribute large data objects &ndash; like HDFS. In many occasions companies stores their data in objects storages &ndash; but for analytics they would like to access it from their Hadoop cluster. There are several options available:
-* replicate the full dataset in HDFS
-* read and write from <code>object storage</code> at start/stop of the flow and use HDFS for intermediary data
-* use a connector such as Google Cloud Storage Connector for Hadoop</p>
+<p>An object storage usually is an <code>internet service</code> to store data in the cloud and comes with a programming interface which allows to retrieve data in a secure, durable and highly-scalable way. The most well know object storage is <strong>Amazon S3</strong> &ndash; with a pretty well covered literature, thus in this example we will use the <strong>Google Cloud Storage</strong>. Google Cloud Storage enables application developers to store their data on Google’s infrastructure with very high reliability, performance and availability, and can be used to distribute large data objects &ndash; like HDFS. In many occasions companies stores their data in objects storages &ndash; but for analytics they would like to access it from their Hadoop cluster. There are several options available:</p>
+
+<ul>
+<li>replicate the full dataset in HDFS</li>
+<li>read and write from <code>object storage</code> at start/stop of the flow and use HDFS for intermediary data</li>
+<li>use a connector such as Google Cloud Storage Connector for Hadoop</li>
+</ul>
+
 
 <h2>Google Cloud Storage Connector for Hadoop</h2>
 
-<p>Using <a href="https://cloud.google.com/hadoop/google-cloud-storage-connector">this</a> connector developed by Google allows you to choose <code>Google Cloud Storage</code> as the default file system for Hadoop, and run all your jobs on top (we will come up with MR2 and Spark examples). Using the connector can have several benefits, to name a few:
-* Direct data access &ndash; data is stored in GCS, no need to transfer it into HDFS
-* HDFS compatibility &ndash; data stored in HDFS can be accessed through the connector
-* Data accessibility &ndash; data is always accessible, even when the Hadoop cluster is shut down
-* High data availability &ndash; data is highly available and globally replicated</p>
+<p>Using <a href="https://cloud.google.com/hadoop/google-cloud-storage-connector">this</a> connector developed by Google allows you to choose <code>Google Cloud Storage</code> as the default file system for Hadoop, and run all your jobs on top (we will come up with MR2 and Spark examples). Using the connector can have several benefits, to name a few:</p>
+
+<ul>
+<li>Direct data access &ndash; data is stored in GCS, no need to transfer it into HDFS</li>
+<li>HDFS compatibility &ndash; data stored in HDFS can be accessed through the connector</li>
+<li>Data accessibility &ndash; data is always accessible, even when the Hadoop cluster is shut down</li>
+<li>High data availability &ndash; data is highly available and globally replicated</li>
+</ul>
+
 
 
       
