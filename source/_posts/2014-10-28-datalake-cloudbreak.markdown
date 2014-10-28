@@ -7,7 +7,6 @@ categories: [Cloudbreak]
 author: Tamas Bihari
 published: true 
 ---
-Building the data lake in the cloud - Part1
 
 A while ago we have released our cloud agnostic and Docker container based Hadoop as a Service API - [Cloudbreak](http://sequenceiq.com/cloudbreak/). Though the purpose of [Cloudbreak](https://cloudbreak.sequenceiq.com) is to quickly provision arbitrary sized Hadoop clusters in the cloud, the project emerged from bare metal Hadoop provisioning in Docker containers. We were (still doing it) [provisioning](http://blog.sequenceiq.com/blog/2014/06/19/multinode-hadoop-cluster-on-docker/) Hadoop on bare metal using Docker - and because of this legacy the data was always stored in HDFS. Recently we have been asked to run a proof-of-concept project and build an `always on` data lake using a cloud `object storage`. 
 
@@ -30,6 +29,8 @@ Using [this](https://cloud.google.com/hadoop/google-cloud-storage-connector) con
 * HDFS compatibility - data stored in HDFS can be accessed through the connector
 * Data accessibility - data is always accessible, even when the Hadoop cluster is shut down
 * High data availability - data is highly available and globally replicated 
+
+<!-- more -->
 
 ##DIY - build your data lake
 
@@ -60,7 +61,7 @@ After these steps we have switched to the `standard` performance test - **TeraGe
 | File System           | TeraGen | TeraSort | TeraValidate
 |-----------------------|---------|----------|-------------  
 | HDFS                  |58mins, 58sec|4hrs, 59mins, 6sec|35mins, 58sec
-| Google Cloud Storage  |
+| Google Cloud Storage  || 4hrs, 34mins, 52sec|
 
 
 ## Summary
