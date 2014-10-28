@@ -12,11 +12,12 @@ A while ago we have released our cloud agnostic and Docker container based Hadoo
 
 This post is the first in this series and will cover the connectivity, interoperability and access of data from an `object storage` and work with that in Hadoop. For this post we choose to create a `data lake` on Google Cloud Compute and guide you through the steps, run performance tests and understand the benefits/drawbacks of such a setup.
 
-*Next post will be about sharing the `data lake` among multiple clusters, using [Apache HCatalog](http://hortonworks.com/hadoop/hcatalog/).*
+_Next post will be about sharing the `data lake` among multiple clusters, using [Apache HCatalog](http://hortonworks.com/hadoop/hcatalog/)._
 
 ##Object storage
 
 An object storage usually is an `internet service` to store data in the cloud and comes with a programming interface which allows to retrieve data in a secure, durable and highly-scalable way. The most well know object storage is **Amazon S3** - with a pretty well covered literature, thus in this example we will use the **Google Cloud Storage**. Google Cloud Storage enables application developers to store their data on Google’s infrastructure with very high reliability, performance and availability, and can be used to distribute large data objects - like HDFS. In many occasions companies stores their data in objects storages - but for analytics they would like to access it from their Hadoop cluster. There are several options available: 
+
 * replicate the full dataset in HDFS
 * read and write from `object storage` at start/stop of the flow and use HDFS for intermediary data
 * use a connector such as Google Cloud Storage Connector for Hadoop
@@ -24,6 +25,7 @@ An object storage usually is an `internet service` to store data in the cloud an
 ##Google Cloud Storage Connector for Hadoop
 
 Using [this](https://cloud.google.com/hadoop/google-cloud-storage-connector) connector developed by Google allows you to choose `Google Cloud Storage` as the default file system for Hadoop, and run all your jobs on top (we will come up with MR2 and Spark examples). Using the connector can have several benefits, to name a few:
+
 * Direct data access - data is stored in GCS, no need to transfer it into HDFS 
 * HDFS compatibility - data stored in HDFS can be accessed through the connector
 * Data accessibility - data is always accessible, even when the Hadoop cluster is shut down
