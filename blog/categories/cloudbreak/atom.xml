@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Cloudbreak | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/cloudbreak/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-10-28T15:37:26+00:00</updated>
+  <updated>2014-10-28T15:40:09+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -18,9 +18,7 @@
     <link href="http://blog.sequenceiq.com/blog/2014/10/28/datalake-cloudbreak/"/>
     <updated>2014-10-28T13:56:32+00:00</updated>
     <id>http://blog.sequenceiq.com/blog/2014/10/28/datalake-cloudbreak</id>
-    <content type="html"><![CDATA[<p>Building the data lake in the cloud &ndash; Part1</p>
-
-<p>A while ago we have released our cloud agnostic and Docker container based Hadoop as a Service API &ndash; <a href="http://sequenceiq.com/cloudbreak/">Cloudbreak</a>. Though the purpose of <a href="https://cloudbreak.sequenceiq.com">Cloudbreak</a> is to quickly provision arbitrary sized Hadoop clusters in the cloud, the project emerged from bare metal Hadoop provisioning in Docker containers. We were (still doing it) <a href="http://blog.sequenceiq.com/blog/2014/06/19/multinode-hadoop-cluster-on-docker/">provisioning</a> Hadoop on bare metal using Docker &ndash; and because of this legacy the data was always stored in HDFS. Recently we have been asked to run a proof-of-concept project and build an <code>always on</code> data lake using a cloud <code>object storage</code>.</p>
+    <content type="html"><![CDATA[<p>A while ago we have released our cloud agnostic and Docker container based Hadoop as a Service API &ndash; <a href="http://sequenceiq.com/cloudbreak/">Cloudbreak</a>. Though the purpose of <a href="https://cloudbreak.sequenceiq.com">Cloudbreak</a> is to quickly provision arbitrary sized Hadoop clusters in the cloud, the project emerged from bare metal Hadoop provisioning in Docker containers. We were (still doing it) <a href="http://blog.sequenceiq.com/blog/2014/06/19/multinode-hadoop-cluster-on-docker/">provisioning</a> Hadoop on bare metal using Docker &ndash; and because of this legacy the data was always stored in HDFS. Recently we have been asked to run a proof-of-concept project and build an <code>always on</code> data lake using a cloud <code>object storage</code>.</p>
 
 <p>This post is the first in this series and will cover the connectivity, interoperability and access of data from an <code>object storage</code> and work with that in Hadoop. For this post we choose to create a <code>data lake</code> on Google Cloud Compute and guide you through the steps, run performance tests and understand the benefits/drawbacks of such a setup.</p>
 
@@ -41,6 +39,9 @@ Next post will be about sharing the <code>data lake</code> among multiple cluste
 * HDFS compatibility &ndash; data stored in HDFS can be accessed through the connector
 * Data accessibility &ndash; data is always accessible, even when the Hadoop cluster is shut down
 * High data availability &ndash; data is highly available and globally replicated</p>
+
+<!-- more -->
+
 
 <h2>DIY &ndash; build your data lake</h2>
 
@@ -95,7 +96,7 @@ Next post will be about sharing the <code>data lake</code> among multiple cluste
 <td></td>
 <td> Google Cloud Storage  </td>
 <td></td>
-<td></td>
+<td> 4hrs, 34mins, 52sec</td>
 <td></td>
 </tr>
 </tbody>

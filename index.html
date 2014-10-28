@@ -149,9 +149,7 @@
           <span class="badge name-badge">Tamas Bihari</span>
 
       </h1>
-      <p>Building the data lake in the cloud &ndash; Part1</p>
-
-<p>A while ago we have released our cloud agnostic and Docker container based Hadoop as a Service API &ndash; <a href="http://sequenceiq.com/cloudbreak/">Cloudbreak</a>. Though the purpose of <a href="https://cloudbreak.sequenceiq.com">Cloudbreak</a> is to quickly provision arbitrary sized Hadoop clusters in the cloud, the project emerged from bare metal Hadoop provisioning in Docker containers. We were (still doing it) <a href="http://blog.sequenceiq.com/blog/2014/06/19/multinode-hadoop-cluster-on-docker/">provisioning</a> Hadoop on bare metal using Docker &ndash; and because of this legacy the data was always stored in HDFS. Recently we have been asked to run a proof-of-concept project and build an <code>always on</code> data lake using a cloud <code>object storage</code>.</p>
+      <p>A while ago we have released our cloud agnostic and Docker container based Hadoop as a Service API &ndash; <a href="http://sequenceiq.com/cloudbreak/">Cloudbreak</a>. Though the purpose of <a href="https://cloudbreak.sequenceiq.com">Cloudbreak</a> is to quickly provision arbitrary sized Hadoop clusters in the cloud, the project emerged from bare metal Hadoop provisioning in Docker containers. We were (still doing it) <a href="http://blog.sequenceiq.com/blog/2014/06/19/multinode-hadoop-cluster-on-docker/">provisioning</a> Hadoop on bare metal using Docker &ndash; and because of this legacy the data was always stored in HDFS. Recently we have been asked to run a proof-of-concept project and build an <code>always on</code> data lake using a cloud <code>object storage</code>.</p>
 
 <p>This post is the first in this series and will cover the connectivity, interoperability and access of data from an <code>object storage</code> and work with that in Hadoop. For this post we choose to create a <code>data lake</code> on Google Cloud Compute and guide you through the steps, run performance tests and understand the benefits/drawbacks of such a setup.</p>
 
@@ -173,82 +171,9 @@ Next post will be about sharing the <code>data lake</code> among multiple cluste
 * Data accessibility &ndash; data is always accessible, even when the Hadoop cluster is shut down
 * High data availability &ndash; data is highly available and globally replicated</p>
 
-<h2>DIY &ndash; build your data lake</h2>
-
-<p>Follow these steps in order to create your own <code>data lake</code>.</p>
-
-<ol>
-<li>Create your <a href="https://cloudbreak.sequenceiq.com/">Cloudbreak account</a></li>
-<li>Configure your Google Cloud account following these <a href="http://sequenceiq.com/cloudbreak/#accounts">steps</a></li>
-<li>Copy the appropriate version of the <a href="https://cloud.google.com/hadoop/google-cloud-storage-connector">connector jar</a> to the Hadoop classpath and the key file for auth on every node of the cluster &ndash; use this <a href="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/data-lake/copyscripts.sh">script</a> to automate the process</li>
-<li>Use this Ambari <a href="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/data-lake/gcs-con-multi-node-hdfs-yarn.blueprint">blueprint</a> to configure the connector</li>
-<li>Restart the following services: HDFS, YARN and MapReduce2</li>
-</ol>
-
-
-<p>That&rsquo;s it &ndash; you are done, you can work on your data stored in Google Storage. The next release of <a href="https://github.com/sequenceiq/cloudbreak">Cloudbreak</a> will incorporate and automate these steps for you &ndash; and will use HCatalog to allow you to configure an <code>always on</code> data store using object storages.</p>
-
-<h2>Performance results</h2>
-
-<p>We configured two identical clusters with <a href="http://sequenceiq.com/cloudbreak/">Cloudbreak</a> on Google Cloud with the following parameters</p>
-
-<ul>
-<li>Number of nodes: 1 master node + 10 slave nodes</li>
-<li>2 * 200 GB rotating HDD (where appropriate)</li>
-<li>2 Virtual CPU</li>
-<li>7.5 GB of memory</li>
-</ul>
-
-
-<p>First of all we run all the Hadoop and the certification tests in order to validate the correctness of the setups. For the tests we have provisioned an <strong>Hortonwork&rsquo;s HDP 2.1</strong> cluster.</p>
-
-<p>After these steps we have switched to the <code>standard</code> performance test &ndash; <strong>TeraGen, TeraSort and TeraValidate</strong>. Please see the results below.</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th> File System           </th>
-<th> TeraGen </th>
-<th> TeraSort </th>
-<th> TeraValidate</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td> HDFS                  </td>
-<td>58mins, 58sec</td>
-<td>4hrs, 59mins, 6sec</td>
-<td>35mins, 58sec</td>
-</tr>
-<tr>
-<td></td>
-<td> Google Cloud Storage  </td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-
-
-<h2>Summary</h2>
-
-<p>There is a pretty good literature about HDFS and object storages and lots of debates around. At <a href="http://sequenceiq.com">SequenceIQ</a> we support both &ndash; and we also believe that each and every company or use case has his own rationale behind choosing one of them. When we came up with the mission statement of simplifying how people work with Hadoop and stated that we&rsquo;d like to give the broadest available options to developers we were pretty serious about.</p>
-
-<p><a href="http://sequenceiq.com/cloudbreak/">Cloudbreak</a> was designed around being cloud agnostic &ndash; running on Docker and being able to ship those containers to bare metal or any cloud provider with a very easy integration process: currently we support <strong>Amazon AWS, Microsoft Azure and Google Cloud</strong> in public beta and <strong>OpenStack, Digital Ocean</strong> integration in progress/private beta.
-As for the supported Hadoop distribution we provision <strong>Apache Hadoop and Hortonworks HDP</strong> in public and <strong>Cloudera CDH</strong> in private beta.</p>
-
-<p>All the private betas will emerge into public programs and will be in GA &ndash; and open sourced under an Apache2 license during Q4.</p>
-
-<p><a href="http://docs.banzai.apiary.io/">Banzai Pipeline</a> will be released quite soon &ndash; stay tuned &ndash; will support one API/representation of your big data pipeline and running on multiple runtimes: <strong>MR2, Spark and Tez</strong>.</p>
-
-<p>For updates follow us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or
-<a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
 
       
-      
+       <a href="/blog/2014/10/28/datalake-cloudbreak/">Read on &rarr;</a> 
     </div>
   </div>
 
