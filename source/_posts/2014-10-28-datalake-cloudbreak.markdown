@@ -12,8 +12,7 @@ A while ago we have released our cloud agnostic and Docker container based Hadoo
 
 This post is the first in this series and will cover the connectivity, interoperability and access of data from an `object storage` and work with that in Hadoop. For this post we choose to create a `data lake` on Google Cloud Compute and guide you through the steps, run performance tests and understand the benefits/drawbacks of such a setup.
 
-_
-Next post will be about sharing the `data lake` among multiple clusters, using [Apache HCatalog](http://hortonworks.com/hadoop/hcatalog/)._
+*Next post will be about sharing the `data lake` among multiple clusters, using [Apache HCatalog](http://hortonworks.com/hadoop/hcatalog/).*
 
 ##Object storage
 
@@ -61,8 +60,7 @@ After these steps we have switched to the `standard` performance test - **TeraGe
 | File System           | TeraGen | TeraSort | TeraValidate
 |-----------------------|---------|----------|-------------  
 | HDFS                  |58mins, 58sec|4hrs, 59mins, 6sec|35mins, 58sec
-| Google Cloud Storage  || 4hrs, 34mins, 52sec|
-
+| Google Cloud Storage  |34mins, 36sec|4hrs, 34mins, 52sec| 29mins, 22sec
 
 ## Summary
 
