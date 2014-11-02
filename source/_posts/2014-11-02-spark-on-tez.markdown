@@ -75,7 +75,7 @@ DenseVector(9.2, 9.2, 9.2)
 DenseVector(0.0, 0.0, 0.0)
 DenseVector(9.05, 9.05, 9.05)
 ```
-###Other examples (Join, Partition By, Source count, Word count
+###Other examples (Join, Partition By, Source count, Word count)
 
 Join
 ```
