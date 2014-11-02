@@ -91,9 +91,9 @@ Source count
 ```
 Word count
 ```
-./bin/spark-submit --class sample.WordCount --master execution-context:org.apache.spark.tez.TezJobExecutionContext --conf update-classpath=true ./lib/spark-native-yarn-samples-1.0.jar /sample-data/wordcount.txt 5
+./bin/spark-submit --class sample.WordCount --master execution-context:org.apache.spark.tez.TezJobExecutionContext --conf update-classpath=true ./lib/spark-native-yarn-samples-1.0.jar /sample-data/wordcount.txt 1
 ```
-Note that the last argument is the number of `reducers`.
+Note that the last argument (1) is the number of `reducers`.
 
 ###Summary
 
