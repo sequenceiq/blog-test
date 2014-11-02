@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Apache Tez | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/apache-tez/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-02T18:50:32+00:00</updated>
+  <updated>2014-11-02T18:52:11+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -125,7 +125,7 @@ DenseVector(0.0, 0.0, 0.0)
 DenseVector(9.05, 9.05, 9.05)
 </code></p>
 
-<h3>Other examples (Join, Partition By, Source count, Word count</h3>
+<h3>Other examples (Join, Partition By, Source count, Word count)</h3>
 
 <p>Join
 <code>
