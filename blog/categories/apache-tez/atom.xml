@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Apache Tez | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/apache-tez/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-02T18:53:42+00:00</updated>
+  <updated>2014-11-02T18:55:42+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -92,6 +92,8 @@ docker run -i -t -h sandbox sequenceiq/spark-native-yarn /etc/bootstrap.sh -bash
 
 <h3>Test the container</h3>
 
+<p>We have pushed samle data and tests from the code repository into the Docker container, thus you can start experimenting right away without writing one line of code.</p>
+
 <h4>Calculate PI</h4>
 
 <p>Simplest example to test with is the <code>PI calculation</code>.</p>
@@ -106,10 +108,9 @@ cd /usr/local/spark
 Pi is roughly 3.14668
 </code></p>
 
-<h3>Run a KMeans example</h3>
+<h4>Run a KMeans example</h4>
 
-<p>We have pushed sample input data sets in the container, you can use those and run these tests as well.
-Run the <code>KMeans</code> example using the sample dataset.</p>
+<p>Run the <code>KMeans</code> example using the sample dataset.</p>
 
 <p><code>
 ./bin/spark-submit --class sample.KMeans --master execution-context:org.apache.spark.tez.TezJobExecutionContext --conf update-classpath=true ./lib/spark-native-yarn-samples-1.0.jar /sample-data/kmeans_data.txt
@@ -125,7 +126,7 @@ DenseVector(0.0, 0.0, 0.0)
 DenseVector(9.05, 9.05, 9.05)
 </code></p>
 
-<h3>Other examples (Join, Partition By, Source count, Word count)</h3>
+<h4>Other examples (Join, Partition By, Source count, Word count)</h4>
 
 <p>Join
 <code>
