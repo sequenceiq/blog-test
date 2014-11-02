@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Apache Tez | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/apache-tez/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-02T18:55:42+00:00</updated>
+  <updated>2014-11-02T18:57:21+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -92,7 +92,7 @@ docker run -i -t -h sandbox sequenceiq/spark-native-yarn /etc/bootstrap.sh -bash
 
 <h3>Test the container</h3>
 
-<p>We have pushed samle data and tests from the code repository into the Docker container, thus you can start experimenting right away without writing one line of code.</p>
+<p>We have pushed sample data and tests from the <a href="https://github.com/hortonworks/spark-native-yarn-samples">code repository</a> into the Docker container, thus you can start experimenting right away without writing one line of code.</p>
 
 <h4>Calculate PI</h4>
 
