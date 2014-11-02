@@ -81,7 +81,7 @@ Declaring the labels is one thing, but how can the `ResourceManager` enforce tha
 it to? Let's think the other way around, how can the `ResourceManager` enforce that containers do not run on nodes where the
 application doesn't want it to? The answer is already part of the RM. The `ApplicationMaster` can blacklist nodes. The
 `AppSchedulingInfo` class can decide based on the `ApplicationLabelExpression` and the `QueueLabelExpression` whether the resource is
-blacklister or not.
+blacklisted or not.
 ```java
   synchronized public void updateBlacklist(
       List<String> blacklistAdditions, List<String> blacklistRemovals) {
@@ -130,7 +130,7 @@ It only makes sense when the resource location is `ANY` or `rack` and not `data 
 
 ## Summary
 We're going to revisit this feature once it completely finished with a concrete example labeling multiple `docker` containers
-and submit stock examples to see how it works in action. Besides labeling there are other important changes are about to come to
+and submit stock examples to see how it works in action. Besides labeling there are other important changes about to come to
 the schedulers which will change the way we plan cluster capacities. The `CapacityScheduler` will be fully dynamic to create/remove/resize
 queues, move applications on the fly to make room for the `AdmissionControl`.
 
