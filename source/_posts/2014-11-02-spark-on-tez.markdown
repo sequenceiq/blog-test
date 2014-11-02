@@ -45,7 +45,7 @@ You have now a fully configured Apache Spark, where the `execution context` is [
 
 ###Test the container
 
-We have pushed samle data and tests from the code repository into the Docker container, thus you can start experimenting right away without writing one line of code.
+We have pushed sample data and tests from the [code repository](https://github.com/hortonworks/spark-native-yarn-samples) into the Docker container, thus you can start experimenting right away without writing one line of code.
 
 ####Calculate PI
 Simplest example to test with is the `PI calculation`.
