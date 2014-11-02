@@ -147,11 +147,11 @@
     </div>
     <div class="col-md-10 post-container">
       <h1 class="link">
-          <a href="/blog/2014/11/02/spark-on-tez/">Spark on Tez - running inside Docker containers</a>
+          <a href="/blog/2014/11/02/spark-on-tez/">Spark on Tez execution context - running in Docker</a>
           <span class="badge name-badge">Janos Matyas</span>
 
       </h1>
-      <p>Last week Hortonworks <a href="http://hortonworks.com/blog/improving-spark-data-pipelines-native-yarn-integration/">announced</a> improvemets for running Apache Spark at scale by introducing a new pluggable <code>execution context</code> and has <a href="https://github.com/hortonworks/spark-native-yarn-samples">open sourced</a> it.</p>
+      <p>Last week Hortonworks <a href="http://hortonworks.com/blog/improving-spark-data-pipelines-native-yarn-integration/">announced</a> improvements for running Apache Spark at scale by introducing a new pluggable <code>execution context</code> and has <a href="https://github.com/hortonworks/spark-native-yarn-samples">open sourced</a> it.</p>
 
 <p>At <a href="http://sequenceiq.com/">SequenceIQ</a> we are always trying to work and offer the latest technology solutions for our clients and help them to choose their favorite technology/option. We are running a project called <a href="http://docs.banzai.apiary.io/">Banzai Pipeline</a> &ndash; to be open sourced soon &ndash; with the goal (among many others) to abstract and allow our customers to use their favorite big data runtime: MR1, Spark or Tez. Along this process we have <code>dockerized</code> most of the Hadoop ecosystem &ndash; we are running MR2, Spark, Storm, Hive, HBase, Pig, Oozie, Drill etc in Docker containers &ndash; on bare metal and in the cloud as well (all of these containers have made <strong>top</strong> downloads on the official Docker repository). For details you can check these older posts/resources:</p>
 
@@ -218,26 +218,9 @@
 </pre></td><td class='code'><pre><code class=''><span class='line'>docker run -i -t -h sandbox sequenceiq/spark-native-yarn /etc/bootstrap.sh -bash</span></code></pre></td></tr></table></div></figure>
 
 
-<p>You have now a fully configured Apache Spark, where the <code>execution context</code> is <a href="http://tez.apache.org/">Apache Tez</a>.</p>
-
-<h3>Test the container</h3>
-
-<p>Simplest example to test with is the <code>PI calculation</code>.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd /usr/local/spark
-</span><span class='line'>./bin/spark-submit --class org.apache.spark.examples.SparkPi --master execution-context:org.apache.spark.tez.TezJobExecutionContext --conf update-classpath=true ./lib/spark-examples-1.1.0.2.1.5.0-702-hadoop2.4.0.2.1.5.0-695.jar</span></code></pre></td></tr></table></div></figure>
-
-
-<p>We have pushed sample input data sets in the container, you can use those and run these testst as well.</p>
-
-<h3>Summary</h3>
-
-<p>Right after the next day that <a href="https://github.com/hortonworks/spark-native-yarn-samples">SPARK-3561</a> has been made available we have started to test at scale using <a href="http://sequenceiq.com/cloudbreak/">Cloudbreak</a> and run performance tests by using the same Spark jobs developd in Banzai (over 50 individual jobs) using the same input sets, cluster size and Scala code &ndash; but changing the default <code>Spark context</code> to a <code>Tez context</code>. Follow up with us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a> as we will release these test results and the lessons we have learned in the coming weeks.</p>
 
       
-      
+       <a href="/blog/2014/11/02/spark-on-tez/">Read on &rarr;</a> 
     </div>
   </div>
 
@@ -970,7 +953,7 @@ this process and made it available in the official Docker
   <ul id="recent_posts" class="list-group">
     
       <li class="list-group-item">
-        <a href="/blog/2014/11/02/spark-on-tez/">Spark on Tez - running inside Docker containers</a>
+        <a href="/blog/2014/11/02/spark-on-tez/">Spark on Tez execution context - running in Docker</a>
       </li>
     
       <li class="list-group-item">

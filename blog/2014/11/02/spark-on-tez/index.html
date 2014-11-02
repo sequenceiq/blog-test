@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Spark on Tez - running inside Docker containers - SequenceIQ Blog</title>
+  <title>Spark on Tez execution context - running in Docker - SequenceIQ Blog</title>
   <meta name="author" content="SequenceIQ">
 
    
@@ -129,7 +129,7 @@
        
          
        
-       <h1 class="article-style"> Spark on Tez - running inside Docker containers
+       <h1 class="article-style"> Spark on Tez execution context - running in Docker
 
        <span class="badge name-badge">Janos Matyas</span>
        <span class="badge name-badge">02 November 2014</span>
@@ -145,7 +145,7 @@
 
   <div class="row-fluid">
     <div class="span12">
-      <p>Last week Hortonworks <a href="http://hortonworks.com/blog/improving-spark-data-pipelines-native-yarn-integration/">announced</a> improvemets for running Apache Spark at scale by introducing a new pluggable <code>execution context</code> and has <a href="https://github.com/hortonworks/spark-native-yarn-samples">open sourced</a> it.</p>
+      <p>Last week Hortonworks <a href="http://hortonworks.com/blog/improving-spark-data-pipelines-native-yarn-integration/">announced</a> improvements for running Apache Spark at scale by introducing a new pluggable <code>execution context</code> and has <a href="https://github.com/hortonworks/spark-native-yarn-samples">open sourced</a> it.</p>
 
 <p>At <a href="http://sequenceiq.com/">SequenceIQ</a> we are always trying to work and offer the latest technology solutions for our clients and help them to choose their favorite technology/option. We are running a project called <a href="http://docs.banzai.apiary.io/">Banzai Pipeline</a> &ndash; to be open sourced soon &ndash; with the goal (among many others) to abstract and allow our customers to use their favorite big data runtime: MR1, Spark or Tez. Along this process we have <code>dockerized</code> most of the Hadoop ecosystem &ndash; we are running MR2, Spark, Storm, Hive, HBase, Pig, Oozie, Drill etc in Docker containers &ndash; on bare metal and in the cloud as well (all of these containers have made <strong>top</strong> downloads on the official Docker repository). For details you can check these older posts/resources:</p>
 
@@ -212,9 +212,14 @@
 </pre></td><td class='code'><pre><code class=''><span class='line'>docker run -i -t -h sandbox sequenceiq/spark-native-yarn /etc/bootstrap.sh -bash</span></code></pre></td></tr></table></div></figure>
 
 
+<!-- more -->
+
+
 <p>You have now a fully configured Apache Spark, where the <code>execution context</code> is <a href="http://tez.apache.org/">Apache Tez</a>.</p>
 
 <h3>Test the container</h3>
+
+<h4>Calculate PI</h4>
 
 <p>Simplest example to test with is the <code>PI calculation</code>.</p>
 
@@ -224,11 +229,68 @@
 </span><span class='line'>./bin/spark-submit --class org.apache.spark.examples.SparkPi --master execution-context:org.apache.spark.tez.TezJobExecutionContext --conf update-classpath=true ./lib/spark-examples-1.1.0.2.1.5.0-702-hadoop2.4.0.2.1.5.0-695.jar</span></code></pre></td></tr></table></div></figure>
 
 
-<p>We have pushed sample input data sets in the container, you can use those and run these testst as well.</p>
+<p>You should expect something like the following as the result:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Pi is roughly 3.14668</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Run a KMeans example</h3>
+
+<p>We have pushed sample input data sets in the container, you can use those and run these tests as well.
+Run the <code>KMeans</code> example using the sample dataset.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>./bin/spark-submit --class sample.KMeans --master execution-context:org.apache.spark.tez.TezJobExecutionContext --conf update-classpath=true ./lib/spark-native-yarn-samples-1.0.jar /sample-data/kmeans_data.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You should expect something like the following as the result:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Finished iteration (delta = 0.0)
+</span><span class='line'>Final centers:
+</span><span class='line'>DenseVector(0.15000000000000002, 0.15000000000000002, 0.15000000000000002)
+</span><span class='line'>DenseVector(9.2, 9.2, 9.2)
+</span><span class='line'>DenseVector(0.0, 0.0, 0.0)
+</span><span class='line'>DenseVector(9.05, 9.05, 9.05)</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Other examples (Join, Partition By, Source count, Word count</h3>
+
+<p>Join</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>./bin/spark-submit --class sample.Join --master execution-context:org.apache.spark.tez.TezJobExecutionContext --conf update-classpath=true ./lib/spark-native-yarn-samples-1.0.jar /sample-data/join1.txt /sample-data/join2.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Partition By</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>./bin/spark-submit --class sample.PartitionBy --master execution-context:org.apache.spark.tez.TezJobExecutionContext --conf update-classpath=true ./lib/spark-native-yarn-samples-1.0.jar /sample-data/partitioning.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Source count</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>./bin/spark-submit --class sample.SourceCount --master execution-context:org.apache.spark.tez.TezJobExecutionContext --conf update-classpath=true ./lib/spark-native-yarn-samples-1.0.jar /sample-data/wordcount.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Word count</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>./bin/spark-submit --class sample.WordCount --master execution-context:org.apache.spark.tez.TezJobExecutionContext --conf update-classpath=true ./lib/spark-native-yarn-samples-1.0.jar /sample-data/wordcount.txt 5</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note that the last argument is the number of <code>reducers</code>.</p>
 
 <h3>Summary</h3>
 
-<p>Right after the next day that <a href="https://github.com/hortonworks/spark-native-yarn-samples">SPARK-3561</a> has been made available we have started to test at scale using <a href="http://sequenceiq.com/cloudbreak/">Cloudbreak</a> and run performance tests by using the same Spark jobs developd in Banzai (over 50 individual jobs) using the same input sets, cluster size and Scala code &ndash; but changing the default <code>Spark context</code> to a <code>Tez context</code>. Follow up with us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a> as we will release these test results and the lessons we have learned in the coming weeks.</p>
+<p>Right after the next day that <a href="https://github.com/hortonworks/spark-native-yarn-samples">SPARK-3561</a> has been made available we have started to test at scale using <a href="http://sequenceiq.com/cloudbreak/">Cloudbreak</a> and run performance tests by using the same Spark jobs developed in Banzai (over 50 individual jobs) using the same input sets, cluster size and Scala code &ndash; but changing the default <code>Spark context</code> to a <code>Tez context</code>. Follow up with us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a> as we will release these test results and the lessons we have learned in the coming weeks.</p>
 
     </div>
   </div>
@@ -314,7 +376,7 @@
   <ul id="recent_posts" class="list-group">
     
       <li class="list-group-item">
-        <a href="/blog/2014/11/02/spark-on-tez/">Spark on Tez - running inside Docker containers</a>
+        <a href="/blog/2014/11/02/spark-on-tez/">Spark on Tez execution context - running in Docker</a>
       </li>
     
       <li class="list-group-item">
