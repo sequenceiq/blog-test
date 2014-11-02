@@ -45,6 +45,8 @@ You have now a fully configured Apache Spark, where the `execution context` is [
 
 ###Test the container
 
+We have pushed samle data and tests from the code repository into the Docker container, thus you can start experimenting right away without writing one line of code.
+
 ####Calculate PI
 Simplest example to test with is the `PI calculation`.
 
@@ -58,8 +60,8 @@ You should expect something like the following as the result:
 Pi is roughly 3.14668
 ```
 
-###Run a KMeans example
-We have pushed sample input data sets in the container, you can use those and run these tests as well.
+####Run a KMeans example
+
 Run the `KMeans` example using the sample dataset.
 
 ```
@@ -75,7 +77,7 @@ DenseVector(9.2, 9.2, 9.2)
 DenseVector(0.0, 0.0, 0.0)
 DenseVector(9.05, 9.05, 9.05)
 ```
-###Other examples (Join, Partition By, Source count, Word count)
+####Other examples (Join, Partition By, Source count, Word count)
 
 Join
 ```
