@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Apache Tez | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/apache-tez/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-02T18:49:21+00:00</updated>
+  <updated>2014-11-02T18:50:32+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -141,9 +141,9 @@ Source count
 </code>
 Word count
 <code>
-./bin/spark-submit --class sample.WordCount --master execution-context:org.apache.spark.tez.TezJobExecutionContext --conf update-classpath=true ./lib/spark-native-yarn-samples-1.0.jar /sample-data/wordcount.txt 5
+./bin/spark-submit --class sample.WordCount --master execution-context:org.apache.spark.tez.TezJobExecutionContext --conf update-classpath=true ./lib/spark-native-yarn-samples-1.0.jar /sample-data/wordcount.txt 1
 </code>
-Note that the last argument is the number of <code>reducers</code>.</p>
+Note that the last argument (1) is the number of <code>reducers</code>.</p>
 
 <h3>Summary</h3>
 

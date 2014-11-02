@@ -283,10 +283,10 @@ Run the <code>KMeans</code> example using the sample dataset.</p>
 <p>Word count</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>./bin/spark-submit --class sample.WordCount --master execution-context:org.apache.spark.tez.TezJobExecutionContext --conf update-classpath=true ./lib/spark-native-yarn-samples-1.0.jar /sample-data/wordcount.txt 5</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>./bin/spark-submit --class sample.WordCount --master execution-context:org.apache.spark.tez.TezJobExecutionContext --conf update-classpath=true ./lib/spark-native-yarn-samples-1.0.jar /sample-data/wordcount.txt 1</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Note that the last argument is the number of <code>reducers</code>.</p>
+<p>Note that the last argument (1) is the number of <code>reducers</code>.</p>
 
 <h3>Summary</h3>
 
