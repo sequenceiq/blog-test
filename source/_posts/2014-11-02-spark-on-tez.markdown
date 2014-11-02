@@ -95,6 +95,14 @@ Word count
 ```
 Note that the last argument (1) is the number of `reducers`.
 
+###Using the Spark Shell
+
+The Spark shell works out of the box with the new Tez `executor context`, the only thing you will need to do is run:
+
+```
+./bin/spark-shell --master execution-context:org.apache.spark.tez.TezJobExecutionContext
+```
+
 ###Summary
 
 Right after the next day that [SPARK-3561](https://github.com/hortonworks/spark-native-yarn-samples) has been made available we have started to test at scale using [Cloudbreak](http://sequenceiq.com/cloudbreak/) and run performance tests by using the same Spark jobs developed in Banzai (over 50 individual jobs) using the same input sets, cluster size and Scala code - but changing the default `Spark context` to a `Tez context`. Follow up with us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook.com/sequenceiq) as we will release these test results and the lessons we have learned in the coming weeks.
