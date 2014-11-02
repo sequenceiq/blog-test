@@ -288,6 +288,14 @@ Run the <code>KMeans</code> example using the sample dataset.</p>
 
 <p>Note that the last argument (1) is the number of <code>reducers</code>.</p>
 
+<h3>Using the Spark Shell</h3>
+
+<p>The Spark shell works out of the box with the new Tez <code>executor context</code>, the only thing you will need to do is run:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>./bin/spark-shell --master execution-context:org.apache.spark.tez.TezJobExecutionContext</span></code></pre></td></tr></table></div></figure>
+
+
 <h3>Summary</h3>
 
 <p>Right after the next day that <a href="https://github.com/hortonworks/spark-native-yarn-samples">SPARK-3561</a> has been made available we have started to test at scale using <a href="http://sequenceiq.com/cloudbreak/">Cloudbreak</a> and run performance tests by using the same Spark jobs developed in Banzai (over 50 individual jobs) using the same input sets, cluster size and Scala code &ndash; but changing the default <code>Spark context</code> to a <code>Tez context</code>. Follow up with us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a> as we will release these test results and the lessons we have learned in the coming weeks.</p>
