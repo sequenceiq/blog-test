@@ -105,7 +105,7 @@ To build the project use this command from the spark-submit directory:
 After building it you find the required jars in spark-submit-runner/build/libs (`uberjar` with all required dependencies) and spark-submit-app/build/libs. Put them in the same directory (do this also with this [config folder](https://github.com/sequenceiq/sequenceiq-samples/tree/master/spark-submit/spark-submit-runner/src/main/resources) too). After that run this command:
 
 ```bash
-java -cp spark-submit-runner-1.0.jar com.sequenceuq.spark.SparkRunner \
+java -cp spark-submit-runner-1.0.jar com.sequenceiq.spark.SparkRunner \
   --jar spark-submit-app-1.0.jar \
   --class com.sequenceiq.spark.Main \
   --driver-memory 1g \
