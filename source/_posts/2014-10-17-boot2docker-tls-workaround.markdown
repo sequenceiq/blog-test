@@ -25,7 +25,19 @@ via simple http. So after upgrading to 1.3.0 something might be broken.
 
 ## Workaround
 
-Downgrading is for the weak ;)
+### Update 2014-11-01
+
+Please note that since Boot2docker 1.3.1 is released, you can simply use `DOCKER_TLS=no`.
+
+```
+$ boot2docker ssh -t 'sudo vi /var/lib/boot2docker/profile'
+```
+
+If you still want to run the daemon with TLS enabled, but need temporary access on
+plain http, read on:
+
+### Socat
+
 One alternative solution is to start a container which uses `socat` to proxy the unix
 socket file `/var/run/docker.sock` as a tcp port. It is containerized for you:
 
