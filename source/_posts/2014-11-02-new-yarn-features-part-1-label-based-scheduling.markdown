@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "New YARN features: Label based scheduling"
-date: 2014-11-02 13:14:17 +0100
+date: 2014-11-04 13:14:17 +0100
 comments: true
-categories:
+categories: YARN
 author: Krisztian Horvath
 published: false
 ---
@@ -24,7 +24,7 @@ like to run.
 
 ## Cloud
 Things are different in cloud environments as the composition of the Hadoop clusters are more homogeneous. By the nature of cloud it's
-easier and more convinient to request nodes with the exact same cababilities. [Cloudbreak](http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/)
+easier and more convenient to request nodes with the exact same capabilities. [Cloudbreak](http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/)
 our Hadoop as a service API will address this problem, by giving the ability to the users to specify their needs. Take one example: on AWS
 users can launch `spot price` instances which EC2 can `take away any time`. Labeling them as `spot` we can avoid spinning up the
 `ApplicationMasters` on those nodes, thus operate safely and re-launch new containers on different nodes in case it happens.
@@ -44,7 +44,7 @@ To start with let's declare the different types of labels and expressions:
 
 ## Technical details
 Labeling nodes itself is not enough. Schedulers cannot rely only on application requirements as administrators can configure the queues
-to act differently. As we taught earlier schedulers are defined in a configuration file where you can specify the queues. Initial labeling
+to act differently. As we discussed earlier, schedulers are defined in a configuration file where you can specify the queues. Initial labeling
 can be done in these files:
 ```xml
 <property>
@@ -53,8 +53,8 @@ can be done in these files:
 </property>
 ```
 The value is a `label expression` that means applications which are submitted to this queue can run either on nodes labeled as
-cpuheavy or rackA. As I said the configuration files can be used as an initial configuration, but changing dynamically queue labels
-and node labels is also not a problem as the `RMAdminCLI` [provides](https://issues.apache.org/jira/browse/YARN-2504) them.
+`cpuheavy` or `rackA`. As I said the configuration files can be used as an initial configuration, but changing dynamically queue labels
+and node labels is also not a problem as the `RMAdminCLI` [allows](https://issues.apache.org/jira/browse/YARN-2504) that.
 ```java
  .put("-addToClusterNodeLabels",
               new UsageInfo("[label1,label2,label3] (label splitted by \",\")",
@@ -79,7 +79,7 @@ and node labels is also not a problem as the `RMAdminCLI` [provides](https://iss
 ```
 Declaring the labels is one thing, but how can the `ResourceManager` enforce that containers run on nodes where the application wants
 it to? Let's think the other way around, how can the `ResourceManager` enforce that containers do not run on nodes where the
-application doesn't want it to? The answer is already part of the RM. The `ApplicationMaster` can blacklist nodes. The
+application doesn't want it to? The answer is already part of the RM. The `ApplicationMaster` can **blacklist** nodes. The
 `AppSchedulingInfo` class can decide based on the `ApplicationLabelExpression` and the `QueueLabelExpression` whether the resource is
 blacklisted or not.
 ```java
