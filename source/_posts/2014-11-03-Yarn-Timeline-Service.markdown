@@ -37,14 +37,12 @@ After a couple of seconds you'll have a running 3-node ambari cluster.
 
 To provision and configure hadoop services we use Ambari and ambari blueprints. (You can read about this in our earlier blogposts)
 
-To enable the Timeline Server in the cluster, we've created a blueprint which contains a few overrides of the related configuration properties. (The specific settings for the Timeline Server are described [here](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/TimelineServer.html) and [here](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.1.5/bk_system-admin-guide/content/ch_application-timeline-server.html) )
+To enable the Timeline Server in the cluster, we've created a blueprint which contains a few overrides of the related configuration properties. (A detailed description of the configuration settings for the Timeline Server are described [here](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/TimelineServer.html) and [here](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.1.5/bk_system-admin-guide/content/ch_application-timeline-server.html) )
 
-The blueprint we used can be found here:
-
-https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/timeline-server/blueprints/multi-node-hdfs-yarn-tez-timeline-service.json
+We used [this](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/timeline-server/blueprints/multi-node-hdfs-yarn-tez-timeline-service.json) bluperint for the experiment.
 
 
-Please note here, that the blueprint here only contains those configuration entries that differ from the defaults; the assumption is that the other defaults are similar to thos described in the documentation. It's always possible to override any of the defauls by adding them to the blueprint, or using the Ambari UI.
+Please note, that the blueprint here only contains those configuration entries that differ from the defaults; the assumption is that the other defaults are similar to those described in the documentation. It's always possible to override any of the defauls by adding them to the blueprint, or using the Ambari UI.
 
 # Create the yarn cluster with the ambari-shell
 
@@ -54,7 +52,7 @@ Now it's time to provision our cluster with yarn, tez and the Timeline Server en
 amb-shell
 ```
 
-Following the instructions displayed as a result of typing the ```hint``` command you can build the cluster:
+Following the instructions below you can provision the Timeline Server enabled cluster:
 
 ```
 blueprint add --url https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/timeline-server/blueprints/multi-node-hdfs-yarn-tez-timeline-service.json
@@ -66,7 +64,9 @@ cluster autoAssign
 cluster create
 ```
 
-The initial ambari installation (yarn service) will fail due to an HDFS permission denied operation.
+*Warning!*
+The initial ambari installation (specifically the yarn service) will fail due to an HDFS permission denied error.
+(The reason for this is that Ambari starts the Timeline Server as the _yarn_ user that doesn't have write rights to the hdfs root)
 A workaround for this problem is to add the yarn user to the hdfs group:
 
 Enter to the container running ambari:
@@ -81,10 +81,12 @@ From the ambari ui (http://localhost:8080) start yarn.
 
 After services start, you can reach the Timeline Server on the port 8188 of the ambari host.
 
-Please note here, that this is a workaround only; we're still looking for the right solution
+Please note, that this is a workaround only; we're still looking for the right solution.
 
 
 # Check the history server information
 
 With the cluster and the Timeline Server set up every tez application starts reporting to the timeline service.
 Information is made available at http://<ambari-host:8188>
+
+You can also inspect application related information using the command line, as described in the aforementioned documentation.
