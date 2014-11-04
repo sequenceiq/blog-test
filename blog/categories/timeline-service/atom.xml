@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Timeline service | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/timeline-service/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-04T14:51:33+00:00</updated>
+  <updated>2014-11-04T15:02:18+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -81,9 +81,9 @@ blueprint add &mdash;url <a href="https://raw.githubusercontent.com/sequenceiq/s
 
 <p>With the cluster and the Timeline Server set up every MR2 and TEZ application starts reporting to the <code>timeline</code> service. Information is made available at <code>http://&lt;ambari-host:8188&gt;</code>. You can also inspect application related information using the command line, as described in the aforementioned documentation.</p>
 
-<p>As we mentioned at the beginning of this post, we choose TEZ to play with while studying the Timeline Server. After running the <em>orderedwordcount</em> example (available in the TEZ distribution), on the Timeline Server web UI we got fine grained generic application information about the application, application attempt, containers used by the application.</p>
+<p>As we mentioned at the beginning of this post, we choose TEZ to show you how to use the Timeline Server. After running the Tez application in the Timeline Server web UI you will have fine grained generic information about the application, application attempt, containers used by the application, etc.</p>
 
-<p>A few screenshots can be found <a href="https://github.com/sequenceiq/sequenceiq-samples/tree/master/timeline-server/ts-screenshots">here</a></p>
+<p>You can find a few screenshots of the web ui  <a href="https://github.com/sequenceiq/sequenceiq-samples/tree/master/timeline-server/ts-screenshots">here</a>.</p>
 
 <p>If you&rsquo;d like to have a vizualized view of the application   you can use the <em>swimlanes</em> tez tool. Based on the information provided by the Timeline Server this generates images similar to <a href="https://github.com/sequenceiq/sequenceiq-samples/blob/master/timeline-server/ts-screenshots/topk_topk_stark_application_1415093602516_0016.svg">this</a></p>
 
