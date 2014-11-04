@@ -176,7 +176,7 @@
 
 <p>To provision and configure Hadoop services we use Ambari and Ambari blueprints. Check this <a href="http://blog.sequenceiq.com/blog/2014/06/19/multinode-hadoop-cluster-on-docker/">blogpost</a> about how to setup an multi-node Hadoop cluster.</p>
 
-<p>To enable the Timeline Server in the cluster, we&rsquo;ve created a blueprint which contains a few overrides of the related configuration properties. (A detailed description of the configuration settings for the Timeline Server are described <a href="http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/TimelineServer.html">here</a> and <a href="http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.1.5/bk_system-admin-guide/content/ch_application-timeline-server.html">here</a> )</p>
+<p>To enable the Timeline Server in the cluster, we&rsquo;ve created a blueprint which contains a few overrides of the related configuration properties. A detailed description of the configuration settings for the Timeline Server are described <a href="http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/TimelineServer.html">here</a> and <a href="http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.1.5/bk_system-admin-guide/content/ch_application-timeline-server.html">here</a>.</p>
 
 <p>We used <a href="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/timeline-server/blueprints/multi-node-hdfs-yarn-tez-timeline-service.json">this</a> blueprint for the experiment.</p>
 
@@ -199,28 +199,26 @@
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>blueprint add --url https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/timeline-server/blueprints/multi-node-hdfs-yarn-tez-timeline-service.json
-</span><span class='line'>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#add the blueprint
+</span><span class='line'>blueprint add --url https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/timeline-server/blueprints/multi-node-hdfs-yarn-tez-timeline-service.json
+</span><span class='line'>#build the cluster
 </span><span class='line'>cluster build --blueprint multi-node-hdfs-yarn-tez-timeline-service
-</span><span class='line'>
+</span><span class='line'>#auto assign nodes
 </span><span class='line'>cluster autoAssign
-</span><span class='line'>
+</span><span class='line'>#create the cluster
 </span><span class='line'>cluster create</span></code></pre></td></tr></table></div></figure>
 
 
 <p>After services start, you can reach the Timeline Server on the port 8188 of the ambari host.</p>
 
-<p>There is some more configuration needed for the Timeline Server to work properly, we have to set the following entries to the address where the timeline service is running. (you can get the proper value from Ambari &ndash;  the Timeline Server runs where the resource manager)</p>
+<p>There is some more configuration needed for the Timeline Server to work properly, we have to set the following entries to the address where the timeline service is running. You can get the proper value from Ambari &ndash;  the Timeline Server runs where the resource manager is.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>yarn.timeline-service.webapp.address
-</span><span class='line'>
 </span><span class='line'>yarn.timeline-service.webapp.https.address
-</span><span class='line'>
 </span><span class='line'>yarn.timeline-service.address</span></code></pre></td></tr></table></div></figure>
 
 
