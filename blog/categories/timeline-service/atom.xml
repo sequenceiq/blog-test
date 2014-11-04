@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Timeline service | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/timeline-service/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-04T15:02:18+00:00</updated>
+  <updated>2014-11-04T17:50:45+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -55,7 +55,7 @@ amb-start-cluster 3
 
 <p>Please note, that the blueprint here only contains those configuration entries that differ from the defaults; the assumption is that the other defaults are similar to those described in the documentation. It&rsquo;s always possible to override any of the defaults by adding them to the blueprint, or using the Ambari UI.</p>
 
-<h1>Create the YARN cluster with the ambari-shell</h1>
+<h1>Create the YARN cluster with ambari-shell</h1>
 
 <p>Now it&rsquo;s time to provision our cluster with YARN, TEZ and the Timeline Server enabled. For this let&rsquo;s start the <code>ambari-shell</code>, which, surprisingly runs in a docker container as well.</p>
 
@@ -77,7 +77,19 @@ blueprint add &mdash;url <a href="https://raw.githubusercontent.com/sequenceiq/s
 
 <p>After services start, you can reach the Timeline Server on the port 8188 of the ambari host.</p>
 
-<h1>Check the history server information</h1>
+<p>There is some more configuration needed for the Timeline Server to work properly, we have to set the following entries to the address where the timeline service is running. (you can get the proper value from Ambari &ndash;  the Timeline Server runs where the resource manager)</p>
+
+<p>```
+yarn.timeline-service.webapp.address</p>
+
+<p>yarn.timeline-service.webapp.https.address</p>
+
+<p>yarn.timeline-service.address
+```</p>
+
+<p>This can be done from the Ambari web UI; a restart of the YARN services is needed after the values are saved.</p>
+
+<h1>Check the information in the Timeline Server</h1>
 
 <p>With the cluster and the Timeline Server set up every MR2 and TEZ application starts reporting to the <code>timeline</code> service. Information is made available at <code>http://&lt;ambari-host:8188&gt;</code>. You can also inspect application related information using the command line, as described in the aforementioned documentation.</p>
 
@@ -87,7 +99,8 @@ blueprint add &mdash;url <a href="https://raw.githubusercontent.com/sequenceiq/s
 
 <p>If you&rsquo;d like to have a vizualized view of the application   you can use the <em>swimlanes</em> tez tool. Based on the information provided by the Timeline Server this generates images similar to <a href="https://github.com/sequenceiq/sequenceiq-samples/blob/master/timeline-server/ts-screenshots/topk_topk_stark_application_1415093602516_0016.svg">this</a></p>
 
-<p>As you may notice we&rsquo;ve been only talking about the generic application information; the Timeline Server also stores framework related historical information, exploring that part of the Timeline Server is coming soon&hellip;</p>
+<p>If you are curious what framework related information have been logged, you can access the Timeline Server RESTful interface.
+You can get very deep details similar to the ones in <a href="https://github.com/sequenceiq/sequenceiq-samples/tree/master/timeline-server/ts-screenshots">these</a> screenshots</p>
 
 <p>For further details follow up with us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
 ]]></content>
