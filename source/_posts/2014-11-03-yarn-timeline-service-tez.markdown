@@ -84,15 +84,15 @@ This can be done from the Ambari web UI; a restart of the YARN services is neede
 
 With the cluster and the Timeline Server set up every MR2 and TEZ application starts reporting to the `timeline` service. Information is made available at `http://<ambari-host:8188>`. You can also inspect application related information using the command line, as described in the aforementioned documentation.
 
-As we mentioned at the beginning of this post, we choose TEZ to show you how to use the Timeline Server. After running the Tez application in the Timeline Server web UI you will have fine grained generic information about the application, application attempt, containers used by the application, etc. 
+As we mentioned at the beginning of this post, we choose TEZ to show you how to use the Timeline Server. After running the Tez application in the Timeline Server web UI you will have fine grained generic information about the application, application attempt, containers used by the application, etc.
 
-You can find a few screenshots of the web ui  [here](https://github.com/sequenceiq/sequenceiq-samples/tree/master/timeline-server/ts-screenshots).
+You can find a few screenshots of the web ui  [here](https://github.com/sequenceiq/sequenceiq-samples/tree/master/timeline-server/ts-screenshots/gen-app-logs).
 
-If you'd like to have a vizualized view of the application   you can use the _swimlanes_ tez tool. Based on the information provided by the Timeline Server this generates images similar to [this](https://github.com/sequenceiq/sequenceiq-samples/blob/master/timeline-server/ts-screenshots/topk_topk_stark_application_1415093602516_0016.svg)
+If you'd like to have a vizualized view of the application   you can use the _swimlanes_ tez tool. Based on the information provided by the Timeline Server this generates images similar to [this](https://github.com/sequenceiq/sequenceiq-samples/blob/master/timeline-server/ts-screenshots/swimlanes/topk_topk_stark_application_1415093602516_0016.svg)
 
 
 If you are curious what framework related information have been logged, you can access the Timeline Server RESTful interface.
-You can get very deep details similar to the ones in [these](https://github.com/sequenceiq/sequenceiq-samples/tree/master/timeline-server/ts-screenshots) screenshots
+You can get very deep details similar to the ones in [these](https://github.com/sequenceiq/sequenceiq-samples/tree/master/timeline-server/ts-screenshots/framework-logs) screenshots
 
 
 For further details follow up with us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook.com/sequenceiq).
