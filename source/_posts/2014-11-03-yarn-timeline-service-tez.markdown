@@ -65,30 +65,12 @@ cluster autoAssign
 cluster create
 ```
 
-*Warning!*
-The initial Ambari installation (specifically the YARN service) will fail due to an HDFS permission denied error. The reason for this is that Ambari starts the Timeline Server as the _yarn_ user that doesn't have write rights to the hdfs root. A workaround for this problem is to add the `yarn` user to the `hdfs` group:
-
-Enter to the container running ambari:
-
-```
-docker exec -it <conatainer_id> /bin/bash
-```
-
-Run the following command from the command line:
-
-```
-usermod -G hdfs yarn
-```
-
-From the Ambari UI (http://localhost:8080) start yarn.
-
 After services start, you can reach the Timeline Server on the port 8188 of the ambari host.
-
-Please note, that this is a workaround only; we're still looking for the right solution.
-
 
 # Check the history server information
 
 With the cluster and the Timeline Server set up every MR2 and TEZ application starts reporting to the `timeline` service. Information is made available at `http://<ambari-host:8188>`. You can also inspect application related information using the command line, as described in the aforementioned documentation.
+
+After
 
 For further details follow up with us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook.com/sequenceiq).
