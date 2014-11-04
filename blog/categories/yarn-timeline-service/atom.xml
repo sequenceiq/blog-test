@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: YARN Timeline service | SequenceIQ Blog]]></title>
+  <link href="http://blog.sequenceiq.com/blog/categories/yarn-timeline-service/atom.xml" rel="self"/>
+  <link href="http://blog.sequenceiq.com/"/>
+  <updated>2014-11-04T07:52:32+00:00</updated>
+  <id>http://blog.sequenceiq.com/</id>
+  <author>
+    <name><![CDATA[SequenceIQ]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[YARN Timeline Service]]></title>
+    <link href="http://blog.sequenceiq.com/blog/2014/11/04/yarn-timeline-service/"/>
+    <updated>2014-11-04T18:07:18+00:00</updated>
+    <id>http://blog.sequenceiq.com/blog/2014/11/04/yarn-timeline-service</id>
+    <content type="html"><![CDATA[<p>As you may know from our earlier <a href="http://blog.sequenceiq.com/blog/2014/10/07/hadoop-monitoring/">blogposts</a> we are continuously monitoring and trying to find out what happens inside our YARN clusters, let it be MapReduce jobs, TEZ DAGs, etc&hellip; We&rsquo;ve analyzed our clusters from various aspects so far; now it&rsquo;s the time to take a look at the information provided by the built YARN <code>timeline</code> service.</p>
+
+<p>This post is about how to set up a YARN cluster so that the Timeline Server is available and how to configure applications running in the cluster to report information to it. As an example we&rsquo;ve chosen to run a simple TEZ example. (MapReduce2 also reports to the <code>timeline</code> service)</p>
+
+<p>As a playground we will use a multinode cluster set up on the local machine; alternatively one could do the same on a cluster provisioned with <a href="http://sequenceiq.com/cloudbreak">Cloudbreak</a>. Cluster nodes run in Docker containers, YARN / TEZ provisioning and configuration is done with <a href="http://ambari.apache.org/">Apache Ambari</a>.</p>
+
+<h2>Building a multinode cluster</h2>
+
+<p>To build a multinode cluster we use a set of commodity functions that you can install by running the following in a terminal:</p>
+
+<p><code>
+curl -Lo .amb j.mp/docker-ambari &amp;&amp; . .amb
+</code></p>
+
+<p>(The commodity functions use our docker-ambari image: sequenceiq/docker-ambari:1.6.0)</p>
+
+<p>With the functions installed, you can start your cluster by running:</p>
+
+<p><code>
+amb-start-cluster 3
+</code>
+After a couple of seconds you&rsquo;ll have a running 3-node Ambari cluster.</p>
+
+<h2>Create an Ambari blueprint with the Timeline Server configuration entries</h2>
+
+<p>To provision and configure Hadoop services we use Ambari and Ambari blueprints. Check this <a href="http://blog.sequenceiq.com/blog/2014/06/19/multinode-hadoop-cluster-on-docker/">blogpost</a> about how to setup an multi-node Hadoop cluster.</p>
+
+<p>To enable the Timeline Server in the cluster, we&rsquo;ve created a blueprint which contains a few overrides of the related configuration properties. (A detailed description of the configuration settings for the Timeline Server are described <a href="http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/TimelineServer.html">here</a> and <a href="http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.1.5/bk_system-admin-guide/content/ch_application-timeline-server.html">here</a> )</p>
+
+<p>We used <a href="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/timeline-server/blueprints/multi-node-hdfs-yarn-tez-timeline-service.json">this</a> blueprint for the experiment.</p>
+
+<p>Please note, that the blueprint here only contains those configuration entries that differ from the defaults; the assumption is that the other defaults are similar to those described in the documentation. It&rsquo;s always possible to override any of the defaults by adding them to the blueprint, or using the Ambari UI.</p>
+
+<h1>Create the YARN cluster with the ambari-shell</h1>
+
+<p>Now it&rsquo;s time to provision our cluster with YARN, TEZ and the Timeline Server enabled. For this let&rsquo;s start the <code>ambari-shell</code>, which, surprisingly runs in a docker container as well.</p>
+
+<p><code>
+amb-shell
+</code></p>
+
+<p>Following the instructions below you can provision the Timeline Server enabled cluster:</p>
+
+<p>```
+blueprint add &mdash;url <a href="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/timeline-server/blueprints/multi-node-hdfs-yarn-tez-timeline-service.json">https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/timeline-server/blueprints/multi-node-hdfs-yarn-tez-timeline-service.json</a></p>
+
+<p>cluster build &mdash;blueprint multi-node-hdfs-yarn-tez-timeline-service</p>
+
+<p>cluster autoAssign</p>
+
+<p>cluster create
+```</p>
+
+<p><em>Warning!</em>
+The initial Ambari installation (specifically the YARN service) will fail due to an HDFS permission denied error. The reason for this is that Ambari starts the Timeline Server as the <em>yarn</em> user that doesn&rsquo;t have write rights to the hdfs root. A workaround for this problem is to add the <code>yarn</code> user to the <code>hdfs</code> group:</p>
+
+<p>Enter to the container running ambari:</p>
+
+<p><code>docker exec -it &lt;conatainer_id&gt; /bin/bash</code></p>
+
+<p>Run the following command from the command line:</p>
+
+<p><code>usermod -G hdfs yarn</code></p>
+
+<p>From the Ambari UI (<a href="http://localhost:8080">http://localhost:8080</a>) start yarn.</p>
+
+<p>After services start, you can reach the Timeline Server on the port 8188 of the ambari host.</p>
+
+<p>Please note, that this is a workaround only; we&rsquo;re still looking for the right solution.</p>
+
+<h1>Check the history server information</h1>
+
+<p>With the cluster and the Timeline Server set up every MR2 and TEZ application starts reporting to the <code>timeline</code> service. Information is made available at <code>http://&lt;ambari-host:8188&gt;</code>. You can also inspect application related information using the command line, as described in the aforementioned documentation.
+For further details follow up with us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>
