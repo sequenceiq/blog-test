@@ -75,9 +75,8 @@ As we mentioned at the beginning of this post, we choose TEZ to play with while 
 
 A few screenshots can be found [here](https://github.com/sequenceiq/sequenceiq-samples/tree/master/timeline-server/ts-screenshots)
 
-Should you have a vizualized view of the application generated based on the information in the Timeline Service, you can use the
-_swimlanes_ tez tool. This generates images similar to [this](https://github.com/sequenceiq/sequenceiq-samples/blob/master/timeline-server/ts-screenshots/topk_topk_stark_application_1415093602516_0016.svg)
+If you'd like to have a vizualized view of the application   you can use the _swimlanes_ tez tool. Based on the information provided by the Timeline Server this generates images similar to [this](https://github.com/sequenceiq/sequenceiq-samples/blob/master/timeline-server/ts-screenshots/topk_topk_stark_application_1415093602516_0016.svg)
 
-As you may notice we've been only talking about the generic application information; the Timeline Server also stores framework related historical information, exploring that part of the Timeline Service is coming soon...  
+As you may notice we've been only talking about the generic application information; the Timeline Server also stores framework related historical information, exploring that part of the Timeline Server is coming soon...  
 
 For further details follow up with us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook.com/sequenceiq).
