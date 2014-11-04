@@ -188,6 +188,82 @@
 
       <div class="row-fluid">
         
+            <a href="http://blog.sequenceiq.com/blog/2014/11/03/securing-cloudbreak-with-oauth2-part-2/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
+        
+      </div>
+
+<span class="badge name-badge">03 November 2014</span>
+      
+        <div class="row-fluid">
+            
+            <a href="/blog/categories/oauth2/"><span class="label label-warning">OAuth2</span></a>
+            
+            <a href="/blog/categories/uaa/"><span class="label label-warning">UAA</span></a>
+            
+        </div>
+      
+    </div>
+    <div class="col-md-10 post-container">
+      <h1 class="link">
+          <a href="/blog/2014/11/03/securing-cloudbreak-with-oauth2-part-2/">Securing Cloudbreak with OAuth2 - part 2</a>
+          <span class="badge name-badge">Marton Sereg</span>
+
+      </h1>
+      <p>A few weeks ago we&rsquo;ve published a <a href="http://blog.sequenceiq.com/blog/2014/10/16/using-uaa-as-an-identity-server/">blog post</a> about securing our <a href="https://cloudbreak.sequenceiq.com/">Cloudbreak</a> infrastructure with OAuth2.
+We&rsquo;ve discussed how we were setting up and configuring a new UAA OAuth2 identity server with Docker but we haven&rsquo;t detailed how to use this identity server in client applications.
+And that&rsquo;s exactly what we&rsquo;ll do now: we&rsquo;ll show some code examples about how to obtain tokens from different clients and how to check these tokens in resource servers.</p>
+
+<p>We&rsquo;re using almost every type of the OAuth2 flows in our infrastructure: Cloudbreak and <a href="http://sequenceiq.com/periscope/">Periscope</a> act as resource servers while <a href="https://github.com/sequenceiq/uluwatu">Uluwatu</a> and <a href="https://github.com/sequenceiq/cloudbreak-shell">Cloudbreak shell</a> for example are clients for these APIs.</p>
+
+<h2>Obtaining an access token</h2>
+
+<p>The main goal of an OAuth2 flow is to obtain an access token for the resource owner that can be used to access a resource server later.
+There are multiple common flows depending on the client type, we&rsquo;ll have examples for three of them now: <em>implicit</em>, <em>authorization code</em> and <em>client credentials</em>.
+If you&rsquo;re not familiar with the roles and expressions that take part in the OAuth2 flows I suggest to check out some <a href="http://aaronparecki.com/articles/2012/07/29/1/oauth2-simplified">&ldquo;Getting started&rdquo; resources</a> first before going forward with this post.</p>
+
+<h3>Implicit flow</h3>
+
+<p>This is not the most common flow with OAuth2 but it is the most simple one because only one request should be made to the identity server and the token will arrive directly in the response.
+Two different types of this flow is supported by UAA. One for browser-based applications and one for those scenarios when there is no browser interaction (e.g.: CLIs).
+The common part of these scenarios is that it would be useless to have a client secret because it couldn&rsquo;t be kept as a secret.</p>
+
+<p>We are using the <em>implicit flow with credentials</em> in the <a href="https://github.com/sequenceiq/cloudbreak-shell">Cloudbreak Shell</a>.
+When using the shell you must provide your SequenceIQ credentials as environment variables and the shell uses those to obtain an access token.
+Cloudbreak shell is written in Java but let&rsquo;s see a basic <code>curl</code> example instead &ndash; it does exactly the same as the Java code. (If you&rsquo;re still eager you can check out the code <a href="https://github.com/sequenceiq/cloudbreak-shell/blob/master/src/main/java/com/sequenceiq/cloudbreak/shell/configuration/ShellConfiguration.java#L122">here</a>)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -iX POST -H "accept: application/x-www-form-urlencoded"  \
+</span><span class='line'> -d 'credentials={"username":"admin","password":"periscope"}' \
+</span><span class='line'> "http://localhost:8080/oauth/authorize?response_type=token&client_id=cli&scope.0=openid&redirect_uri=http://cli"</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+
+      
+       <a href="/blog/2014/11/03/securing-cloudbreak-with-oauth2-part-2/">Read on &rarr;</a> 
+    </div>
+  </div>
+
+
+
+    </article>
+    
+    <hr>
+    
+  
+  
+    <article>
+      
+
+  <div class="row">
+    <div class="col-md-2 post-meta">
+
+
+      <div class="row-fluid">
+        
             <a href="http://blog.sequenceiq.com/blog/2014/11/02/spark-on-tez/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
         
       </div>
@@ -690,87 +766,6 @@ socket file <code>/var/run/docker.sock</code> as a tcp port. It is containerized
 
       <div class="row-fluid">
         
-            <a href="http://blog.sequenceiq.com/blog/2014/10/16/using-uaa-as-an-identity-server/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
-        
-      </div>
-
-<span class="badge name-badge">16 October 2014</span>
-      
-        <div class="row-fluid">
-            
-            <a href="/blog/categories/cloudfoundry/"><span class="label label-warning">CloudFoundry</span></a>
-            
-            <a href="/blog/categories/cloudbreak/"><span class="label label-warning">Cloudbreak</span></a>
-            
-            <a href="/blog/categories/docker/"><span class="label label-warning">Docker</span></a>
-            
-            <a href="/blog/categories/oauth2/"><span class="label label-warning">OAuth2</span></a>
-            
-            <a href="/blog/categories/uaa/"><span class="label label-warning">UAA</span></a>
-            
-        </div>
-      
-    </div>
-    <div class="col-md-10 post-container">
-      <h1 class="link">
-          <a href="/blog/2014/10/16/using-uaa-as-an-identity-server/">Securing Cloudbreak with OAuth2</a>
-          <span class="badge name-badge">Marton Sereg</span>
-
-      </h1>
-      <p>When we first released <a href="https://cloudbreak.sequenceiq.com/">Cloudbreak</a> &ndash; our Hadoop as a Service API &ndash; it contained its own authentication and user management layer.
-We were using basic authentication for the API calls so every request had to contain a username and a password <em>Base64</em> encoded in the authorization header.
-Cloudbreak also had its own user representation and we were binding the resources &ndash; like clusters &ndash; to these users.</p>
-
-<p>This approach had multiple flaws. As we were starting to develop multiple <a href="http://sequenceiq.com/periscope/">projects</a> for our future Platform as a Service solution it became obvious that we will have to refactor our whole user management layer out from Cloudbreak and <strong>share it across our projects</strong>.
-Base64 encoding of usernames and passwords is not the best solution either even if transport layer security is working.</p>
-
-<p>What comes into play almost instantly when dealing with these kind of problems is <strong>OAuth2</strong> but it&rsquo;s not as trivial as it first sounds.</p>
-
-<h2>OAuth2</h2>
-
-<p>The main &ldquo;problem&rdquo; with OAuth2 is that its <a href="http://tools.ietf.org/html/rfc6749">specification</a> leaves a lot of decisions up to the implementations.
-First of all it does not speak at all about authentication, only authorization. It also leaves out details such as how to manage users, how scopes and tokens look like or how these tokens should be checked by a resource server.</p>
-
-<p>Because of all these reasons implementing a full OAuth2 solution from scratch means a <em>lot</em> of work and reinventing the wheel and of course we didn&rsquo;t want to do that.
-Luckily there are a few specifications that complement the original standard and there are also some solutions that implement not only the basic specification but these complementary specifications too.</p>
-
-<p><strong><a href="https://github.com/cloudfoundry/uaa">UAA</a> is CloudFoundry&rsquo;s fully open source identity management service.</strong>
-According to the documentation its primary role is as an OAuth2 provider that can issue tokens for client applications, but it can also authenticate users and can manage user accounts and OAuth2 clients through an HTTP API.
-To achieve these things it uses these specifications:</p>
-
-<ul>
-<li><p><a href="http://openid.net/connect/">OpenID Connect</a> for authentication</p></li>
-<li><p><a href="http://www.simplecloud.info/">SCIM</a> for user management</p></li>
-<li><p><a href="http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html">JWT</a> for token representation</p></li>
-</ul>
-
-
-<p>UAA adds a few more things on top of these like client management endpoints which makes it a complete solution as an identity server.
-And the best thing is that it is <strong>fully configurable through environment variables and a YAML file</strong>.</p>
-
-
-      
-       <a href="/blog/2014/10/16/using-uaa-as-an-identity-server/">Read on &rarr;</a> 
-    </div>
-  </div>
-
-
-
-    </article>
-    
-    <hr>
-    
-  
-  
-    <article>
-      
-
-  <div class="row">
-    <div class="col-md-2 post-meta">
-
-
-      <div class="row-fluid">
-        
             <a href="http://blog.sequenceiq.com/blog/2014/10/15/hadoop-metrics/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
         
       </div>
@@ -944,6 +939,10 @@ this process and made it available in the official Docker
       </li>
     
       <li class="list-group-item">
+        <a href="/blog/2014/11/03/securing-cloudbreak-with-oauth2-part-2/">Securing Cloudbreak with OAuth2 - part 2</a>
+      </li>
+    
+      <li class="list-group-item">
         <a href="/blog/2014/11/02/spark-on-tez/">Spark on Tez execution context - running in Docker</a>
       </li>
     
@@ -965,10 +964,6 @@ this process and made it available in the official Docker
     
       <li class="list-group-item">
         <a href="/blog/2014/10/17/boot2docker-tls-workaround/">Boot2docker TLS workaround</a>
-      </li>
-    
-      <li class="list-group-item">
-        <a href="/blog/2014/10/16/using-uaa-as-an-identity-server/">Securing Cloudbreak with OAuth2</a>
       </li>
     
       <li class="list-group-item">
