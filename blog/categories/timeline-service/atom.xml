@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Timeline service | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/timeline-service/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-04T14:45:22+00:00</updated>
+  <updated>2014-11-04T14:51:33+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -85,10 +85,9 @@ blueprint add &mdash;url <a href="https://raw.githubusercontent.com/sequenceiq/s
 
 <p>A few screenshots can be found <a href="https://github.com/sequenceiq/sequenceiq-samples/tree/master/timeline-server/ts-screenshots">here</a></p>
 
-<p>Should you have a vizualized view of the application generated based on the information in the Timeline Service, you can use the
-<em>swimlanes</em> tez tool. This generates images similar to <a href="https://github.com/sequenceiq/sequenceiq-samples/blob/master/timeline-server/ts-screenshots/topk_topk_stark_application_1415093602516_0016.svg">this</a></p>
+<p>If you&rsquo;d like to have a vizualized view of the application   you can use the <em>swimlanes</em> tez tool. Based on the information provided by the Timeline Server this generates images similar to <a href="https://github.com/sequenceiq/sequenceiq-samples/blob/master/timeline-server/ts-screenshots/topk_topk_stark_application_1415093602516_0016.svg">this</a></p>
 
-<p>As you may notice we&rsquo;ve been only talking about the generic application information; the Timeline Server also stores framework related historical information, exploring that part of the Timeline Service is coming soon&hellip;</p>
+<p>As you may notice we&rsquo;ve been only talking about the generic application information; the Timeline Server also stores framework related historical information, exploring that part of the Timeline Server is coming soon&hellip;</p>
 
 <p>For further details follow up with us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
 ]]></content>
