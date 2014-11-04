@@ -5,7 +5,7 @@ date: 2014-11-03 18:00:08 +0100
 comments: true
 categories: OAuth2 UAA
 author: Marton Sereg
-published: true
+published: false
 ---
 
 A few weeks ago we've published a [blog post](http://blog.sequenceiq.com/blog/2014/10/16/using-uaa-as-an-identity-server/) about securing our [Cloudbreak](https://cloudbreak.sequenceiq.com/) infrastructure with OAuth2.
