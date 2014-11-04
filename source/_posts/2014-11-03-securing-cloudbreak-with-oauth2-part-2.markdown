@@ -5,7 +5,7 @@ date: 2014-11-03 18:00:08 +0100
 comments: true
 categories: OAuth2 UAA
 author: Marton Sereg
-published: false
+published: true
 ---
 
 A few weeks ago we've published a [blog post](http://blog.sequenceiq.com/blog/2014/10/16/using-uaa-as-an-identity-server/) about securing our [Cloudbreak](https://cloudbreak.sequenceiq.com/) infrastructure with OAuth2.
@@ -41,13 +41,9 @@ curl -iX POST -H "accept: application/x-www-form-urlencoded"  \
 *notes:*
 
 - the `response_type=token` part tells the identity server to return a token *implicitly*
-
 - UAA must be running on `localhost:8080`
-
 - there is a registered client in UAA with `implicit` as *authorized_grant_type*, `cli` as *client ID*, and `http://cli` as *redirect URI* (it doesn't need to be a valid URL but has to match the one in the request)
-
 - the `cli` client is configured in UAA as *autoapproved*
-
 - a user with `admin` as username and `periscope` as password is registered in UAA
 
 If you're having a browser-based application and would like to use the implicit flow it is very similar.
@@ -81,11 +77,8 @@ A somewhat simplified version of the code we're using [in Uluwatu](https://githu
 *notes:*
 
 - the `response_type=code` part tells the identity server to return an authorization code instead of an access token
-
 - UAA must be available on the address specified in the uaaAddress variable
-
 - there is a registered client in UAA with `authorization_code` as *authorized_grant_type*, and its *client ID* and *redirect URI* parameters must be specified in the `clientId` and `redirectUri` variables
-
 - we're using the [Express](http://expressjs.com) web framework for node.js.
 
 The second part is about exchanging the authorization code for an access token. To try it out you'll need a web server that will handle the redirect URI. In our case it is done by the [Uluwatu backend](https://github.com/sequenceiq/uluwatu/blob/master/server.js#L100) on the `/authorize` endpoint.
@@ -145,9 +138,7 @@ needle.post(uaaAddress + '/oauth/token', 'grant_type=client_credentials', option
 The [Bearer Token Usage part](http://self-issued.info/docs/draft-ietf-oauth-v2-bearer.html) of the OAuth 2.0 specification talks about how to include the access token in a request. According to the specification there are several ways to send the token:
 
 - in the Authorization request header field
-
 - in a form-encoded body parameter
-
 - in a URI query parameter
 
 Only the first of these (the Authorization header) *must* be supported by resource servers, the others are only optional.
