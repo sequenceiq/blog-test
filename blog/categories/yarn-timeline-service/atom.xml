@@ -4,7 +4,7 @@
   <title><![CDATA[Category: YARN Timeline service | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/yarn-timeline-service/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-04T07:58:01+00:00</updated>
+  <updated>2014-11-04T07:58:46+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -90,8 +90,9 @@ The initial Ambari installation (specifically the YARN service) will fail due to
 
 <h1>Check the history server information</h1>
 
-<p>With the cluster and the Timeline Server set up every MR2 and TEZ application starts reporting to the <code>timeline</code> service. Information is made available at <code>http://&lt;ambari-host:8188&gt;</code>. You can also inspect application related information using the command line, as described in the aforementioned documentation.
-For further details follow up with us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
+<p>With the cluster and the Timeline Server set up every MR2 and TEZ application starts reporting to the <code>timeline</code> service. Information is made available at <code>http://&lt;ambari-host:8188&gt;</code>. You can also inspect application related information using the command line, as described in the aforementioned documentation.</p>
+
+<p>For further details follow up with us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
 ]]></content>
   </entry>
   
