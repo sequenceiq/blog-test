@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Securing Cloudbreak with OAuth2 - part 2"
-date: 2014-11-03 18:00:08 +0100
+date: 2014-11-06 18:00:08 +0100
 comments: true
 categories: OAuth2 UAA
 author: Marton Sereg
