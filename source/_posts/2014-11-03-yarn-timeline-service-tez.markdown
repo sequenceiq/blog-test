@@ -71,9 +71,9 @@ After services start, you can reach the Timeline Server on the port 8188 of the 
 
 With the cluster and the Timeline Server set up every MR2 and TEZ application starts reporting to the `timeline` service. Information is made available at `http://<ambari-host:8188>`. You can also inspect application related information using the command line, as described in the aforementioned documentation.
 
-As we mentioned at the beginning of this post, we choose TEZ to play with while studying the Timeline Server. After running the _orderedwordcount_ example (available in the TEZ distribution), on the Timeline Server web UI we got fine grained generic application information about the application, application attempt, containers used by the application.
+As we mentioned at the beginning of this post, we choose TEZ to show you how to use the Timeline Server. After running the Tez application in the Timeline Server web UI you will have fine grained generic information about the application, application attempt, containers used by the application, etc. 
 
-A few screenshots can be found [here](https://github.com/sequenceiq/sequenceiq-samples/tree/master/timeline-server/ts-screenshots)
+You can find a few screenshots of the web ui  [here](https://github.com/sequenceiq/sequenceiq-samples/tree/master/timeline-server/ts-screenshots).
 
 If you'd like to have a vizualized view of the application   you can use the _swimlanes_ tez tool. Based on the information provided by the Timeline Server this generates images similar to [this](https://github.com/sequenceiq/sequenceiq-samples/blob/master/timeline-server/ts-screenshots/topk_topk_stark_application_1415093602516_0016.svg)
 
