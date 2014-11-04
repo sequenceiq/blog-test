@@ -45,7 +45,7 @@ We used [this](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/m
 
 Please note, that the blueprint here only contains those configuration entries that differ from the defaults; the assumption is that the other defaults are similar to those described in the documentation. It's always possible to override any of the defaults by adding them to the blueprint, or using the Ambari UI.
 
-# Create the YARN cluster with the ambari-shell
+# Create the YARN cluster with ambari-shell
 
 Now it's time to provision our cluster with YARN, TEZ and the Timeline Server enabled. For this let's start the `ambari-shell`, which, surprisingly runs in a docker container as well.
 
@@ -67,7 +67,20 @@ cluster create
 
 After services start, you can reach the Timeline Server on the port 8188 of the ambari host.
 
-# Check the history server information
+
+There is some more configuration needed for the Timeline Server to work properly, we have to set the following entries to the address where the timeline service is running. (you can get the proper value from Ambari -  the Timeline Server runs where the resource manager)
+
+```
+yarn.timeline-service.webapp.address
+
+yarn.timeline-service.webapp.https.address
+
+yarn.timeline-service.address
+```
+
+This can be done from the Ambari web UI; a restart of the YARN services is needed after the values are saved.
+
+# Check the information in the Timeline Server
 
 With the cluster and the Timeline Server set up every MR2 and TEZ application starts reporting to the `timeline` service. Information is made available at `http://<ambari-host:8188>`. You can also inspect application related information using the command line, as described in the aforementioned documentation.
 
@@ -77,6 +90,9 @@ You can find a few screenshots of the web ui  [here](https://github.com/sequence
 
 If you'd like to have a vizualized view of the application   you can use the _swimlanes_ tez tool. Based on the information provided by the Timeline Server this generates images similar to [this](https://github.com/sequenceiq/sequenceiq-samples/blob/master/timeline-server/ts-screenshots/topk_topk_stark_application_1415093602516_0016.svg)
 
-As you may notice we've been only talking about the generic application information; the Timeline Server also stores framework related historical information, exploring that part of the Timeline Server is coming soon...  
+
+If you are curious what framework related information have been logged, you can access the Timeline Server RESTful interface.
+You can get very deep details similar to the ones in [these](https://github.com/sequenceiq/sequenceiq-samples/tree/master/timeline-server/ts-screenshots) screenshots
+
 
 For further details follow up with us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook.com/sequenceiq).
