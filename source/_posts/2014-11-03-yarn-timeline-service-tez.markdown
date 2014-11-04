@@ -39,7 +39,7 @@ After a couple of seconds you'll have a running 3-node Ambari cluster.
 
 To provision and configure Hadoop services we use Ambari and Ambari blueprints. Check this [blogpost](http://blog.sequenceiq.com/blog/2014/06/19/multinode-hadoop-cluster-on-docker/) about how to setup an multi-node Hadoop cluster.
 
-To enable the Timeline Server in the cluster, we've created a blueprint which contains a few overrides of the related configuration properties. (A detailed description of the configuration settings for the Timeline Server are described [here](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/TimelineServer.html) and [here](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.1.5/bk_system-admin-guide/content/ch_application-timeline-server.html) )
+To enable the Timeline Server in the cluster, we've created a blueprint which contains a few overrides of the related configuration properties. A detailed description of the configuration settings for the Timeline Server are described [here](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/TimelineServer.html) and [here](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.1.5/bk_system-admin-guide/content/ch_application-timeline-server.html).
 
 We used [this](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/timeline-server/blueprints/multi-node-hdfs-yarn-tez-timeline-service.json) blueprint for the experiment.
 
@@ -56,25 +56,24 @@ amb-shell
 Following the instructions below you can provision the Timeline Server enabled cluster:
 
 ```
+#add the blueprint
 blueprint add --url https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/timeline-server/blueprints/multi-node-hdfs-yarn-tez-timeline-service.json
-
+#build the cluster
 cluster build --blueprint multi-node-hdfs-yarn-tez-timeline-service
-
+#auto assign nodes
 cluster autoAssign
-
+#create the cluster
 cluster create
 ```
 
 After services start, you can reach the Timeline Server on the port 8188 of the ambari host.
 
 
-There is some more configuration needed for the Timeline Server to work properly, we have to set the following entries to the address where the timeline service is running. (you can get the proper value from Ambari -  the Timeline Server runs where the resource manager)
+There is some more configuration needed for the Timeline Server to work properly, we have to set the following entries to the address where the timeline service is running. You can get the proper value from Ambari -  the Timeline Server runs where the resource manager is.
 
 ```
 yarn.timeline-service.webapp.address
-
 yarn.timeline-service.webapp.https.address
-
 yarn.timeline-service.address
 ```
 
@@ -89,7 +88,6 @@ As we mentioned at the beginning of this post, we choose TEZ to show you how to 
 You can find a few screenshots of the web ui  [here](https://github.com/sequenceiq/sequenceiq-samples/tree/master/timeline-server/ts-screenshots/gen-app-logs).
 
 If you'd like to have a vizualized view of the application   you can use the _swimlanes_ tez tool. Based on the information provided by the Timeline Server this generates images similar to [this](https://github.com/sequenceiq/sequenceiq-samples/blob/master/timeline-server/ts-screenshots/swimlanes/topk_topk_stark_application_1415093602516_0016.svg)
-
 
 If you are curious what framework related information have been logged, you can access the Timeline Server RESTful interface.
 You can get very deep details similar to the ones in [these](https://github.com/sequenceiq/sequenceiq-samples/tree/master/timeline-server/ts-screenshots/framework-logs) screenshots
