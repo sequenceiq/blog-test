@@ -208,30 +208,13 @@
 </span><span class='line'>cluster create</span></code></pre></td></tr></table></div></figure>
 
 
-<p><em>Warning!</em>
-The initial Ambari installation (specifically the YARN service) will fail due to an HDFS permission denied error. The reason for this is that Ambari starts the Timeline Server as the <em>yarn</em> user that doesn&rsquo;t have write rights to the hdfs root. A workaround for this problem is to add the <code>yarn</code> user to the <code>hdfs</code> group:</p>
-
-<p>Enter to the container running ambari:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>docker exec -it &lt;conatainer_id&gt; /bin/bash</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Run the following command from the command line:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>usermod -G hdfs yarn</span></code></pre></td></tr></table></div></figure>
-
-
-<p>From the Ambari UI (<a href="http://localhost:8080">http://localhost:8080</a>) start yarn.</p>
-
 <p>After services start, you can reach the Timeline Server on the port 8188 of the ambari host.</p>
-
-<p>Please note, that this is a workaround only; we&rsquo;re still looking for the right solution.</p>
 
 <h1>Check the history server information</h1>
 
 <p>With the cluster and the Timeline Server set up every MR2 and TEZ application starts reporting to the <code>timeline</code> service. Information is made available at <code>http://&lt;ambari-host:8188&gt;</code>. You can also inspect application related information using the command line, as described in the aforementioned documentation.</p>
+
+<p>After</p>
 
 <p>For further details follow up with us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
 
