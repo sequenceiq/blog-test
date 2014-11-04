@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Timeline service | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/timeline-service/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-04T14:34:38+00:00</updated>
+  <updated>2014-11-04T14:45:22+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -81,12 +81,12 @@ blueprint add &mdash;url <a href="https://raw.githubusercontent.com/sequenceiq/s
 
 <p>With the cluster and the Timeline Server set up every MR2 and TEZ application starts reporting to the <code>timeline</code> service. Information is made available at <code>http://&lt;ambari-host:8188&gt;</code>. You can also inspect application related information using the command line, as described in the aforementioned documentation.</p>
 
-<p>As we mentioned at the beginning of this post, we choose TEZ to play with while studying the Timeline Server. After running the orderedwordcount example, on the Timeline Server web UI we got fine grained generic application information about the application, application attempt, containers used by the application.</p>
+<p>As we mentioned at the beginning of this post, we choose TEZ to play with while studying the Timeline Server. After running the <em>orderedwordcount</em> example (available in the TEZ distribution), on the Timeline Server web UI we got fine grained generic application information about the application, application attempt, containers used by the application.</p>
 
 <p>A few screenshots can be found <a href="https://github.com/sequenceiq/sequenceiq-samples/tree/master/timeline-server/ts-screenshots">here</a></p>
 
 <p>Should you have a vizualized view of the application generated based on the information in the Timeline Service, you can use the
-<em>swimlanes</em> tez tool. This generates images similar to <a href="https://github.com/sequenceiq/sequenceiq-samples/blob/master/timeline-server/ts-screenshots/topk_datagen_application_1415093602516_0002.svg">this</a></p>
+<em>swimlanes</em> tez tool. This generates images similar to <a href="https://github.com/sequenceiq/sequenceiq-samples/blob/master/timeline-server/ts-screenshots/topk_topk_stark_application_1415093602516_0016.svg">this</a></p>
 
 <p>As you may notice we&rsquo;ve been only talking about the generic application information; the Timeline Server also stores framework related historical information, exploring that part of the Timeline Service is coming soon&hellip;</p>
 
