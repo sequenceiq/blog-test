@@ -4,7 +4,7 @@
   <title><![CDATA[Category: UAA | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/uaa/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-04T21:22:03+00:00</updated>
+  <updated>2014-11-06T09:56:57+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -150,26 +150,24 @@ res.redirect('/');
 
 <p>This one is a bit different from the previous ones because this flow is used when a client would like to access some resources by itself, not on behalf of a user.
 A common use case with UAA is when we&rsquo;d like to access the <a href="http://www.simplecloud.info/">SCIM</a> endpoints for describing or registering users.
-<a href="https://github.com/sequenceiq/sultans">Sultans</a> is the user management service for the SequenceIQ platform. The following example is from the <a href="https://github.com/sequenceiq/sultans/blob/master/main.js#L216">source</a> of this application.</p>
+<a href="https://github.com/sequenceiq/sultans">Sultans</a> is the user management service for the SequenceIQ platform, it uses the client credentials flow in its <a href="https://github.com/sequenceiq/sultans/blob/master/main.js#L216">source</a> to obtain a token that&rsquo;s used for example to register new users later.
+Just to keep it simple that&rsquo;s how it looks like in <code>curl</code>:</p>
 
-<p>```
-var options = {
-  headers: { &lsquo;Authorization&rsquo;: &lsquo;Basic &rsquo; + new Buffer(clientId + &lsquo;:&rsquo;+ clientSecret).toString(&lsquo;base64&rsquo;) }
-}
-needle.post(uaaAddress + &lsquo;/oauth/token&rsquo;, &lsquo;grant_type=client_credentials&rsquo;, options,
-  function(err, tokenResp) {</p>
+<p><code>
+curl -u &lt;CLIENT_ID&gt;:&lt;CLIENT_SECRET&gt; -d 'grant_type=client_credentials' http://localhost:8080/oauth/token
+</code></p>
 
-<pre><code>var token = tokenResp.body.access_token;
-</code></pre>
-
-<p>  });
-```</p>
+<p>And that&rsquo;s how a correct sample response looks like:
+<code>
+{"access_token":"&lt;ACCESS_TOKEN&gt;","token_type":"bearer","expires_in":43199,"scope":"password.write scim.write scim.read uaa.resource","jti":"&lt;JTI&gt;"}
+</code></p>
 
 <p><em>notes:</em></p>
 
 <ul>
 <li><p>the scopes of a client is described in the authorities property in the UAA configuration.</p></li>
-<li><p><a href="https://github.com/tomas/needle">Needle</a> is used to send the HTTP request</p></li>
+<li><p>an UAA server must be available on localhost:8080</p></li>
+<li><p>a client must be registered in UAA&rsquo;s database with <code>client_credentials</code> as <em>grant_type</em></p></li>
 </ul>
 
 

@@ -4,7 +4,7 @@
   <title><![CDATA[SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-04T21:22:03+00:00</updated>
+  <updated>2014-11-06T09:56:57+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -164,29 +164,25 @@ We&rsquo;re using the authorization code flow with Uluwatu that&rsquo;s written 
 
 <p>This one is a bit different from the previous ones because this flow is used when a client would like to access some resources by itself, not on behalf of a user.
 A common use case with UAA is when we&rsquo;d like to access the <a href="http://www.simplecloud.info/">SCIM</a> endpoints for describing or registering users.
-<a href="https://github.com/sequenceiq/sultans">Sultans</a> is the user management service for the SequenceIQ platform. The following example is from the <a href="https://github.com/sequenceiq/sultans/blob/master/main.js#L216">source</a> of this application.</p>
+<a href="https://github.com/sequenceiq/sultans">Sultans</a> is the user management service for the SequenceIQ platform, it uses the client credentials flow in its <a href="https://github.com/sequenceiq/sultans/blob/master/main.js#L216">source</a> to obtain a token that&rsquo;s used for example to register new users later.
+Just to keep it simple that&rsquo;s how it looks like in <code>curl</code>:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>var options = {
-</span><span class='line'>  headers: { 'Authorization': 'Basic ' + new Buffer(clientId + ':'+ clientSecret).toString('base64') }
-</span><span class='line'>}
-</span><span class='line'>needle.post(uaaAddress + '/oauth/token', 'grant_type=client_credentials', options,
-</span><span class='line'>  function(err, tokenResp) {
-</span><span class='line'>    var token = tokenResp.body.access_token;
-</span><span class='line'>  });</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -u &lt;CLIENT_ID&gt;:&lt;CLIENT_SECRET&gt; -d 'grant_type=client_credentials' http://localhost:8080/oauth/token</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And that&rsquo;s how a correct sample response looks like:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{"access_token":"&lt;ACCESS_TOKEN&gt;","token_type":"bearer","expires_in":43199,"scope":"password.write scim.write scim.read uaa.resource","jti":"&lt;JTI&gt;"}</span></code></pre></td></tr></table></div></figure>
 
 
 <p><em>notes:</em></p>
 
 <ul>
 <li><p>the scopes of a client is described in the authorities property in the UAA configuration.</p></li>
-<li><p><a href="https://github.com/tomas/needle">Needle</a> is used to send the HTTP request</p></li>
+<li><p>an UAA server must be available on localhost:8080</p></li>
+<li><p>a client must be registered in UAA&rsquo;s database with <code>client_credentials</code> as <em>grant_type</em></p></li>
 </ul>
 
 
@@ -1828,7 +1824,7 @@ In the benchmark, the jobs were submitted to the <code>default</code> queue and 
 <p>SequenceIQ is an innovative big data startup with the mission statement to simplify and automate provisioning of on-demand Hadoop clusters running on different environments. Leaders in “containerizing” Hadoop, SequenceIQ is the first company who provisions and runs the full Hadoop stack and components on Docker containers. The company has further plans to create the industry’s first cloud agnostic, autoscaling and use case driven Platform as a Service API, and break the common significant barriers of entry that exist with most big data projects through a series of As-a-Service API offerings.
 For more information follow up with us on @SequenceIQ and <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>.</p>
 
-<p><a href="&#109;&#97;&#x69;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#x6f;&#64;&#x73;&#101;&#113;&#x75;&#101;&#x6e;&#99;&#101;&#105;&#x71;&#x2e;&#x63;&#x6f;&#109;">&#105;&#110;&#102;&#x6f;&#64;&#115;&#x65;&#x71;&#x75;&#x65;&#110;&#x63;&#x65;&#105;&#113;&#46;&#99;&#x6f;&#109;</a></p>
+<p><a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#x69;&#x6e;&#102;&#111;&#x40;&#x73;&#101;&#113;&#117;&#101;&#110;&#99;&#101;&#105;&#113;&#46;&#x63;&#x6f;&#x6d;">&#105;&#x6e;&#x66;&#x6f;&#64;&#x73;&#x65;&#x71;&#117;&#x65;&#110;&#x63;&#101;&#x69;&#x71;&#46;&#99;&#111;&#109;</a></p>
 ]]></content>
   </entry>
   
