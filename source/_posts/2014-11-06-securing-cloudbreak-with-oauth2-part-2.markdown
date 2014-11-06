@@ -114,23 +114,25 @@ app.get('/authorize', function(req, res, next){
 
 This one is a bit different from the previous ones because this flow is used when a client would like to access some resources by itself, not on behalf of a user.
 A common use case with UAA is when we'd like to access the [SCIM](http://www.simplecloud.info/) endpoints for describing or registering users.
-[Sultans](https://github.com/sequenceiq/sultans) is the user management service for the SequenceIQ platform. The following example is from the [source](https://github.com/sequenceiq/sultans/blob/master/main.js#L216) of this application.
+[Sultans](https://github.com/sequenceiq/sultans) is the user management service for the SequenceIQ platform, it uses the client credentials flow in its [source](https://github.com/sequenceiq/sultans/blob/master/main.js#L216) to obtain a token that's used for example to register new users later.
+Just to keep it simple that's how it looks like in `curl`:
 
 ```
-var options = {
-  headers: { 'Authorization': 'Basic ' + new Buffer(clientId + ':'+ clientSecret).toString('base64') }
-}
-needle.post(uaaAddress + '/oauth/token', 'grant_type=client_credentials', options,
-  function(err, tokenResp) {
-    var token = tokenResp.body.access_token;
-  });
+curl -u <CLIENT_ID>:<CLIENT_SECRET> -d 'grant_type=client_credentials' http://localhost:8080/oauth/token
+```
+
+And that's how a correct sample response looks like:
+```
+{"access_token":"<ACCESS_TOKEN>","token_type":"bearer","expires_in":43199,"scope":"password.write scim.write scim.read uaa.resource","jti":"<JTI>"}
 ```
 
 *notes:*
 
   - the scopes of a client is described in the authorities property in the UAA configuration.
 
-  - [Needle](https://github.com/tomas/needle) is used to send the HTTP request
+  - an UAA server must be available on localhost:8080
+
+  - a client must be registered in UAA's database with `client_credentials` as *grant_type*
 
 
 ## Using the access token to make requests to a resource server
