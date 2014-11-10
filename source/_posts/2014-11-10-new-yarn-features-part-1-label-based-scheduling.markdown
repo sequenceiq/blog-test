@@ -1,14 +1,16 @@
 ---
 layout: post
 title: "New YARN features: Label based scheduling"
-date: 2014-11-04 13:14:17 +0100
+date: 2014-11-10 16:14:17 +0100
 comments: true
 categories: YARN
 author: Krisztian Horvath
 published: false
 ---
 
-The release of Hadoop 2.6.0 is upon us thus it's time to get to know the upcoming features better. Recently we explained how the
+The release of Hadoop 2.6.0 is upon us thus it's time to highlight a few upcoming features, especially those which we are building/planning to use in our Hadoop as a Service API - [Cloudbreak](http://sequenceiq.com/cloudbreak/) and our SLA policy based autoscaling API - [Periscope](http://sequenceiq.com/periscope/). 
+
+Recently we explained how the
 [CapacityScheduler](http://blog.sequenceiq.com/blog/2014/07/22/schedulers-part-1/) and the [FairScheduler](http://blog.sequenceiq.com/blog/2014/09/09/yarn-schedulers-demystified-part-2-fair/)
 works and the upcoming release is about to add a few really interesting functionality to them which you should be aware as they might
 change the way we think about resource scheduling. The first one which we are going to discuss is the `label based scheduling` although it's
