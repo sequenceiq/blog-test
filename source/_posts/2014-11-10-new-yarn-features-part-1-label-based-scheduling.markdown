@@ -5,7 +5,7 @@ date: 2014-11-10 16:14:17 +0100
 comments: true
 categories: YARN
 author: Krisztian Horvath
-published: false
+published: true
 ---
 
 The release of Hadoop 2.6.0 is upon us thus it's time to highlight a few upcoming features, especially those which we are building/planning to use in our Hadoop as a Service API - [Cloudbreak](http://sequenceiq.com/cloudbreak/) and our SLA policy based autoscaling API - [Periscope](http://sequenceiq.com/periscope/). 
