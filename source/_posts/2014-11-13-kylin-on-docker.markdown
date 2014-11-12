@@ -17,9 +17,11 @@ While there is a pretty good [documentation](http://www.kylin.io/document.html) 
 
 ##Architecture
 
-For an overview and the used components please check this diagram.
+For an overview and the used components and architecture please check this diagram.
 
 ![](https://raw.githubusercontent.com/sequenceiq/docker-kylin/master/img/kylin_diagram.png)
+
+For your reference you can also check the Ambari blueprint to learn the components used by Kylin. Both [singlenode](https://raw.githubusercontent.com/sequenceiq/docker-kylin/master/kylin-singlenode.json) and [multinode](https://raw.githubusercontent.com/sequenceiq/docker-kylin/master/kylin-multinode.json) blueprint templates are available.
 
 ##Kylin cluster running on Docker
 
