@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Extreme OLAP Engine running on Docker"
+title: "Extreme OLAP Engine running in Docker"
 date: 2014-11-13 16:14:17 +0100
 comments: true
 categories: OLAP
 author: Krisztian Horvath
-published: false
+published: true
 ---
 
 _[Kylin](https://github.com/KylinOLAP/Kylin) is an open source Distributed Analytics Engine from eBay Inc. that provides SQL interface and multi-dimensional analysis (OLAP) on Hadoop supporting extremely large datasets._
