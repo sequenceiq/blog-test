@@ -4,7 +4,7 @@
   <title><![CDATA[Category: OLAP | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/olap/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-13T12:19:50+00:00</updated>
+  <updated>2014-11-13T12:27:55+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -23,6 +23,9 @@
 <p>At <a href="http://sequenceiq.com/">SequenceIQ</a> we are always interested in the latest emerging technologies, and try to offer those to our customers and the open source community. A few weeks ago <a href="http://www.ebayinc.com/">eBay Inc.</a> released <a href="https://github.com/KylinOLAP/Kylin">Kylin</a> as an open source product and made available for the community under an Apache 2 license. Since we share the approach towards <code>open source</code> software we have partnered with them to <code>Dockerize</code> Kylin &ndash; and made it extremely easy for people to deploy a Kylin locally or in the cloud, using our Hadoop as a Service API &ndash; <a href="http://sequenceiq.com/cloudbreak/">Cloudbreak</a>.</p>
 
 <p>While there is a pretty good <a href="http://www.kylin.io/document.html">documentation</a> available for Kylin we&rsquo;d like to give you a really short introduction and overview.</p>
+
+<!--more-->
+
 
 <h2>Overview</h2>
 

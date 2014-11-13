@@ -155,42 +155,9 @@
 
 <p>While there is a pretty good <a href="http://www.kylin.io/document.html">documentation</a> available for Kylin we&rsquo;d like to give you a really short introduction and overview.</p>
 
-<h2>Overview</h2>
-
-<p>For an overview and the used components and architecture please check this diagram.</p>
-
-<p><img src="https://raw.githubusercontent.com/sequenceiq/docker-kylin/master/img/kylin_diagram.png" alt="" /></p>
-
-<p>For your reference you can also check the Ambari blueprint to learn the components used by Kylin. Both <a href="https://raw.githubusercontent.com/sequenceiq/docker-kylin/master/kylin-singlenode.json">singlenode</a> and <a href="https://raw.githubusercontent.com/sequenceiq/docker-kylin/master/kylin-multinode.json">multinode</a> blueprint templates are available.</p>
-
-<h2>Kylin cluster running on Docker</h2>
-
-<p>We have put together and fully <code>automated</code> the steps of creating a Kylin cluster. The only thing you will need to do is just pull the container from the <code>official</code> Docker repository by issuing the following command.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>docker pull sequenceiq/kylin</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Once the container is pulled you are ready to start playing with Kylin. Get the following helper functions from our Kylin GitHub <a href="https://github.com/sequenceiq/docker-kylin/blob/master/ambari-functions">repository</a> &ndash; <em>(make sure you source it).</em></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'> kylin-deploy-cluster 3</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You can specify the number of nodes you&rsquo;d like to have in your cluster (3 in this case). Once we installed all the necessary Hadoop
-services we&rsquo;ll build Kylin on top of it and then you can reach the UI on:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>http://&lt;container_ip&gt;:9080</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The default credentials to login are: <code>admin:KADMIN</code>. The cluster is pre-populated with sample data and is ready to build cubes as shown <a href="https://github.com/KylinOLAP/Kylin/wiki/Kylin-Cube-Creation-Tutorial">here</a>.</p>
-
-<p>Keep up with the latest news with us on our <a href="http://blog.sequenceiq.com/">blog</a> or follow us
-on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook">Facebook</a>.</p>
 
       
-      
+       <a href="/blog/2014/11/13/kylin-on-docker/">Read on &rarr;</a> 
     </div>
   </div>
 
