@@ -15,7 +15,7 @@ At [SequenceIQ](http://sequenceiq.com/) we are always interested in the latest e
 
 While there is a pretty good [documentation](http://www.kylin.io/document.html) available for Kylin we'd like to give you a really short introduction and overview.
 
-##Architecture
+##Overview
 
 For an overview and the used components and architecture please check this diagram.
 
@@ -25,7 +25,7 @@ For your reference you can also check the Ambari blueprint to learn the componen
 
 ##Kylin cluster running on Docker
 
-We have put together and fully `automated` the steps of creating a Kylin cluster. The only thing you will need to do is to pull the container from the `official` Docker repository by ussuing the following command.
+We have put together and fully `automated` the steps of creating a Kylin cluster. The only thing you will need to do is just pull the container from the `official` Docker repository by issuing the following command.
 
 ```
 docker pull sequenceiq/kylin
