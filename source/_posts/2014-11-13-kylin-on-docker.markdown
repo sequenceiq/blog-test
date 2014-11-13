@@ -15,6 +15,8 @@ At [SequenceIQ](http://sequenceiq.com/) we are always interested in the latest e
 
 While there is a pretty good [documentation](http://www.kylin.io/document.html) available for Kylin we'd like to give you a really short introduction and overview.
 
+<!--more-->
+
 ##Overview
 
 For an overview and the used components and architecture please check this diagram.
