@@ -36,5 +36,64 @@ The proposed sample architecture looks like on this diagram before - we have a *
 
 Setting up a an architecture as such can be pretty complicated and involves a few steps - where many things could go wrong.
 
-At [SequenceIQ](http://sequenceiq.com) we try to automate all these steps and build into our product stack - and we did exactly the same with [Cloudbreak](http://sequenceiq.com/cloudbreak/). While a default Hive metastore cluster can be created in a fully automated manner using Cloudbreak `blueprints` in case of different cloud providers (remember we support AWS, Google Cloud and Azure, Open Stack in the pipeline) there are settings which you will need to apply on each hosts, reconfigure services, etc - and on a large cluster this is pretty awkward.
-For this in the next release of Cloudbreak we introduce a new concept called **recipes**. A recipe will incorporate full architectural representations of Hadoop stacks - incorporating all the necessary settings, service configurations - and allows the end user to bring up clusters as the one(s) discussed in this blog - with a push of a button. More over, the recipes being be part of the **subscription based support** we offer once Cloudbreak is in GA, will assure customers that the solution is fully tested on the preferred cloud provider and supported by us and our Hadoop [partner](http://hortonworks.com/partner/sequenceiq/).
+At [SequenceIQ](http://sequenceiq.com) we try to automate all these steps and build into our product stack - and we did exactly the same with [Cloudbreak](http://sequenceiq.com/cloudbreak/). While a default Hive metastore cluster can be created in a fully automated manner using Cloudbreak `blueprints` in case of different cloud providers (remember we support AWS, Google Cloud and Azure, Open Stack in the pipeline) there are settings which you will need to apply on each nodes, reconfigure services, etc - and on a large cluster this is pretty awkward.
+Because of these in the next release of Cloudbreak we introduce a new concept called **recipes**. A recipe will embed a full architectural representations of the Hadoop stack - incorporating all the necessary settings, service configurations - and allows the end user to bring up clusters as the one(s) discussed in this blog - with a push of a button, API call or CLI interface.
+
+##Permanent cluster - on AWS and Google Cloud
+
+Both Amazon EC2 and Google Cloud allows you to set up a permanent cluster and use their `object store` for the Hive warehouse. You can set up these clusters with [Cloudbreak](http://cloudbreak.sequenceiq.com) - overriding the default comfigurations in the blueprints.
+
+####Using AWS S3 as the Hive warehouse
+
+This setup will use the S3 Block FileSystem - as a quick note you need to remember that this is not interoperable with other S3 tools.
+
+```
+{
+      "core-site": {
+        "fs.s3.awsAccessKeyId": "YOUR ACCESS KEY",
+        "fs.s3.awsSecretAccessKey": "YOUR SECRET KEY"
+      }
+    },
+    {
+      "hive-site": {
+        "hive.metastore.warehouse.dir": "s3://siq-hadoop/apps/hive/warehouse"
+      }
+    }
+```
+
+You will need to create an S3 `bucket` - siq-hadoop in our example - and copy the data files there. Once the data is in there, it's business as usual. Just create your Hive tables and you are ready to go - use the `s3://siq-hadoop/` namespace.
+
+####Using Google Storage as the Hive warehouse
+
+This setup will use the Google Storage - and the GS to HDFS connector.
+
+```
+{
+      "global": {
+        "fs.gs.impl": "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem",
+        "fs.AbstractFileSystem.gs.impl": "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS",
+        "fs.gs.project.id": "siq-haas",
+        "google.cloud.auth.service.account.enable": true,
+        "google.cloud.auth.service.account.email": "YOUR_ACCOUNT_ID@developer.gserviceaccount.com",
+        "google.cloud.auth.service.account.keyfile": "/mnt/fs1/XXX.p12"
+      }
+```
+
+Note that in case of Google being used as an object store you will need to add your account details and the path towards your P12 file.
+
+##Ephemeral cluster - on AWS and Google Cloud
+
+Ephemeral Hive clusters are using a very simple configuration - the only additional parameter which is needed to be configured is the that the Hive `metastore` will have to point towards the permanent cluster `metastore DB`. _Note: on the permanent cluster you will have to configure the `metastore DB` to allow connections from remote clusters.
+
+The override blueprint parameter in both cases - AWS and Google Cloud - looks the same.
+
+```
+
+```
+
+##Conclusion
+
+As highlighted in this example, building a data lake or data warehouse is pretty simple and can be automated with [Cloudbreak](http://cloudbreak.sequenceiq.com) - also with the new `recipe` feature we are standardizing the provisioning of different Hadoop clusters. One of the coming posts will highlight the new architectural changes - and the components we use for service discovery/registry, failure detection, key/value store for dynamic configuration, feature flagging, coordination, leader election and more.
+
+Make sure you check back soon to our [blog](http://blog.sequenceiq.com/) or follow us
+on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook).
