@@ -8,10 +8,10 @@ author: Marton Sereg
 published: true
 ---
 
-Few weeks ago we had a [post](http://blog.sequenceiq.com/blog/2014/10/28/datalake-cloudbreak/) about building a `data lake` in the cloud using the `object storage` as the primary file system.
+Few weeks ago we had a [post](http://blog.sequenceiq.com/blog/2014/10/28/datalake-cloudbreak/) about building a `data lake` in the cloud using a cloud based `object storage` as the primary file system.
 In this post we'd like to move forward and show you how to create an `always on` persistent datalake with [Cloudbreak](http://sequenceiq.com/cloudbreak/) and create `ephemeral` clusters which can be scaled up and down based on configured SLA policies using [Periscope](http://sequenceiq.com/periscope/).
 
-Just as a quick reminder - both are open source projects under Apache2 license and the documentation and code is available following these links.
+Just as a quick reminder - both are open source projects under Apache2 license and the documentation and code is available following these links below.
 
 | Name                  | Description | Documentation | GitHub
 |-----------------------|----|--------| ----------
