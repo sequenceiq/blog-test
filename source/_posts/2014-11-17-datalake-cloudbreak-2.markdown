@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Building the data lake in the cloud - Part2"
-date: 2014-11-27 15:56:32 +0200
+date: 2014-11-17 15:56:32 +0200
 comments: true
 categories: [Cloudbreak]
 author: Marton Sereg
