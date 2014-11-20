@@ -157,33 +157,9 @@
 
 <p>Just to remember, a container is the resource allocation which is the successful result of the ResourceManager granting a specific ResourceRequest. A Container grants rights to an application to use a specific amount of resources (memory, cpu etc.) on a specific host, and isolates it from other containers. Sounds familiar &ndash; well, among few others this is what exactly Docker does &ndash; with the additional benefit of <code>packaging</code> and <code>shipping</code> applications the easy way.</p>
 
-<p>Though there is still a long way to go in order to make this support the same features as YARN containers does today the future is very promising. All the networking, accessing external data, etc are already well-trodden paths. As an example <a href="https://registry.hub.docker.com/repos/sequenceiq/?&amp;s=downloads">SequenceIQ containers</a> available and open sourced on the official Docker registry all using some of these needed features.</p>
-
-<h2>Wait, but you run Hadoop in Docker already</h2>
-
-<p>OK, got it. YARN containers are Docker containers. But wait, all the Hadoop ecosystem at <a href="http://sequenceiq.com">SequenceIQ</a> is running inside a cluster of Docker containers, right?
-Actually that&rsquo;s true &ndash; we run everything in Docker, and we will use these new feature to package some applications as Docker containers and run them inside YARN containers as Docker containers (err, how many times am I going to write down Docker in one sentence). Basically we will run <strong>Docker in Docker</strong>. How&rsquo;s that possible? Pretty easy and simple, Docker already does support this &ndash; the only requirement is that your Docker version should support the <code>--privileged</code> flag (0.6+).</p>
-
-<p>We have put together a Docker container for you to give it a quick try &ndash; it&rsquo;s available on our <a href="https://github.com/sequenceiq/docker-dind">GitHub page</a>.</p>
-
-<p>Built the container</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>docker build -t sequenceiq/dind .</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Run the container</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>docker run -it --rm --privileged -e LOG=file sequenceiq/dind</span></code></pre></td></tr></table></div></figure>
-
-
-<p>It will start a Docker daemon in the background (unix:///var/run/docker.sock) and provide a bash session where you can play with a vanilla Docker environment. Once you are inside the container you will be able to pull or start any other Docker container &ndash; this is basically will work the same way as the how a YARN Docker container will run inside a Dokcer container.</p>
-
-<p>Once the new <strong>2.6</strong> release will be out we will release it as a Hadoop <a href="https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/">container</a> (as usuall) as well &ndash; to give you an easy way to try this new feature. Also we are putting together some examples in order to start experimenting this new cool feature &ndash; now that you understand how <strong>Docker in Docker</strong> works and you can start containers inside containers (inside containers, &hellip;) check back soon for some more serious stuff. In the meanwhile make sure you follow us through our <a href="http://blog.sequenceiq.com/">blog</a>, <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook">Facebook</a>.</p>
 
       
-      
+       <a href="/blog/2014/11/20/yarn-containers-and-docker/">Read on &rarr;</a> 
     </div>
   </div>
 
