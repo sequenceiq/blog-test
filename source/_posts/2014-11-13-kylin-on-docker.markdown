@@ -44,7 +44,7 @@ services we'll build Kylin on top of it and then you can reach the UI on:
 ```
 http://<container_ip>:9080
 ```
-The default credentials to login are: `ADMIN/KYLIN`. The cluster is pre-populated with sample data and is ready to build cubes as shown [here](https://github.com/KylinOLAP/Kylin/wiki/Kylin-Cube-Creation-Tutorial).
+The default credentials to login are: `admin/KYLIN`. The cluster is pre-populated with sample data and is ready to build cubes as shown [here](https://github.com/KylinOLAP/Kylin/wiki/Kylin-Cube-Creation-Tutorial).
 
 Keep up with the latest news with us on our [blog](http://blog.sequenceiq.com/) or follow us
 on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook).
