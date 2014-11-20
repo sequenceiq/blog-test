@@ -16,6 +16,8 @@ The new Hadoop 2.6 [release](https://issues.apache.org/jira/secure/ReleaseNote.j
 
 Just to remember, a container is the resource allocation which is the successful result of the ResourceManager granting a specific ResourceRequest. A Container grants rights to an application to use a specific amount of resources (memory, cpu etc.) on a specific host, and isolates it from other containers. Sounds familiar - well, among few others this is what exactly Docker does - with the additional benefit of `packaging` and `shipping` applications the easy way.
 
+<!--more-->
+
 Though there is still a long way to go in order to make this support the same features as YARN containers does today the future is very promising. All the networking, accessing external data, etc are already well-trodden paths. As an example [SequenceIQ containers](https://registry.hub.docker.com/repos/sequenceiq/?&s=downloads) available and open sourced on the official Docker registry all using some of these needed features.
 
 ##Wait, but you run Hadoop in Docker already
