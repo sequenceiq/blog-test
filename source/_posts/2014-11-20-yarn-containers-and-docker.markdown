@@ -5,7 +5,7 @@ date: 2014-11-20 15:56:32 +0200
 comments: true
 categories: [YARN]
 author: Janos Matyas
-published: false
+published: true
 ---
 
 The new Hadoop 2.6 [release](https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310240&version=12327179) is almost here with an impressive set of new features and collaboration from the community - including [SequenceIQ](http://sequenceiq.com) as well. It's not a new information that we use Docker quite a lot - and have `containerized` the full Hadoop ecosystem, and the **2.6** release will contain a new feature: [YARN-1964](https://issues.apache.org/jira/browse/YARN-1964).
