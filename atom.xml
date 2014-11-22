@@ -4,7 +4,7 @@
   <title><![CDATA[SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-21T08:24:08+00:00</updated>
+  <updated>2014-11-22T15:54:42+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -12,6 +12,138 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Periscope: scale on Time]]></title>
+    <link href="http://blog.sequenceiq.com/blog/2014/11/22/periscope-scale-your-cluster-on-time/"/>
+    <updated>2014-11-22T14:13:33+00:00</updated>
+    <id>http://blog.sequenceiq.com/blog/2014/11/22/periscope-scale-your-cluster-on-time</id>
+    <content type="html"><![CDATA[<p><a href="http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/">Periscope</a> allows you to configure SLA policies for your cluster and scale up or down on demand. You were able to
+set alarms and notifications for different metrics like <code>peding containers</code>, <code>lost nodes</code> or <code>memory usage</code>. Recently we got a request to
+scale based on <code>time</code>. What does this mean? It means that you can tell Periscope to shrink your cluster down to 10 nodes after work hours or
+at the weekends and grow it back to 100 nodes by the time people starts to work. We thought it would make a really useful feature so we implemented it.
+You can read about it more <a href="link">here Apiary</a>.
+In order to configure such actions you&rsquo;ll have to set some <code>time alarms</code>. In this example we&rsquo;ll configure it to downscale at 7PM and upscale
+at 8AM from Monday to Friday:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nt">&quot;alarms&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;alarmName&quot;</span><span class="p">:</span> <span class="s2">&quot;worktime&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of nodes during worktime&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;timeZone&quot;</span><span class="p">:</span> <span class="s2">&quot;Europe/Budapest&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;cron&quot;</span><span class="p">:</span> <span class="s2">&quot;0 59 07 ? * MON-FRI&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;alarmName&quot;</span><span class="p">:</span> <span class="s2">&quot;after work&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of nodes after worktime&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;timeZone&quot;</span><span class="p">:</span> <span class="s2">&quot;Europe/Budapest&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;cron&quot;</span><span class="p">:</span> <span class="s2">&quot;0 59 18 ? * MON-FRI&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!--more-->
+
+
+<p>Now that the alarms are set we need to tell Periscope what to do when they trigger. Let&rsquo;s define the scaling policies:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nt">&quot;minSize&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span><span class='line'>  <span class="nt">&quot;maxSize&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+</span><span class='line'>  <span class="nt">&quot;cooldown&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+</span><span class='line'>  <span class="nt">&quot;scalingPolicies&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;upscale&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;adjustmentType&quot;</span><span class="p">:</span> <span class="s2">&quot;EXACT&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;scalingAdjustment&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;hostGroup&quot;</span><span class="p">:</span> <span class="s2">&quot;slave_1&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;alarmId&quot;</span><span class="p">:</span> <span class="s2">&quot;150&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;downscale&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;adjustmentType&quot;</span><span class="p">:</span> <span class="s2">&quot;EXACT&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;scalingAdjustment&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;hostGroup&quot;</span><span class="p">:</span> <span class="s2">&quot;slave_1&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;alarmId&quot;</span><span class="p">:</span> <span class="s2">&quot;151&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For those who are not familiar with the properties in the scaling json:</p>
+
+<ul>
+<li>minSize: defines the minimum size of the cluster</li>
+<li>maxSize: defines the maximum size of the cluster</li>
+<li>cooldown: defines the time between 2 scaling activity</li>
+<li>adjustmentType: can be <code>NODE_COUNT</code>, <code>PERCENTAGE</code>, or <code>EXACT</code></li>
+<li>scalingAdjustment: defines the number nodes of with to upscale or downscale and depends on the adjustment type as follows:
+
+<ul>
+<li><code>NODE_COUNT</code> can be -2 (downscale with 2 nodes) or +2 (upscale with 2 nodes)</li>
+<li><code>PERCENTAGE</code> similarly can be 40% and -40%</li>
+<li><code>EXACT</code> always a positive number which can mean both upscale or downscale based on the previous size of the cluster</li>
+</ul>
+</li>
+<li>hostGroup: defines the Hadoop services installed on a host. In case of scaling we&rsquo;ll take or add hosts with these services.</li>
+</ul>
+
+
+<p>Many people reached us with their questions of how to scale down properly as they had some concerns about it.
+Generally speaking downscaling is much harder to do than upscaling. Am I going to lose portion of my data? What will happen with the running
+applications? What will happen with my <code>RegionServers</code>? Luckily Hadoop services provide <code>graceful decommission</code>. Periscope
+instructs <a href="http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/">Cloudbreak</a> our Hadoop as a service API to shut down 10 nodes and
+Cloudbreak will make sure that nothing gets lost. First it will check which nodes are running <code>ApplicationMasters</code> and it&rsquo;ll leave them out of the
+process. If it found all the 10 candidates for shutting down it&rsquo;ll decommission the necessary services from them and then it&rsquo;ll shut down those nodes. Applications continue to run and Hadoop <code>master</code> services continue to run undisturbed.</p>
+
+<p>If you have questions like these don&rsquo;t hesitate to contact us we&rsquo;ll try to help you solve your problems.
+Make sure you check back soon to our <a href="http://blog.sequenceiq.com/">blog</a> or follow us
+on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook">Facebook</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[YARN containers as Docker containers in Docker]]></title>
@@ -2280,7 +2412,7 @@ In the benchmark, the jobs were submitted to the <code>default</code> queue and 
 <p>SequenceIQ is an innovative big data startup with the mission statement to simplify and automate provisioning of on-demand Hadoop clusters running on different environments. Leaders in “containerizing” Hadoop, SequenceIQ is the first company who provisions and runs the full Hadoop stack and components on Docker containers. The company has further plans to create the industry’s first cloud agnostic, autoscaling and use case driven Platform as a Service API, and break the common significant barriers of entry that exist with most big data projects through a series of As-a-Service API offerings.
 For more information follow up with us on @SequenceIQ and <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>.</p>
 
-<p><a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#x69;&#x6e;&#102;&#111;&#x40;&#x73;&#x65;&#x71;&#x75;&#101;&#x6e;&#99;&#x65;&#105;&#x71;&#x2e;&#99;&#x6f;&#109;">&#105;&#x6e;&#x66;&#111;&#64;&#115;&#x65;&#x71;&#x75;&#x65;&#110;&#x63;&#101;&#x69;&#x71;&#46;&#x63;&#x6f;&#x6d;</a></p>
+<p><a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#105;&#x6e;&#102;&#111;&#x40;&#115;&#x65;&#113;&#117;&#101;&#110;&#99;&#101;&#x69;&#113;&#x2e;&#x63;&#x6f;&#109;">&#x69;&#110;&#102;&#111;&#x40;&#115;&#x65;&#113;&#x75;&#101;&#x6e;&#x63;&#101;&#x69;&#x71;&#x2e;&#99;&#x6f;&#109;</a></p>
 ]]></content>
   </entry>
   
@@ -2781,21 +2913,6 @@ step-by step approach</li>
 
 <p>If you have any questions or suggestions you can reach us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>,
  <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Strata + Hadoop World 2014 Startup Showcase]]></title>
-    <link href="http://blog.sequenceiq.com/blog/2014/09/25/strata-hadoop-world-2014/"/>
-    <updated>2014-09-25T07:42:38+00:00</updated>
-    <id>http://blog.sequenceiq.com/blog/2014/09/25/strata-hadoop-world-2014</id>
-    <content type="html"><![CDATA[<p><a href="http://sequenceiq.com">SequenceIQ</a> is happy to announce that it has been selected among the top 10 leading big data startups by a team of investors, entrepreneurs, and industry analysts and will present live at the Startup Showcase at <strong>Strata + Hadoop World 2014, New York.</strong></p>
-
-<p>We will have a space in the showcase to win over the judges, and pitch our company and innovative technology to the thousands of developers, founders, executives, investors and researchers that attend <a href="http://strataconf.com/stratany2014">Strata</a>.</p>
-
-<p>Come and watch our showcase on Wednesday, October 15 or catch up with us during the conference (@sequenceiq).</p>
-
-<p>Stay in touch with us through <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook.com/sequenceiq">Facebook</a>.</p>
 ]]></content>
   </entry>
   

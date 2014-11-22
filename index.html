@@ -130,6 +130,91 @@
 
       <div class="row-fluid">
         
+            <a href="http://blog.sequenceiq.com/blog/2014/11/22/periscope-scale-your-cluster-on-time/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
+        
+      </div>
+
+<span class="badge name-badge">22 November 2014</span>
+      
+        <div class="row-fluid">
+            
+        </div>
+      
+    </div>
+    <div class="col-md-10 post-container">
+      <h1 class="link">
+          <a href="/blog/2014/11/22/periscope-scale-your-cluster-on-time/">Periscope: scale on Time</a>
+          <span class="badge name-badge">Krisztian Horvath</span>
+
+      </h1>
+      <p><a href="http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/">Periscope</a> allows you to configure SLA policies for your cluster and scale up or down on demand. You were able to
+set alarms and notifications for different metrics like <code>peding containers</code>, <code>lost nodes</code> or <code>memory usage</code>. Recently we got a request to
+scale based on <code>time</code>. What does this mean? It means that you can tell Periscope to shrink your cluster down to 10 nodes after work hours or
+at the weekends and grow it back to 100 nodes by the time people starts to work. We thought it would make a really useful feature so we implemented it.
+You can read about it more <a href="link">here Apiary</a>.
+In order to configure such actions you&rsquo;ll have to set some <code>time alarms</code>. In this example we&rsquo;ll configure it to downscale at 7PM and upscale
+at 8AM from Monday to Friday:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='json'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nt">&quot;alarms&quot;</span><span class="p">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;alarmName&quot;</span><span class="p">:</span> <span class="s2">&quot;worktime&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of nodes during worktime&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;timeZone&quot;</span><span class="p">:</span> <span class="s2">&quot;Europe/Budapest&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;cron&quot;</span><span class="p">:</span> <span class="s2">&quot;0 59 07 ? * MON-FRI&quot;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="nt">&quot;alarmName&quot;</span><span class="p">:</span> <span class="s2">&quot;after work&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of nodes after worktime&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;timeZone&quot;</span><span class="p">:</span> <span class="s2">&quot;Europe/Budapest&quot;</span><span class="p">,</span>
+</span><span class='line'>      <span class="nt">&quot;cron&quot;</span><span class="p">:</span> <span class="s2">&quot;0 59 18 ? * MON-FRI&quot;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+
+      
+       <a href="/blog/2014/11/22/periscope-scale-your-cluster-on-time/">Read on &rarr;</a> 
+    </div>
+  </div>
+
+
+
+    </article>
+    
+    <hr>
+    
+  
+  
+    <article>
+      
+
+  <div class="row">
+    <div class="col-md-2 post-meta">
+
+
+      <div class="row-fluid">
+        
             <a href="http://blog.sequenceiq.com/blog/2014/11/20/yarn-containers-and-docker/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
         
       </div>
@@ -773,75 +858,6 @@ Cloudbreak shell is written in Java but let&rsquo;s see a basic <code>curl</code
 
     </article>
     
-    <hr>
-    
-  
-  
-    <article>
-      
-
-  <div class="row">
-    <div class="col-md-2 post-meta">
-
-
-      <div class="row-fluid">
-        
-            <a href="http://blog.sequenceiq.com/blog/2014/10/23/spark-operations-overview/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
-        
-      </div>
-
-<span class="badge name-badge">23 October 2014</span>
-      
-        <div class="row-fluid">
-            
-            <a href="/blog/categories/spark/"><span class="label label-warning">Spark</span></a>
-            
-            <a href="/blog/categories/yarn/"><span class="label label-warning">YARN</span></a>
-            
-        </div>
-      
-    </div>
-    <div class="col-md-10 post-container">
-      <h1 class="link">
-          <a href="/blog/2014/10/23/spark-operations-overview/">Apache Spark RDD operation examples</a>
-          <span class="badge name-badge">Oliver Szabo</span>
-
-      </h1>
-      <p>Recently we blogged about how you can write simple Apache Spark jobs and how to test them. Now we&rsquo;d like to introduce all basic RDD operations with easy examples (our goal is to come up with examples as simply as possible). The Spark <a href="http://spark.apache.org/docs/latest/programming-guide.html#rdd-operations">documentation</a> explains well what each operations is doing in detail. We made tests for most of the RDD operations with good ol&#8217; <code>TestNG</code>. e.g.:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'> <span class="nd">@Test</span>
-</span><span class='line'>  <span class="k">def</span> <span class="n">testRightOuterJoin</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">val</span> <span class="n">input1</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">Seq</span><span class="o">((</span><span class="mi">1</span><span class="o">,</span> <span class="mi">4</span><span class="o">)))</span>
-</span><span class='line'>    <span class="k">val</span> <span class="n">input2</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">Seq</span><span class="o">((</span><span class="mi">1</span><span class="o">,</span> <span class="sc">&#39;1&#39;</span><span class="o">),</span> <span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="sc">&#39;2&#39;</span><span class="o">)))</span>
-</span><span class='line'>    <span class="k">val</span> <span class="n">expectedOutput</span> <span class="k">=</span> <span class="nc">Array</span><span class="o">((</span><span class="mi">1</span><span class="o">,</span> <span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="mi">4</span><span class="o">),</span> <span class="sc">&#39;1&#39;</span><span class="o">)),</span> <span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="o">(</span><span class="nc">None</span><span class="o">,</span> <span class="sc">&#39;2&#39;</span><span class="o">)))</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">val</span> <span class="n">output</span> <span class="k">=</span> <span class="n">input1</span><span class="o">.</span><span class="n">rightOuterJoin</span><span class="o">(</span><span class="n">input2</span><span class="o">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nc">Assert</span><span class="o">.</span><span class="n">assertEquals</span><span class="o">(</span><span class="n">output</span><span class="o">.</span><span class="n">collect</span><span class="o">(),</span> <span class="n">expectedOutput</span><span class="o">)</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-      
-       <a href="/blog/2014/10/23/spark-operations-overview/">Read on &rarr;</a> 
-    </div>
-  </div>
-
-
-
-    </article>
-    
   
   <div class="pagination">
     
@@ -861,6 +877,10 @@ Cloudbreak shell is written in Java but let&rsquo;s see a basic <code>curl</code
                  <section>
   <h2 class="blue">Recent Posts</h2>
   <ul id="recent_posts" class="list-group">
+    
+      <li class="list-group-item">
+        <a href="/blog/2014/11/22/periscope-scale-your-cluster-on-time/">Periscope: scale on Time</a>
+      </li>
     
       <li class="list-group-item">
         <a href="/blog/2014/11/20/yarn-containers-and-docker/">YARN containers as Docker containers in Docker</a>
