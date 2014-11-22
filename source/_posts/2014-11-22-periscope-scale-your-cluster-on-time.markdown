@@ -1,20 +1,23 @@
 ---
 layout: post
-title: "Periscope: scale on Time"
+title: "Periscope: scale in time"
 date: 2014-11-22 15:13:33 +0100
 comments: true
-categories:
+categories: [Periscope]
 author: Krisztian Horvath
 published: true
 ---
 
-[Periscope](http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/) allows you to configure SLA policies for your cluster and scale up or down on demand. You were able to
-set alarms and notifications for different metrics like `peding containers`, `lost nodes` or `memory usage`. Recently we got a request to
-scale based on `time`. What does this mean? It means that you can tell Periscope to shrink your cluster down to 10 nodes after work hours or
-at the weekends and grow it back to 100 nodes by the time people starts to work. We thought it would make a really useful feature so we implemented it.
-You can read about it more [here Apiary](link).
-In order to configure such actions you'll have to set some `time alarms`. In this example we'll configure it to downscale at 7PM and upscale
-at 8AM from Monday to Friday:
+[Periscope](http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/) allows you to configure SLA policies for your cluster
+and scale up or down on demand. You are able to set alarms and notifications for different metrics like `peding containers`,
+`lost nodes` or `memory usage`. Recently we got a request to scale based on `time`. What does this mean? It means that you can tell
+Periscope to shrink your cluster down to 10 nodes after work hours or at the weekends and grow it back to 100 nodes by the time people
+starts to work. We thought it would make a really useful feature so we implemented it. You can read about it more [here Apiary](link goes here).
+
+### Cron based alarms
+
+In order to configure such actions you'll have to set some `time alarms`. In this example we'll configure it to downscale at 7PM and
+upscale at 8AM from Monday to Friday:
 ```json
 {
   "alarms": [
@@ -36,7 +39,7 @@ at 8AM from Monday to Friday:
 
 <!--more-->
 
-Now that the alarms are set we need to tell Periscope what to do when they trigger. Let's define the scaling policies:
+Now that the alarms are set we need to tell Periscope what to do when they trigger. Let's define the `scaling policies`:
 ```json
 {
   "minSize": 2,
@@ -73,11 +76,19 @@ For those who are not familiar with the properties in the scaling json:
  * hostGroup: defines the Hadoop services installed on a host. In case of scaling we'll take or add hosts with these services.
 
 Many people reached us with their questions of how to scale down properly as they had some concerns about it.
-Generally speaking downscaling is much harder to do than upscaling. Am I going to lose portion of my data? What will happen with the running
-applications? What will happen with my `RegionServers`? Luckily Hadoop services provide `graceful decommission`. Periscope
-instructs [Cloudbreak](http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/) our Hadoop as a service API to shut down 10 nodes and
-Cloudbreak will make sure that nothing gets lost. First it will check which nodes are running `ApplicationMasters` and it'll leave them out of the
-process. If it found all the 10 candidates for shutting down it'll decommission the necessary services from them and then it'll shut down those nodes. Applications continue to run and Hadoop `master` services continue to run undisturbed.
+Generally speaking downscaling is much harder to do than upscaling. Am I going to lose portion of my data? What will happen with the
+running applications? What will happen with my `RegionServers`? Luckily Hadoop services provide `graceful decommission`.
+
+### Decommission flow
+
+Let's dive through an example: Periscope instructs [Cloudbreak](http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/) our
+Hadoop as a service API to shut down 10 nodes and Cloudbreak will make sure that nothing gets lost. First it will check which nodes
+are running `ApplicationMasters` to leave them out of the process. If it found all the 10 candidates for shutting down
+it will decommission the necessary services from them and then it will shut down those nodes. Applications continue to run and Hadoop
+`master` services continue to run undisturbed.
+
+![](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/downscale_sequence.png)
+
 
 If you have questions like these don't hesitate to contact us we'll try to help you solve your problems.
 Make sure you check back soon to our [blog](http://blog.sequenceiq.com/) or follow us
