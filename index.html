@@ -138,22 +138,27 @@
       
         <div class="row-fluid">
             
+            <a href="/blog/categories/periscope/"><span class="label label-warning">Periscope</span></a>
+            
         </div>
       
     </div>
     <div class="col-md-10 post-container">
       <h1 class="link">
-          <a href="/blog/2014/11/22/periscope-scale-your-cluster-on-time/">Periscope: scale on Time</a>
+          <a href="/blog/2014/11/22/periscope-scale-your-cluster-on-time/">Periscope: scale in time</a>
           <span class="badge name-badge">Krisztian Horvath</span>
 
       </h1>
-      <p><a href="http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/">Periscope</a> allows you to configure SLA policies for your cluster and scale up or down on demand. You were able to
-set alarms and notifications for different metrics like <code>peding containers</code>, <code>lost nodes</code> or <code>memory usage</code>. Recently we got a request to
-scale based on <code>time</code>. What does this mean? It means that you can tell Periscope to shrink your cluster down to 10 nodes after work hours or
-at the weekends and grow it back to 100 nodes by the time people starts to work. We thought it would make a really useful feature so we implemented it.
-You can read about it more <a href="link">here Apiary</a>.
-In order to configure such actions you&rsquo;ll have to set some <code>time alarms</code>. In this example we&rsquo;ll configure it to downscale at 7PM and upscale
-at 8AM from Monday to Friday:</p>
+      <p><a href="http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/">Periscope</a> allows you to configure SLA policies for your cluster
+and scale up or down on demand. You are able to set alarms and notifications for different metrics like <code>peding containers</code>,
+<code>lost nodes</code> or <code>memory usage</code>. Recently we got a request to scale based on <code>time</code>. What does this mean? It means that you can tell
+Periscope to shrink your cluster down to 10 nodes after work hours or at the weekends and grow it back to 100 nodes by the time people
+starts to work. We thought it would make a really useful feature so we implemented it. You can read about it more <a href="link%20goes%20here">here Apiary</a>.</p>
+
+<h3>Cron based alarms</h3>
+
+<p>In order to configure such actions you&rsquo;ll have to set some <code>time alarms</code>. In this example we&rsquo;ll configure it to downscale at 7PM and
+upscale at 8AM from Monday to Friday:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -879,7 +884,7 @@ Cloudbreak shell is written in Java but let&rsquo;s see a basic <code>curl</code
   <ul id="recent_posts" class="list-group">
     
       <li class="list-group-item">
-        <a href="/blog/2014/11/22/periscope-scale-your-cluster-on-time/">Periscope: scale on Time</a>
+        <a href="/blog/2014/11/22/periscope-scale-your-cluster-on-time/">Periscope: scale in time</a>
       </li>
     
       <li class="list-group-item">

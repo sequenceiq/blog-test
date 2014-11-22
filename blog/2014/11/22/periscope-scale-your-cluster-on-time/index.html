@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Periscope: scale on Time - SequenceIQ Blog</title>
+  <title>Periscope: scale in time - SequenceIQ Blog</title>
   <meta name="author" content="SequenceIQ">
 
    
@@ -129,7 +129,7 @@
        
          
        
-       <h1 class="article-style"> Periscope: scale on Time
+       <h1 class="article-style"> Periscope: scale in time
 
        <span class="badge name-badge">Krisztian Horvath</span>
        <span class="badge name-badge">22 November 2014</span>
@@ -145,13 +145,16 @@
 
   <div class="row-fluid">
     <div class="span12">
-      <p><a href="http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/">Periscope</a> allows you to configure SLA policies for your cluster and scale up or down on demand. You were able to
-set alarms and notifications for different metrics like <code>peding containers</code>, <code>lost nodes</code> or <code>memory usage</code>. Recently we got a request to
-scale based on <code>time</code>. What does this mean? It means that you can tell Periscope to shrink your cluster down to 10 nodes after work hours or
-at the weekends and grow it back to 100 nodes by the time people starts to work. We thought it would make a really useful feature so we implemented it.
-You can read about it more <a href="link">here Apiary</a>.
-In order to configure such actions you&rsquo;ll have to set some <code>time alarms</code>. In this example we&rsquo;ll configure it to downscale at 7PM and upscale
-at 8AM from Monday to Friday:</p>
+      <p><a href="http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/">Periscope</a> allows you to configure SLA policies for your cluster
+and scale up or down on demand. You are able to set alarms and notifications for different metrics like <code>peding containers</code>,
+<code>lost nodes</code> or <code>memory usage</code>. Recently we got a request to scale based on <code>time</code>. What does this mean? It means that you can tell
+Periscope to shrink your cluster down to 10 nodes after work hours or at the weekends and grow it back to 100 nodes by the time people
+starts to work. We thought it would make a really useful feature so we implemented it. You can read about it more <a href="link%20goes%20here">here Apiary</a>.</p>
+
+<h3>Cron based alarms</h3>
+
+<p>In order to configure such actions you&rsquo;ll have to set some <code>time alarms</code>. In this example we&rsquo;ll configure it to downscale at 7PM and
+upscale at 8AM from Monday to Friday:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -193,7 +196,7 @@ at 8AM from Monday to Friday:</p>
 <!--more-->
 
 
-<p>Now that the alarms are set we need to tell Periscope what to do when they trigger. Let&rsquo;s define the scaling policies:</p>
+<p>Now that the alarms are set we need to tell Periscope what to do when they trigger. Let&rsquo;s define the <code>scaling policies</code>:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -260,11 +263,18 @@ at 8AM from Monday to Friday:</p>
 
 
 <p>Many people reached us with their questions of how to scale down properly as they had some concerns about it.
-Generally speaking downscaling is much harder to do than upscaling. Am I going to lose portion of my data? What will happen with the running
-applications? What will happen with my <code>RegionServers</code>? Luckily Hadoop services provide <code>graceful decommission</code>. Periscope
-instructs <a href="http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/">Cloudbreak</a> our Hadoop as a service API to shut down 10 nodes and
-Cloudbreak will make sure that nothing gets lost. First it will check which nodes are running <code>ApplicationMasters</code> and it&rsquo;ll leave them out of the
-process. If it found all the 10 candidates for shutting down it&rsquo;ll decommission the necessary services from them and then it&rsquo;ll shut down those nodes. Applications continue to run and Hadoop <code>master</code> services continue to run undisturbed.</p>
+Generally speaking downscaling is much harder to do than upscaling. Am I going to lose portion of my data? What will happen with the
+running applications? What will happen with my <code>RegionServers</code>? Luckily Hadoop services provide <code>graceful decommission</code>.</p>
+
+<h3>Decommission flow</h3>
+
+<p>Let&rsquo;s dive through an example: Periscope instructs <a href="http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/">Cloudbreak</a> our
+Hadoop as a service API to shut down 10 nodes and Cloudbreak will make sure that nothing gets lost. First it will check which nodes
+are running <code>ApplicationMasters</code> to leave them out of the process. If it found all the 10 candidates for shutting down
+it will decommission the necessary services from them and then it will shut down those nodes. Applications continue to run and Hadoop
+<code>master</code> services continue to run undisturbed.</p>
+
+<p><img src="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/downscale_sequence.png" alt="" /></p>
 
 <p>If you have questions like these don&rsquo;t hesitate to contact us we&rsquo;ll try to help you solve your problems.
 Make sure you check back soon to our <a href="http://blog.sequenceiq.com/">blog</a> or follow us
@@ -289,6 +299,12 @@ on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href=
         <p class="meta">
         
         
+
+
+
+  <a href="/blog/categories/periscope/"><span class="label label-warning">Periscope</span></a>
+
+
 
 
         </p>
@@ -346,7 +362,7 @@ on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href=
   <ul id="recent_posts" class="list-group">
     
       <li class="list-group-item">
-        <a href="/blog/2014/11/22/periscope-scale-your-cluster-on-time/">Periscope: scale on Time</a>
+        <a href="/blog/2014/11/22/periscope-scale-your-cluster-on-time/">Periscope: scale in time</a>
       </li>
     
       <li class="list-group-item">
