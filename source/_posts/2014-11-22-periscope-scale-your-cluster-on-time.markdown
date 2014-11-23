@@ -14,10 +14,26 @@ and scale up or down on demand. You are able to set alarms and notifications for
 Periscope to shrink your cluster down to 10 nodes after work hours or at the weekends and grow it back to 100 nodes by the time people
 starts to work. We thought it would make a really useful feature so we implemented it. You can read about it more [here Apiary](link goes here).
 
+### Cost efficiency
+
+In this example we'll configure it to downscale at 7PM and upscale at 8AM from Monday to Friday:
+
+![](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/dowscale_diagram.png)
+
+Just to make things easier let's assume that our cluster is homogeneous. On AWS a c3.xlarge instance costs $0.210 per hour.
+Now let's do the math:
+
+ * 24 x 0.21 x 100                      = $504
+ * (11 x 0.21 x 100) + (13 x 0.21 x 10) = $260
+
+In a month `we can save $7560` scaling from 100 to 10 and back and the weekends are not even counted.
+
+<!--more-->
+
 ### Cron based alarms
 
-In order to configure such actions you'll have to set some `time alarms`. In this example we'll configure it to downscale at 7PM and
-upscale at 8AM from Monday to Friday:
+In order to configure such actions you'll have to set some `time alarms`.
+
 ```json
 {
   "alarms": [
@@ -36,8 +52,6 @@ upscale at 8AM from Monday to Friday:
   ]
 }
 ```
-
-<!--more-->
 
 Now that the alarms are set we need to tell Periscope what to do when they trigger. Let's define the `scaling policies`:
 ```json
@@ -88,7 +102,6 @@ it will decommission the necessary services from them and then it will shut down
 `master` services continue to run undisturbed.
 
 ![](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/downscale_sequence.png)
-
 
 If you have questions like these don't hesitate to contact us we'll try to help you solve your problems.
 Make sure you check back soon to our [blog](http://blog.sequenceiq.com/) or follow us
