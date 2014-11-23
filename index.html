@@ -194,6 +194,60 @@ Now let&rsquo;s do the math:</p>
 
       <div class="row-fluid">
         
+            <a href="http://blog.sequenceiq.com/blog/2014/11/24/hadoop-2-5-2-docker/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
+        
+      </div>
+
+<span class="badge name-badge">24 November 2014</span>
+      
+        <div class="row-fluid">
+            
+            <a href="/blog/categories/hadoop/"><span class="label label-warning">Hadoop</span></a>
+            
+        </div>
+      
+    </div>
+    <div class="col-md-10 post-container">
+      <h1 class="link">
+          <a href="/blog/2014/11/24/hadoop-2-5-2-docker/">Apache Hadoop 2.5.2 on Docker</a>
+          <span class="badge name-badge">Janos Matyas</span>
+
+      </h1>
+      <p>Following the release cycle of Hadoop, today we are releasing a new <code>2.5.2</code> point release version of our <a href="https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/">Hadoop Docker container</a>.</p>
+
+<h2>Centos</h2>
+
+<h3>Build the image</h3>
+
+<p>In case you&rsquo;d like to try directly from the <a href="https://github.com/sequenceiq/hadoop-docker/tree/2.5.2">Dockerfile</a> you can build the image as:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>docker build  -t sequenceiq/hadoop-docker:2.5.2 .</span></code></pre></td></tr></table></div></figure>
+
+
+
+      
+       <a href="/blog/2014/11/24/hadoop-2-5-2-docker/">Read on &rarr;</a> 
+    </div>
+  </div>
+
+
+
+    </article>
+    
+    <hr>
+    
+  
+  
+    <article>
+      
+
+  <div class="row">
+    <div class="col-md-2 post-meta">
+
+
+      <div class="row-fluid">
+        
             <a href="http://blog.sequenceiq.com/blog/2014/11/20/yarn-containers-and-docker/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
         
       </div>
@@ -766,77 +820,6 @@ Cloudbreak shell is written in Java but let&rsquo;s see a basic <code>curl</code
 
     </article>
     
-    <hr>
-    
-  
-  
-    <article>
-      
-
-  <div class="row">
-    <div class="col-md-2 post-meta">
-
-
-      <div class="row-fluid">
-        
-            <a href="http://blog.sequenceiq.com/blog/2014/10/28/datalake-cloudbreak/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
-        
-      </div>
-
-<span class="badge name-badge">28 October 2014</span>
-      
-        <div class="row-fluid">
-            
-            <a href="/blog/categories/cloudbreak/"><span class="label label-warning">Cloudbreak</span></a>
-            
-        </div>
-      
-    </div>
-    <div class="col-md-10 post-container">
-      <h1 class="link">
-          <a href="/blog/2014/10/28/datalake-cloudbreak/">Building the data lake in the cloud - Part1</a>
-          <span class="badge name-badge">Tamas Bihari</span>
-
-      </h1>
-      <p>A while ago we have released our cloud agnostic and Docker container based Hadoop as a Service API &ndash; <a href="http://sequenceiq.com/cloudbreak/">Cloudbreak</a>. Though the purpose of <a href="https://cloudbreak.sequenceiq.com">Cloudbreak</a> is to quickly provision arbitrary sized Hadoop clusters in the cloud, the project emerged from bare metal Hadoop provisioning in Docker containers. We were (still doing it) <a href="http://blog.sequenceiq.com/blog/2014/06/19/multinode-hadoop-cluster-on-docker/">provisioning</a> Hadoop on bare metal using Docker &ndash; and because of this legacy the data was always stored in HDFS. Recently we have been asked to run a proof-of-concept project and build an <code>always on</code> data lake using a cloud <code>object storage</code>.</p>
-
-<p>This post is the first in this series and will cover the connectivity, interoperability and access of data from an <code>object storage</code> and work with that in Hadoop. For this post we choose to create a <code>data lake</code> on Google Cloud Compute and guide you through the steps, run performance tests and understand the benefits/drawbacks of such a setup.</p>
-
-<p><em>Next post will be about sharing the <code>data lake</code> among multiple clusters, using <a href="http://hortonworks.com/hadoop/hcatalog/">Apache HCatalog</a>.</em></p>
-
-<h2>Object storage</h2>
-
-<p>An object storage usually is an <code>internet service</code> to store data in the cloud and comes with a programming interface which allows to retrieve data in a secure, durable and highly-scalable way. The most well know object storage is <strong>Amazon S3</strong> &ndash; with a pretty well covered literature, thus in this example we will use the <strong>Google Cloud Storage</strong>. Google Cloud Storage enables application developers to store their data on Google’s infrastructure with very high reliability, performance and availability, and can be used to distribute large data objects &ndash; like HDFS. In many occasions companies stores their data in objects storages &ndash; but for analytics they would like to access it from their Hadoop cluster. There are several options available:</p>
-
-<ul>
-<li>replicate the full dataset in HDFS</li>
-<li>read and write from <code>object storage</code> at start/stop of the flow and use HDFS for intermediary data</li>
-<li>use a connector such as Google Cloud Storage Connector for Hadoop</li>
-</ul>
-
-
-<h2>Google Cloud Storage Connector for Hadoop</h2>
-
-<p>Using <a href="https://cloud.google.com/hadoop/google-cloud-storage-connector">this</a> connector developed by Google allows you to choose <code>Google Cloud Storage</code> as the default file system for Hadoop, and run all your jobs on top (we will come up with MR2 and Spark examples). Using the connector can have several benefits, to name a few:</p>
-
-<ul>
-<li>Direct data access &ndash; data is stored in GCS, no need to transfer it into HDFS</li>
-<li>HDFS compatibility &ndash; data stored in HDFS can be accessed through the connector</li>
-<li>Data accessibility &ndash; data is always accessible, even when the Hadoop cluster is shut down</li>
-<li>High data availability &ndash; data is highly available and globally replicated</li>
-</ul>
-
-
-
-      
-       <a href="/blog/2014/10/28/datalake-cloudbreak/">Read on &rarr;</a> 
-    </div>
-  </div>
-
-
-
-    </article>
-    
   
   <div class="pagination">
     
@@ -859,6 +842,10 @@ Cloudbreak shell is written in Java but let&rsquo;s see a basic <code>curl</code
     
       <li class="list-group-item">
         <a href="/blog/2014/11/25/periscope-scale-your-cluster-on-time/">Periscope: time based autoscaling</a>
+      </li>
+    
+      <li class="list-group-item">
+        <a href="/blog/2014/11/24/hadoop-2-5-2-docker/">Apache Hadoop 2.5.2 on Docker</a>
       </li>
     
       <li class="list-group-item">
