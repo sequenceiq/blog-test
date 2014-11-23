@@ -8,7 +8,7 @@ published: false
 author: Janos Matyas
 ---
 
-Following the release cycle of Hadoop, today we are releasing a new `2.5.2` version of our [Hadoop Docker container](https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/). Up until today the container was only `CentOS` based, but during the last few months we got lots of requests to release a Hadoop container on `Ubuntu` as well. From now on we will have both released, supported and published to the official Docker repository. Enjoy. 
+Following the release cycle of Hadoop, today we are releasing a new `2.5.2` version (point release) of our [Hadoop Docker container](https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/). The containers are available as `CentOS` or `Ubuntu` based as well. 
 
 ##Centos
 
