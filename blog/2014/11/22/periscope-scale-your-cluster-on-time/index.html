@@ -151,10 +151,29 @@ and scale up or down on demand. You are able to set alarms and notifications for
 Periscope to shrink your cluster down to 10 nodes after work hours or at the weekends and grow it back to 100 nodes by the time people
 starts to work. We thought it would make a really useful feature so we implemented it. You can read about it more <a href="link%20goes%20here">here Apiary</a>.</p>
 
+<h3>Cost efficiency</h3>
+
+<p>In this example we&rsquo;ll configure it to downscale at 7PM and upscale at 8AM from Monday to Friday:</p>
+
+<p><img src="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/dowscale_diagram.png" alt="" /></p>
+
+<p>Just to make things easier let&rsquo;s assume that our cluster is homogeneous. On AWS a c3.xlarge instance costs $0.210 per hour.
+Now let&rsquo;s do the math:</p>
+
+<ul>
+<li>24 x 0.21 x 100                      = $504</li>
+<li>(11 x 0.21 x 100) + (13 x 0.21 x 10) = $260</li>
+</ul>
+
+
+<p>In a month <code>we can save $7560</code> scaling from 100 to 10 and back and the weekends are not even counted.</p>
+
+<!--more-->
+
+
 <h3>Cron based alarms</h3>
 
-<p>In order to configure such actions you&rsquo;ll have to set some <code>time alarms</code>. In this example we&rsquo;ll configure it to downscale at 7PM and
-upscale at 8AM from Monday to Friday:</p>
+<p>In order to configure such actions you&rsquo;ll have to set some <code>time alarms</code>.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -189,11 +208,6 @@ upscale at 8AM from Monday to Friday:</p>
 </span><span class='line'>  <span class="p">]</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<!--more-->
 
 
 <p>Now that the alarms are set we need to tell Periscope what to do when they trigger. Let&rsquo;s define the <code>scaling policies</code>:</p>

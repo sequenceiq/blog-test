@@ -4,7 +4,7 @@
   <title><![CDATA[SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-22T20:09:10+00:00</updated>
+  <updated>2014-11-23T18:18:30+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -24,10 +24,29 @@ and scale up or down on demand. You are able to set alarms and notifications for
 Periscope to shrink your cluster down to 10 nodes after work hours or at the weekends and grow it back to 100 nodes by the time people
 starts to work. We thought it would make a really useful feature so we implemented it. You can read about it more <a href="link%20goes%20here">here Apiary</a>.</p>
 
+<h3>Cost efficiency</h3>
+
+<p>In this example we&rsquo;ll configure it to downscale at 7PM and upscale at 8AM from Monday to Friday:</p>
+
+<p><img src="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/dowscale_diagram.png" alt="" /></p>
+
+<p>Just to make things easier let&rsquo;s assume that our cluster is homogeneous. On AWS a c3.xlarge instance costs $0.210 per hour.
+Now let&rsquo;s do the math:</p>
+
+<ul>
+<li>24 x 0.21 x 100                      = $504</li>
+<li>(11 x 0.21 x 100) + (13 x 0.21 x 10) = $260</li>
+</ul>
+
+
+<p>In a month <code>we can save $7560</code> scaling from 100 to 10 and back and the weekends are not even counted.</p>
+
+<!--more-->
+
+
 <h3>Cron based alarms</h3>
 
-<p>In order to configure such actions you&rsquo;ll have to set some <code>time alarms</code>. In this example we&rsquo;ll configure it to downscale at 7PM and
-upscale at 8AM from Monday to Friday:</p>
+<p>In order to configure such actions you&rsquo;ll have to set some <code>time alarms</code>.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -62,11 +81,6 @@ upscale at 8AM from Monday to Friday:</p>
 </span><span class='line'>  <span class="p">]</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<!--more-->
 
 
 <p>Now that the alarms are set we need to tell Periscope what to do when they trigger. Let&rsquo;s define the <code>scaling policies</code>:</p>
@@ -2422,7 +2436,7 @@ In the benchmark, the jobs were submitted to the <code>default</code> queue and 
 <p>SequenceIQ is an innovative big data startup with the mission statement to simplify and automate provisioning of on-demand Hadoop clusters running on different environments. Leaders in “containerizing” Hadoop, SequenceIQ is the first company who provisions and runs the full Hadoop stack and components on Docker containers. The company has further plans to create the industry’s first cloud agnostic, autoscaling and use case driven Platform as a Service API, and break the common significant barriers of entry that exist with most big data projects through a series of As-a-Service API offerings.
 For more information follow up with us on @SequenceIQ and <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>.</p>
 
-<p><a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#x69;&#110;&#x66;&#111;&#x40;&#115;&#x65;&#113;&#x75;&#x65;&#x6e;&#x63;&#x65;&#x69;&#x71;&#x2e;&#99;&#111;&#x6d;">&#x69;&#x6e;&#x66;&#x6f;&#64;&#115;&#101;&#113;&#x75;&#101;&#110;&#99;&#x65;&#105;&#x71;&#46;&#x63;&#111;&#x6d;</a></p>
+<p><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#x40;&#x73;&#101;&#x71;&#117;&#101;&#110;&#99;&#x65;&#105;&#x71;&#x2e;&#99;&#111;&#109;">&#105;&#x6e;&#102;&#x6f;&#x40;&#115;&#101;&#113;&#x75;&#101;&#110;&#x63;&#101;&#x69;&#x71;&#46;&#99;&#111;&#109;</a></p>
 ]]></content>
   </entry>
   
