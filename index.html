@@ -130,11 +130,11 @@
 
       <div class="row-fluid">
         
-            <a href="http://blog.sequenceiq.com/blog/2014/11/22/periscope-scale-your-cluster-on-time/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
+            <a href="http://blog.sequenceiq.com/blog/2014/11/24/periscope-scale-your-cluster-on-time/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
         
       </div>
 
-<span class="badge name-badge">22 November 2014</span>
+<span class="badge name-badge">24 November 2014</span>
       
         <div class="row-fluid">
             
@@ -145,19 +145,18 @@
     </div>
     <div class="col-md-10 post-container">
       <h1 class="link">
-          <a href="/blog/2014/11/22/periscope-scale-your-cluster-on-time/">Periscope: scale in time</a>
+          <a href="/blog/2014/11/24/periscope-scale-your-cluster-on-time/">Periscope: time based autoscaling</a>
           <span class="badge name-badge">Krisztian Horvath</span>
 
       </h1>
       <p><a href="http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/">Periscope</a> allows you to configure SLA policies for your cluster
-and scale up or down on demand. You are able to set alarms and notifications for different metrics like <code>peding containers</code>,
-<code>lost nodes</code> or <code>memory usage</code>. Recently we got a request to scale based on <code>time</code>. What does this mean? It means that you can tell
-Periscope to shrink your cluster down to 10 nodes after work hours or at the weekends and grow it back to 100 nodes by the time people
-starts to work. We thought it would make a really useful feature so we implemented it. You can read about it more <a href="link%20goes%20here">here Apiary</a>.</p>
+and scale up or down on demand. You are able to set alarms and notifications for different metrics like <code>pending containers</code>,
+<code>lost nodes</code> or <code>memory usage</code>, etc . Recently we got a request to scale based on <code>time interval</code>. What does this mean? It means that you can tell
+Periscope to shrink your cluster down to arbitrary number of nodes after work hours or at weekends and grow it back by the time people starts to work. We thought it would make a really useful feature so we quickly implemented it and made available. You can learn more about the Periscope API <a href="http://docs.periscope.apiary.io/">here</a>.</p>
 
 <h3>Cost efficiency</h3>
 
-<p>In this example we&rsquo;ll configure it to downscale at 7PM and upscale at 8AM from Monday to Friday:</p>
+<p>In this example we&rsquo;ll configure Pericope to downscale at 7PM and upscale at 8AM from Monday to Friday:</p>
 
 <p><img src="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/dowscale_diagram.png" alt="" /></p>
 
@@ -170,11 +169,11 @@ Now let&rsquo;s do the math:</p>
 </ul>
 
 
-<p>In a month <code>we can save $7560</code> scaling from 100 to 10 and back and the weekends are not even counted.</p>
+<p>In a month we can save <strong>$7560</strong> scaling from 100 to 10 and back &ndash; and the weekends are not even counted.</p>
 
 
       
-       <a href="/blog/2014/11/22/periscope-scale-your-cluster-on-time/">Read on &rarr;</a> 
+       <a href="/blog/2014/11/24/periscope-scale-your-cluster-on-time/">Read on &rarr;</a> 
     </div>
   </div>
 
@@ -859,7 +858,7 @@ Cloudbreak shell is written in Java but let&rsquo;s see a basic <code>curl</code
   <ul id="recent_posts" class="list-group">
     
       <li class="list-group-item">
-        <a href="/blog/2014/11/22/periscope-scale-your-cluster-on-time/">Periscope: scale in time</a>
+        <a href="/blog/2014/11/24/periscope-scale-your-cluster-on-time/">Periscope: time based autoscaling</a>
       </li>
     
       <li class="list-group-item">

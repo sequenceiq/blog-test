@@ -4,7 +4,7 @@
   <title><![CDATA[SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-23T18:18:30+00:00</updated>
+  <updated>2014-11-23T20:31:51+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -14,19 +14,18 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Periscope: scale in time]]></title>
-    <link href="http://blog.sequenceiq.com/blog/2014/11/22/periscope-scale-your-cluster-on-time/"/>
-    <updated>2014-11-22T14:13:33+00:00</updated>
-    <id>http://blog.sequenceiq.com/blog/2014/11/22/periscope-scale-your-cluster-on-time</id>
+    <title type="html"><![CDATA[Periscope: time based autoscaling]]></title>
+    <link href="http://blog.sequenceiq.com/blog/2014/11/24/periscope-scale-your-cluster-on-time/"/>
+    <updated>2014-11-24T14:13:33+00:00</updated>
+    <id>http://blog.sequenceiq.com/blog/2014/11/24/periscope-scale-your-cluster-on-time</id>
     <content type="html"><![CDATA[<p><a href="http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/">Periscope</a> allows you to configure SLA policies for your cluster
-and scale up or down on demand. You are able to set alarms and notifications for different metrics like <code>peding containers</code>,
-<code>lost nodes</code> or <code>memory usage</code>. Recently we got a request to scale based on <code>time</code>. What does this mean? It means that you can tell
-Periscope to shrink your cluster down to 10 nodes after work hours or at the weekends and grow it back to 100 nodes by the time people
-starts to work. We thought it would make a really useful feature so we implemented it. You can read about it more <a href="link%20goes%20here">here Apiary</a>.</p>
+and scale up or down on demand. You are able to set alarms and notifications for different metrics like <code>pending containers</code>,
+<code>lost nodes</code> or <code>memory usage</code>, etc . Recently we got a request to scale based on <code>time interval</code>. What does this mean? It means that you can tell
+Periscope to shrink your cluster down to arbitrary number of nodes after work hours or at weekends and grow it back by the time people starts to work. We thought it would make a really useful feature so we quickly implemented it and made available. You can learn more about the Periscope API <a href="http://docs.periscope.apiary.io/">here</a>.</p>
 
 <h3>Cost efficiency</h3>
 
-<p>In this example we&rsquo;ll configure it to downscale at 7PM and upscale at 8AM from Monday to Friday:</p>
+<p>In this example we&rsquo;ll configure Pericope to downscale at 7PM and upscale at 8AM from Monday to Friday:</p>
 
 <p><img src="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/dowscale_diagram.png" alt="" /></p>
 
@@ -39,7 +38,7 @@ Now let&rsquo;s do the math:</p>
 </ul>
 
 
-<p>In a month <code>we can save $7560</code> scaling from 100 to 10 and back and the weekends are not even counted.</p>
+<p>In a month we can save <strong>$7560</strong> scaling from 100 to 10 and back &ndash; and the weekends are not even counted.</p>
 
 <!--more-->
 
@@ -83,7 +82,7 @@ Now let&rsquo;s do the math:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Now that the alarms are set we need to tell Periscope what to do when they trigger. Let&rsquo;s define the <code>scaling policies</code>:</p>
+<p>Now that the alarms are set we need to tell Periscope what to do when they are triggered. Let&rsquo;s define the <code>scaling policies</code>:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -130,7 +129,7 @@ Now let&rsquo;s do the math:</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>For those who are not familiar with the properties in the scaling json:</p>
+<p>For those who are not familiar with the properties in the scaling JSON:</p>
 
 <ul>
 <li>minSize: defines the minimum size of the cluster</li>
@@ -150,16 +149,15 @@ Now let&rsquo;s do the math:</p>
 
 
 <p>Many people reached us with their questions of how to scale down properly as they had some concerns about it.
-Generally speaking downscaling is much harder to do than upscaling. Am I going to lose portion of my data? What will happen with the
-running applications? What will happen with my <code>RegionServers</code>? Luckily Hadoop services provide <code>graceful decommission</code>.</p>
+Generally speaking downscaling is much harder to do than upscaling. Am I going to lose portion of my data? What will happen with the running applications? What will happen with say <code>RegionServers</code>? Luckily Hadoop services provide <code>graceful decommission</code>.</p>
+
+<p><em>Note:When you are storing your data in a cloud object store (last week we have blogged about these here[<a href="http://blog.sequenceiq.com/blog/2014/10/28/datalake-cloudbreak/">http://blog.sequenceiq.com/blog/2014/10/28/datalake-cloudbreak/</a>] and here[<a href="http://blog.sequenceiq.com/blog/2014/11/17/datalake-cloudbreak-2/">http://blog.sequenceiq.com/blog/2014/11/17/datalake-cloudbreak-2/</a>]) this is less of an issue &ndash; and Periscope will not have to worry about HDFS data replications.</em></p>
 
 <h3>Decommission flow</h3>
 
-<p>Let&rsquo;s dive through an example: Periscope instructs <a href="http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/">Cloudbreak</a> our
-Hadoop as a service API to shut down 10 nodes and Cloudbreak will make sure that nothing gets lost. First it will check which nodes
-are running <code>ApplicationMasters</code> to leave them out of the process. If it found all the 10 candidates for shutting down
-it will decommission the necessary services from them and then it will shut down those nodes. Applications continue to run and Hadoop
-<code>master</code> services continue to run undisturbed.</p>
+<p>Let&rsquo;s dive through an example: Periscope instructs <a href="http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/">Cloudbreak</a> &ndash; our
+Hadoop as a service API &ndash; to shut down 10 nodes and Cloudbreak will make sure that nothing gets lost. First it will check which nodes are running <code>ApplicationMasters</code> to leave them out of the process. If it found all the 10 candidates for shutting down
+it will decommission the necessary services from them and then it will shut down those nodes. Applications continue to run and Hadoop <code>master</code> services continue to run undisturbed.</p>
 
 <p><img src="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/downscale_sequence.png" alt="" /></p>
 
@@ -2436,7 +2434,7 @@ In the benchmark, the jobs were submitted to the <code>default</code> queue and 
 <p>SequenceIQ is an innovative big data startup with the mission statement to simplify and automate provisioning of on-demand Hadoop clusters running on different environments. Leaders in “containerizing” Hadoop, SequenceIQ is the first company who provisions and runs the full Hadoop stack and components on Docker containers. The company has further plans to create the industry’s first cloud agnostic, autoscaling and use case driven Platform as a Service API, and break the common significant barriers of entry that exist with most big data projects through a series of As-a-Service API offerings.
 For more information follow up with us on @SequenceIQ and <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>.</p>
 
-<p><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#x40;&#x73;&#101;&#x71;&#117;&#101;&#110;&#99;&#x65;&#105;&#x71;&#x2e;&#99;&#111;&#109;">&#105;&#x6e;&#102;&#x6f;&#x40;&#115;&#101;&#113;&#x75;&#101;&#110;&#x63;&#101;&#x69;&#x71;&#46;&#99;&#111;&#109;</a></p>
+<p><a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x69;&#110;&#x66;&#x6f;&#64;&#x73;&#x65;&#x71;&#x75;&#101;&#x6e;&#99;&#101;&#x69;&#x71;&#x2e;&#x63;&#x6f;&#x6d;">&#105;&#110;&#102;&#x6f;&#64;&#x73;&#x65;&#113;&#x75;&#x65;&#x6e;&#99;&#101;&#105;&#x71;&#x2e;&#99;&#111;&#109;</a></p>
 ]]></content>
   </entry>
   
