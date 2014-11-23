@@ -4,11 +4,11 @@ title: "Apache Hadoop 2.5.2 on Docker"
 date: 2014-11-24 20:07:18 +0200
 comments: true
 categories: [Hadoop]
-published: false
+published: true
 author: Janos Matyas
 ---
 
-Following the release cycle of Hadoop, today we are releasing a new `2.5.2` version (point release) of our [Hadoop Docker container](https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/). The containers are available as `CentOS` or `Ubuntu` based as well. 
+Following the release cycle of Hadoop, today we are releasing a new `2.5.2` point release version of our [Hadoop Docker container](https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/). 
 
 ##Centos
 
