@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Periscope: time based autoscaling"
-date: 2014-11-24 15:13:33 +0100
+date: 2014-11-25 15:13:33 +0100
 comments: true
 categories: [Periscope]
 author: Krisztian Horvath
