@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Periscope: scale in time"
-date: 2014-11-22 15:13:33 +0100
+title: "Periscope: time based autoscaling"
+date: 2014-11-24 15:13:33 +0100
 comments: true
 categories: [Periscope]
 author: Krisztian Horvath
@@ -9,14 +9,13 @@ published: true
 ---
 
 [Periscope](http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/) allows you to configure SLA policies for your cluster
-and scale up or down on demand. You are able to set alarms and notifications for different metrics like `peding containers`,
-`lost nodes` or `memory usage`. Recently we got a request to scale based on `time`. What does this mean? It means that you can tell
-Periscope to shrink your cluster down to 10 nodes after work hours or at the weekends and grow it back to 100 nodes by the time people
-starts to work. We thought it would make a really useful feature so we implemented it. You can read about it more [here Apiary](link goes here).
+and scale up or down on demand. You are able to set alarms and notifications for different metrics like `pending containers`,
+`lost nodes` or `memory usage`, etc . Recently we got a request to scale based on `time interval`. What does this mean? It means that you can tell
+Periscope to shrink your cluster down to arbitrary number of nodes after work hours or at weekends and grow it back by the time people starts to work. We thought it would make a really useful feature so we quickly implemented it and made available. You can learn more about the Periscope API [here](http://docs.periscope.apiary.io/).
 
 ### Cost efficiency
 
-In this example we'll configure it to downscale at 7PM and upscale at 8AM from Monday to Friday:
+In this example we'll configure Pericope to downscale at 7PM and upscale at 8AM from Monday to Friday:
 
 ![](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/dowscale_diagram.png)
 
@@ -26,7 +25,7 @@ Now let's do the math:
  * 24 x 0.21 x 100                      = $504
  * (11 x 0.21 x 100) + (13 x 0.21 x 10) = $260
 
-In a month `we can save $7560` scaling from 100 to 10 and back and the weekends are not even counted.
+In a month we can save **$7560** scaling from 100 to 10 and back - and the weekends are not even counted.
 
 <!--more-->
 
@@ -53,7 +52,8 @@ In order to configure such actions you'll have to set some `time alarms`.
 }
 ```
 
-Now that the alarms are set we need to tell Periscope what to do when they trigger. Let's define the `scaling policies`:
+Now that the alarms are set we need to tell Periscope what to do when they are triggered. Let's define the `scaling policies`:
+
 ```json
 {
   "minSize": 2,
@@ -77,7 +77,7 @@ Now that the alarms are set we need to tell Periscope what to do when they trigg
   ]
 }
 ```
-For those who are not familiar with the properties in the scaling json:
+For those who are not familiar with the properties in the scaling JSON:
 
  * minSize: defines the minimum size of the cluster
  * maxSize: defines the maximum size of the cluster
@@ -90,16 +90,16 @@ For those who are not familiar with the properties in the scaling json:
  * hostGroup: defines the Hadoop services installed on a host. In case of scaling we'll take or add hosts with these services.
 
 Many people reached us with their questions of how to scale down properly as they had some concerns about it.
-Generally speaking downscaling is much harder to do than upscaling. Am I going to lose portion of my data? What will happen with the
-running applications? What will happen with my `RegionServers`? Luckily Hadoop services provide `graceful decommission`.
+Generally speaking downscaling is much harder to do than upscaling. Am I going to lose portion of my data? What will happen with the running applications? What will happen with say `RegionServers`? Luckily Hadoop services provide `graceful decommission`.
+
+_Note:When you are storing your data in a cloud object store (last week we have blogged about these here[http://blog.sequenceiq.com/blog/2014/10/28/datalake-cloudbreak/] and here[http://blog.sequenceiq.com/blog/2014/11/17/datalake-cloudbreak-2/]) this is less of an issue - and Periscope will not have to worry about HDFS data replications._
+
 
 ### Decommission flow
 
-Let's dive through an example: Periscope instructs [Cloudbreak](http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/) our
-Hadoop as a service API to shut down 10 nodes and Cloudbreak will make sure that nothing gets lost. First it will check which nodes
-are running `ApplicationMasters` to leave them out of the process. If it found all the 10 candidates for shutting down
-it will decommission the necessary services from them and then it will shut down those nodes. Applications continue to run and Hadoop
-`master` services continue to run undisturbed.
+Let's dive through an example: Periscope instructs [Cloudbreak](http://blog.sequenceiq.com/blog/2014/07/18/announcing-cloudbreak/) - our
+Hadoop as a service API - to shut down 10 nodes and Cloudbreak will make sure that nothing gets lost. First it will check which nodes are running `ApplicationMasters` to leave them out of the process. If it found all the 10 candidates for shutting down
+it will decommission the necessary services from them and then it will shut down those nodes. Applications continue to run and Hadoop `master` services continue to run undisturbed.
 
 ![](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/downscale_sequence.png)
 
