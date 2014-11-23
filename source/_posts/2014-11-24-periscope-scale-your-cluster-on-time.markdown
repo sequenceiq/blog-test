@@ -92,7 +92,7 @@ For those who are not familiar with the properties in the scaling JSON:
 Many people reached us with their questions of how to scale down properly as they had some concerns about it.
 Generally speaking downscaling is much harder to do than upscaling. Am I going to lose portion of my data? What will happen with the running applications? What will happen with say `RegionServers`? Luckily Hadoop services provide `graceful decommission`.
 
-_Note:When you are storing your data in a cloud object store (last week we have blogged about these here[http://blog.sequenceiq.com/blog/2014/10/28/datalake-cloudbreak/] and here[http://blog.sequenceiq.com/blog/2014/11/17/datalake-cloudbreak-2/]) this is less of an issue - and Periscope will not have to worry about HDFS data replications._
+_Note:When you are storing your data in a cloud object store (last week we have blogged about these [here](http://blog.sequenceiq.com/blog/2014/10/28/datalake-cloudbreak/) and [here](http://blog.sequenceiq.com/blog/2014/11/17/datalake-cloudbreak-2/)) this is less of an issue - and Periscope will not have to worry about HDFS data replications._
 
 
 ### Decommission flow
