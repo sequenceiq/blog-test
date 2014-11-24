@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Hadoop | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/hadoop/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-11-24T09:48:14+00:00</updated>
+  <updated>2014-11-24T09:51:43+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Apache Hadoop 2.5.2 on Docker]]></title>
-    <link href="http://blog.sequenceiq.com/blog/2014/11/23/hadoop-252-docker/"/>
-    <updated>2014-11-23T18:07:18+00:00</updated>
-    <id>http://blog.sequenceiq.com/blog/2014/11/23/hadoop-252-docker</id>
+    <link href="http://blog.sequenceiq.com/blog/2014/11/24/hadoop-252-docker/"/>
+    <updated>2014-11-24T18:07:18+00:00</updated>
+    <id>http://blog.sequenceiq.com/blog/2014/11/24/hadoop-252-docker</id>
     <content type="html"><![CDATA[<p>Following the release cycle of Hadoop -2.5.2 point release- today we are releasing a new <code>2.5.2</code> version of our <a href="https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/">Hadoop Docker container</a>.</p>
 
 <h2>Centos</h2>
