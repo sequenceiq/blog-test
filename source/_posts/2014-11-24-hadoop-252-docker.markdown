@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Apache Hadoop 2.5.2 on Docker"
-date: 2014-11-23 20:07:18 +0200
+date: 2014-11-24 20:07:18 +0200
 comments: true
 categories: [Hadoop]
 published: true
