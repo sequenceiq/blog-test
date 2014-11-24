@@ -8,7 +8,7 @@ published: true
 author: Janos Matyas
 ---
 
-Following the release cycle of Hadoop, today we are releasing a new `2.5.2` point release version of our [Hadoop Docker container](https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/).
+Following the release cycle of Hadoop -2.5.2 point release- today we are releasing a new `2.5.2` version of our [Hadoop Docker container](https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/).
 
 ##Centos
 
@@ -37,32 +37,7 @@ In order to use the Docker image you have just build or pulled use:
 docker run -i -t sequenceiq/hadoop-docker:2.5.2 /etc/bootstrap.sh -bash
 ```
 
-## Ubuntu
-
-### Build the image
-
-In case you'd like to try directly from the [Dockerfile](https://github.com/sequenceiq/docker-hadoop-ubuntu/tree/2.5.2) you can build the image as:
-
-```
-docker build  -t sequenceiq/hadoop-ubuntu:2.5.2 .
-```
 <!-- more -->
-
-### Pull the image
-
-As it is also released as an official Docker image from Docker's automated build repository - you can always pull or refer the image when launching containers.
-
-```
-docker pull sequenceiq/hadoop-ubuntu:2.5.2
-```
-
-### Start a container
-
-In order to use the Docker image you have just build or pulled use:
-
-```
-docker run -i -t sequenceiq/hadoop-ubuntu:2.5.2 /etc/bootstrap.sh -bash
-```
 
 ## Testing
 
