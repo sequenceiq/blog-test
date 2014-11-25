@@ -5,7 +5,7 @@ date: 2014-11-25 15:13:33 +0100
 comments: true
 categories: [Periscope]
 author: Krisztian Horvath
-published: false
+published: true
 ---
 
 [Periscope](http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/) allows you to configure SLA policies for your cluster
