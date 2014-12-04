@@ -53,19 +53,10 @@ Type the following command
 amb-shell
 ```
 
-This will start the Ambari shell - you should see the following
-
-```bash
-    _                _                   _  ____   _            _  _
-   / \    _ __ ___  | |__    __ _  _ __ (_)/ ___| | |__    ___ | || |
-  / _ \  | '_ ` _ \ | '_ \  / _` || '__|| |\___ \ | '_ \  / _ \| || |
- / ___ \ | | | | | || |_) || (_| || |   | | ___) || | | ||  __/| || |
-/_/   \_\|_| |_| |_||_.__/  \__,_||_|   |_||____/ |_| |_| \___||_||_|
-```
-
+This will start the Ambari shell. After the welcome screen
 Now lets quickly create a cluster. Since two days ago Hortonworks released [HDP 2.2](http://hortonworks.com/blog/available-now-hdp-2-2/) let set up an HDP 2.2 cluster. For that we will use this [blueprint](https://gist.github.com/matyix/aeb8837012b5fa253fa5).
 
-In the shell type the following - note that throughout the process you can use `hint` or `help` for guidence. Note that you can use `tab completion` as well.
+In the shell type the following - note that throughout the process you can use `hint` or `help` for guidance and `tab completion` as well.
 
 ```
 blueprint add --url https://gist.githubusercontent.com/matyix/aeb8837012b5fa253fa5/raw/3476b538c8ba0c16363dbfd9634f0b9fe88cb36e/multi-node-hdfs-yarn
@@ -84,7 +75,7 @@ In order to learn the Ambari UI IP address (IPAddres) use:
 
 {% raw %}
 ```bash
-docker inspect --format="{{.NetworkSettings.IPAddress}}" amb0
+docker inspect --format='{{.NetworkSettings.IPAddress}}' amb0
 ```
 {% endraw %}
 
