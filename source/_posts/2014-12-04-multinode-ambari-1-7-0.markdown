@@ -55,7 +55,7 @@ amb-shell
 
 This will start the Ambari shell - you should see the following
 
-```
+```bash
     _                _                   _  ____   _            _  _
    / \    _ __ ___  | |__    __ _  _ __ (_)/ ___| | |__    ___ | || |
   / _ \  | '_ ` _ \ | '_ \  / _` || '__|| |\___ \ | '_ \  / _ \| || |
@@ -82,9 +82,11 @@ sudo route add -net 172.17.0.0/16 192.168.59.103
 
 In order to learn the Ambari UI IP address (IPAddres) use:
 
-```
+{% raw %}
+```bash
 docker inspect --format="{{.NetworkSettings.IPAddress}}" amb0
 ```
+{% endraw %}
 
 That's it.
 
