@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ambari | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/ambari/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2014-12-04T15:13:01+00:00</updated>
+  <updated>2014-12-04T15:17:25+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -68,22 +68,10 @@ amb-start-cluster 3
 amb-shell
 </code></p>
 
-<p>This will start the Ambari shell &ndash; you should see the following</p>
+<p>This will start the Ambari shell. After the welcome screen
+Now lets quickly create a cluster. Since two days ago Hortonworks released <a href="http://hortonworks.com/blog/available-now-hdp-2-2/">HDP 2.2</a> let set up an HDP 2.2 cluster. For that we will use this <a href="https://gist.github.com/matyix/aeb8837012b5fa253fa5">blueprint</a>.</p>
 
-<p>```bash</p>
-
-<pre><code>_                _                   _  ____   _            _  _
-</code></pre>
-
-<p>   / \    _ <strong> </strong><em>  | |<strong>    </strong> _  _ __ (</em>)/ <em><strong>| | |</strong>    </em><strong> | || |
-  / _ \  | &lsquo;_ <code>_ \ | '_ \  / _</code> || &rsquo;</strong>|| |_<strong> \ | &lsquo;<em> \  / _ \| || |
- / </em></strong> \ | | | | | || |<em>) || (</em>| || |   | | <em><strong>) || | | ||  </strong>/| || |
-/</em>/   _\|<em>| |</em>| |<em>||</em>.<strong>/  _<em>,</em>||<em>|   |</em>||</strong><strong>/ |<em>| |</em>| _</strong>||<em>||</em>|
-```</p>
-
-<p>Now lets quickly create a cluster. Since two days ago Hortonworks released <a href="http://hortonworks.com/blog/available-now-hdp-2-2/">HDP 2.2</a> let set up an HDP 2.2 cluster. For that we will use this <a href="https://gist.github.com/matyix/aeb8837012b5fa253fa5">blueprint</a>.</p>
-
-<p>In the shell type the following &ndash; note that throughout the process you can use <code>hint</code> or <code>help</code> for guidence. Note that you can use <code>tab completion</code> as well.</p>
+<p>In the shell type the following &ndash; note that throughout the process you can use <code>hint</code> or <code>help</code> for guidance and <code>tab completion</code> as well.</p>
 
 <p><code>
 blueprint add --url https://gist.githubusercontent.com/matyix/aeb8837012b5fa253fa5/raw/3476b538c8ba0c16363dbfd9634f0b9fe88cb36e/multi-node-hdfs-yarn
@@ -102,7 +90,7 @@ sudo route add -net 172.17.0.0/16 192.168.59.103
 
 <p>
 <code>bash
-docker inspect --format="{{.NetworkSettings.IPAddress}}" amb0
+docker inspect --format='{{.NetworkSettings.IPAddress}}' amb0
 </code>
 </p>
 
