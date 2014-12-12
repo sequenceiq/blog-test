@@ -79,7 +79,7 @@ It's that simple. Happy autoscaling.
 In case you'd like to test autoscaling and generate some load on your cluster you can use these `stock` Hadoop examples and the scripts below:
 
 
-```test.sh
+```
 #!/bin/bash
 
 export HADOOP_LIBS=/usr/lib/hadoop-mapreduce
