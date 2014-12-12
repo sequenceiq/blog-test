@@ -8,16 +8,6 @@ author: Richard Doktorics
 published: true
 ---
 
-Today we have pushed out a new release of [Cloudbreak](---
-layout: post
-title: "Cloudbreak welcomes Periscope"
-date: 2014-12-12 15:13:33 +0100
-comments: true
-categories: [Cloudbreak]
-author: Richard Doktorics
-published: true
----
-
 Today we have pushed out a new release of [Cloudbreak](http://sequenceiq.com/cloudbreak/) - our Docker container based and cloud agnostic Hadoop as a Service solution - containing a few major changes. While there are many significant changes (both functional and architectural) in this blog post we'd like to describe one of most expected one - the `autoscaling` of Hadoop clusters.
 
 Just to quickly recap, Cloudbreak allows you to provision clusters - `full stacks` - in all major cloud providers using a unified API, UI or CLI/shell. Currently we support provisioning of clusters in `AWS`, `Google Cloud` and `Azure` and `OpenStack` (in private beta) - new cloud providers can be added quite easily (as everything runs in Docker) using our SDK.
@@ -81,7 +71,7 @@ A cluster has a default configuration which Periscope scaling policies can't ove
 ![](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/cluster-config.png)
 
 * cooldown time - the time spent between two scaling actions
-* cluster size min. - the minimun size (in nodes) of a cluster
+* cluster size min. - the minimum size (in nodes) of a cluster
 * cluster size max. - the maximum size (in nodes) of a cluster
 
 It's that simple. Happy autoscaling.
@@ -89,7 +79,7 @@ It's that simple. Happy autoscaling.
 In case you'd like to test autoscaling and generate some load on your cluster you can use these `stock` Hadoop examples and the scripts below:
 
 
-```test.sh
+```
 #!/bin/bash
 
 export HADOOP_LIBS=/usr/lib/hadoop-mapreduce
@@ -121,13 +111,13 @@ done
 
 Make sure you check back soon to our [blog](http://blog.sequenceiq.com/) or follow us
 on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook).
-) - our Docker container based and cloud agnostic Hadoop as a Service solution - containing a few major changes. While there are many significant changes (both functiona and architectural) in this blog post we'd like to describe one of most expected one - the `autoscaling` of Hadoop clusters.
+) - our Docker container based and cloud agnostic Hadoop as a Service solution - containing a few major changes. While there are many significant changes (both functional and architectural) in this blog post we'd like to describe one of most expected one - the `autoscaling` of Hadoop clusters.
 
 Just to quickly recap, Cloudbreak allows you to provision clusters - `full stacks` - in all major cloud providers using a unified API, UI or CLI/shell. Currently we support provisioning of clusters in `AWS`, `Google Cloud` and `Azure` and `OpenStack` (in private beta) - new cloud providers can be added quite easily (as everything runs in Docker) using our SDK.
 
 [Periscope](http://blog.sequenceiq.com/blog/2014/08/27/announcing-periscope/) allows you to configure SLA policies for your Hadoop cluster and scale up or down on demand. You are able to set alarms and notifications for different metrics like `pending containers`, `lost nodes` or `memory usage`, etc and set SLA scaling policies based on these alarms.
 
-Today's [release](http://cloudbreak.sequenceiq.com/) made available the integration between the two projects (they work independently as well) and allows subscibers to enable autoscaling for their already deployed or newly created Hadoop cluster.
+Today's [release](http://cloudbreak.sequenceiq.com/) made available the integration between the two projects (they work independently as well) and allows subscribers to enable autoscaling for their already deployed or newly created Hadoop cluster.
 
 We would like to guide you through the UI and help you to set up an autoscaling Hadoop cluster.
 
@@ -156,7 +146,7 @@ Periscope allows you to configure two types of `alarms`.
 * notification email (optional) - address where Periscope sends an email in case the alarm is triggered
 
 
-**Time based** alarms allow autoscaling of clusters based on thge configured time. We have [bloged](http://blog.sequenceiq.com/blog/2014/11/25/periscope-scale-your-cluster-on-time/) about this new feature recently - with this new release of [Cloudbreak](http://cloudbreak.sequenceiq.com/) this feature is available through UI as well.
+**Time based** alarms allow autoscaling of clusters based on the configured time. We have [blogged](http://blog.sequenceiq.com/blog/2014/11/25/periscope-scale-your-cluster-on-time/) about this new feature recently - with this new release of [Cloudbreak](http://cloudbreak.sequenceiq.com/) this feature is available through UI as well.
 
 ![](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/alarm-time.png)
 
@@ -184,7 +174,7 @@ A cluster has a default configuration which Periscope scaling policies can't ove
 ![](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/cluster-config.png)
 
 * cooldown time - the time spent between two scaling actions
-* cluster size min. - the minimun size (in nodes) of a cluster
+* cluster size min. - the minimum size (in nodes) of a cluster
 * cluster size max. - the maximum size (in nodes) of a cluster
 
 It's that simple. Happy autoscaling.
