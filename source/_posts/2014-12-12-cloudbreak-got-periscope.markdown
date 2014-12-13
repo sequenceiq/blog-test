@@ -8,9 +8,9 @@ author: Richard Doktorics
 published: true
 ---
 
-Today we have pushed out a new release of [Cloudbreak](http://sequenceiq.com/cloudbreak/) - our Docker container based and cloud agnostic Hadoop as a Service solution - containing a few major changes. While there are many significant changes (both functional and architectural) in this blog post we'd like to describe one of most expected one - the `autoscaling` of Hadoop clusters.
+Today we have pushed out a new release of [Cloudbreak](http://sequenceiq.com/cloudbreak/) - our Docker container based and cloud agnostic Hadoop as a Service solution - containing a few major changes. While there are many significant changes (both functional and architectural) in this blog post we'd like to describe one of the most expected one - the `autoscaling` of Hadoop clusters.
 
-Just to quickly recap, Cloudbreak allows you to provision clusters - `full stacks` - in all major cloud providers using a unified API, UI or CLI/shell. Currently we support provisioning of clusters in `AWS`, `Google Cloud` and `Azure` and `OpenStack` (in private beta) - new cloud providers can be added quite easily (as everything runs in Docker) using our SDK.
+Just to quickly recap, Cloudbreak allows you to provision clusters - `full stacks` - in all major cloud providers using a unified API, UI or CLI/shell. Currently we support provisioning of clusters in `AWS`, `Google Cloud`, `Azure` and `OpenStack` (in private beta) - new cloud providers can be added quite easily (as everything runs in Docker) using our SDK.
 
 [Periscope](http://sequenceiq.com/periscope/) allows you to configure SLA policies for your Hadoop cluster and scale up or down on demand. You are able to set alarms and notifications for different metrics like `pending containers`, `lost nodes` or `memory usage`, etc and set SLA scaling policies based on these alarms.
 
