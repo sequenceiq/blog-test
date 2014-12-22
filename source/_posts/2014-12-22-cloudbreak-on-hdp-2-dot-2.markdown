@@ -8,6 +8,12 @@ author: Krisztian Horvath
 published: true
 ---
 
+## On-demand Hadoop cluster with autoscaling
+
+<iframe width="640" height="480" src="//www.youtube.com/embed/E6bnEW76H_E" frameborder="0" allowfullscreen></iframe>
+
+<!--more-->
+
 ## Ambari 1.7.0
 
 The Ambari community recently released the 1.7.0 version which comes with lots of new features and bug fixes. We've been testing the new version
@@ -28,6 +34,10 @@ internally for a while now and finally made it to Cloudbreak. Just to highlight 
 * ResourceManager HA
 
 but the most important thing is that it allows you to install the latest versions of the Hadoop ecosystem.
+As usual the Docker image is available for _local_ deployments as well, described [here](http://blog.sequenceiq.com/blog/2014/12/04/multinode-ambari-1-7-0/).
+
+`Note:` There were small changes around the API so if you built an application on top of it check your rest calls. The Ambari Shell and the
+underlying Groovy rest client have been updated and will go into the Apache repository once it's passed the reviews.
 
 ## Hadoop 2.6
 
@@ -258,6 +268,42 @@ I created a blueprint which is not an official one, but it contains a few from t
 }
 ```
 
-### Local environment
+## What's next?
 
-As usual the Docker image is available for _local_ deployments as well, described [here](http://blog.sequenceiq.com/blog/2014/12/04/multinode-ambari-1-7-0/).
+{% blockquote %}
+Do the difficult things while they are easy and do the great things while they are small. A journey of a thousand miles must begin with a single step.
+{% endblockquote %}
+
+We've walked a long journey since we started the company almost a year ago to reach where we are now, but it's not complete yet. We have big plans
+with our product stack. A couple of things from our roadmap:
+
+### Cloudbreak
+
+* Cloudbreak currently supports homogeneous cluster deployments which we're going to change. The heterogeneous stack structure is more convenient
+  from Hadoop's perspective. The ability to define different type of cloud instances is a must, giving the users the option to use much more
+  powerful instances for the `ResourceManager` and `NameNodes`.
+* Service discovery and decentralization is always a key aspect. At the moment we're using Serf and dnsmasq, but we're already started the
+  integration with [Consul](https://consul.io) which generally is a better fit. It provides service registration via DNS, key-value store and
+  decentralization across datacenters.
+* The deployment of Cloudbreak itself is going to change and use Consul with other side projects like `Consul templates` or `Registrator`. The
+  deployment is already based on Docker, but will be much more simplified.
+* Custom stack deployments with Ambari will be supported as `"recipes"`.
+* Generating reports of cloud instance usages and cost calculation.
+* Web hooks to subscribe to different cluster events.
+* Shared/company accounts.
+
+### Periscope
+
+* Add more `YARN` and `NameNode` related metrics.
+* Node label based scaling.
+* Pluggable metric system for custom metrics.
+* Application movement in Capacity Scheduler queues enforcing SLAs.
+* Time-based resource reservations in Capacity Scheduler for Applications.
+* Integration with [ELK](http://blog.sequenceiq.com/blog/2014/10/07/hadoop-monitoring/).
+
+## Happy Holidays
+
+We're taking a short break regarding writing new blog posts until next year. You can still reach us on the usual social sites, but you can expect
+small delays for answering questions. `Happy Holidays everyone.`
+
+[LinkedIn](https://www.linkedin.com/company/sequenceiq/) [Twitter](https://twitter.com/sequenceiq) [Facebook](https://www.facebook)
