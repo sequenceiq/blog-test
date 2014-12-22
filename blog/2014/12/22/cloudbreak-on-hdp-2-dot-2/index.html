@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Accessing HDP2 sandbox from the host - SequenceIQ Blog</title>
+  <title>Cloudbreak on HDP 2.2 - SequenceIQ Blog</title>
   <meta name="author" content="SequenceIQ">
 
    
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.sequenceiq.com/blog/2014/03/05/access-hdp2-sandbox">
+  <link rel="canonical" href="http://blog.sequenceiq.com/blog/2014/12/22/cloudbreak-on-hdp-2-dot-2">
   <link href="/favicon.png" rel="icon">
   <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
@@ -129,10 +129,10 @@
        
          
        
-       <h1 class="article-style"> Accessing HDP2 sandbox from the host
+       <h1 class="article-style"> Cloudbreak on HDP 2.2
 
-       <span class="badge name-badge">Laszlo Puskas</span>
-       <span class="badge name-badge">05 March 2014</span>
+       <span class="badge name-badge">Krisztian Horvath</span>
+       <span class="badge name-badge">22 December 2014</span>
        </h1>
 
 
@@ -145,60 +145,65 @@
 
   <div class="row-fluid">
     <div class="span12">
-      <p>During development of a Hadoop project people have many options of where and how to run Hadoop. We at SequenceIQ use different environments as well (cloud based, VM or host) &ndash; and different versions/vendor distributions. A very popular distribution among developers is the Hortonworks Sandbox &ndash; which contains the latest releases across Hadoop (2.2.0) and the key related projects into a single integrated and tested platform.
-While using the sandbox gets you going running a single node Hadoop (pseudo distributed) in less than 5 minutes, many developers find inconvenient to &lsquo;live&rsquo; and work inside the VM when deploying, debugging or submitting jobs into a Hadoop cluster.</p>
+      <h2>Ambari 1.7.0</h2>
 
-<p>There is a well documented VM host file configuration on the <a href="http://docs.hortonworks.com/">Hortonworks site</a> describing how to start interacting with the VM sandbox from outside (e.g host machine), but quite soon this will turn into a port-forwarding saga (those who know how many ports does Hadoop and the ecosystem use will know what we mean). An easier and more elegant way is to use a SOCKS5 proxy (which comes with SSL by default).
-Check this short goal/problem/resolution and code example snippet if you&rsquo;d like to interact with the Hortonworks Sandbox from your host (outside the VM).</p>
-
-<h2>Goal</h2>
+<p>The Ambari community recently released the 1.7.0 version which comes with lots of new features and bug fixes. We&rsquo;ve been testing the new version
+internally for a while now and finally made it to Cloudbreak. Just to highlight the important ones:</p>
 
 <ul>
-<li>accessing the pseudo distributed hadoop cluster from the  host</li>
-<li>reading / writing to the  HDFS</li>
-<li>submitting  M/R jobs to the RM</li>
+<li>Ambari Views framework</li>
+<li>Ambari Administration
+
+<ul>
+<li>Management of users/groups</li>
+<li>Management of view instances</li>
+<li>Management of cluster permissions</li>
+</ul>
+</li>
+<li>Cancel/Abort background operation requests</li>
+<li>Expose Ambari UI for config versioning, history and rollback</li>
+<li>Ability to manage -env.sh configuration files</li>
+<li>Recommendations and validations (via a &ldquo;Stack Advisor&rdquo;)</li>
+<li>Export service configurations via Blueprint</li>
+<li>Install + Manage Flume</li>
+<li>HDFS Rebalance</li>
+<li>ResourceManager HA</li>
 </ul>
 
 
-<h2>Problem(s)</h2>
+<p>but the most important thing is that it allows you to install the latest versions of the Hadoop ecosystem.</p>
+
+<h2>Hadoop 2.6</h2>
+
+<p>Since with Ambari 1.7.0 we&rsquo;re able to install Hadoop 2.6 let&rsquo;s see what happend in <code>YARN</code> in the last couple of months (it&rsquo;s stunning):</p>
 
 <ul>
-<li>it&rsquo;s hard to reach resources inside the sandbox (e.g. interact with HDFS, or the DataNode)</li>
-<li>lots of ports need to be portforwarded</li>
-<li>entries to be added to the hosts file of the  host machine</li>
-<li>circumstantial configuration of clients  accessing the sandbox</li>
+<li>Support for long running services &ndash; install <em>Slider</em> with Ambari and scale your Hadoop services!
+
+<ul>
+<li>Service Registry for applications</li>
+</ul>
+</li>
+<li>Support for rolling upgrades &ndash; wow!
+
+<ul>
+<li>Work-preserving restarts of ResourceManager</li>
+<li>Container-preserving restart of NodeManager</li>
+</ul>
+</li>
+<li>Support node labels during scheduling &ndash; label based scaling is on the way with <a href="http://blog.sequenceiq.com/blog/2014/12/12/cloudbreak-got-periscope/">Periscope</a></li>
+<li>Support for time-based resource reservations in Capacity Scheduler (beta) &ndash; more on this awesome feature soon</li>
+<li>Support running of applications natively in Docker containers (alpha) &ndash; <a href="http://blog.sequenceiq.com/blog/2014/12/02/hadoop-2-6-0-docker/">Docker in Docker</a></li>
 </ul>
 
 
-<h2>Resolution</h2>
+<p>I&rsquo;m excited about these great innovations (not, because we&rsquo;re involved in a few of them), but because people can leverage from them using Cloudbreak.</p>
 
-<ul>
-<li>use an SSL socks proxy</li>
-</ul>
+<h2>HDP 2.2 blueprint</h2>
 
+<p>I created a blueprint which is not an official one, but it contains a few from the new services like: <code>SLIDER</code>, <code>KAFKA</code>, <code>FLUME</code>.</p>
 
-<h2>Example</h2>
-
-<ul>
-<li>check the following sample from our <em><a href="https://github.com/sequenceiq/sequenceiq-samples/tree/master/hdp-sandbox-access">GitHub page</a></em></li>
-</ul>
-
-
-<p>Start the SOCKS proxy</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>ssh root@127.0.0.1 -p 2222 -D 1099
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<!-- more -->
-
-
-<p>Once the proxy is up and running, edit the core-site.xml</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -206,43 +211,419 @@ Check this short goal/problem/resolution and code example snippet if you&rsquo;d
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'>  <span class="nt">&lt;property&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;name&gt;</span>hadoop.socks.server<span class="nt">&lt;/name&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;value&gt;</span>localhost:1099<span class="nt">&lt;/value&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/property&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;property&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;name&gt;</span>hadoop.rpc.socket.factory.class.default<span class="nt">&lt;/name&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;value&gt;</span>org.apache.hadoop.net.SocksSocketFactory<span class="nt">&lt;/value&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/property&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+<span class='line-number'>193</span>
+<span class='line-number'>194</span>
+<span class='line-number'>195</span>
+<span class='line-number'>196</span>
+<span class='line-number'>197</span>
+<span class='line-number'>198</span>
+<span class='line-number'>199</span>
+<span class='line-number'>200</span>
+<span class='line-number'>201</span>
+<span class='line-number'>202</span>
+<span class='line-number'>203</span>
+<span class='line-number'>204</span>
+<span class='line-number'>205</span>
+<span class='line-number'>206</span>
+<span class='line-number'>207</span>
+<span class='line-number'>208</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{
+</span><span class='line'>  "configurations": [
+</span><span class='line'>  {
+</span><span class='line'>    "nagios-env": {
+</span><span class='line'>      "nagios_contact": "admin@localhost"
+</span><span class='line'>    }
+</span><span class='line'>    },
+</span><span class='line'>    {
+</span><span class='line'>      "hive-site": {
+</span><span class='line'>        "javax.jdo.option.ConnectionUserName": "hive",
+</span><span class='line'>        "javax.jdo.option.ConnectionPassword": "hive"
+</span><span class='line'>      }
+</span><span class='line'>    }
+</span><span class='line'>  ],
+</span><span class='line'>  "host_groups": [
+</span><span class='line'>    {
+</span><span class='line'>      "name": "master_1",
+</span><span class='line'>      "components": [
+</span><span class='line'>        {
+</span><span class='line'>          "name": "NAMENODE"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "ZOOKEEPER_SERVER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "HBASE_MASTER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "GANGLIA_SERVER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "HDFS_CLIENT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "YARN_CLIENT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "HCAT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "GANGLIA_MONITOR"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "FALCON_SERVER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "FLUME_HANDLER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "KAFKA_BROKER"
+</span><span class='line'>        }
+</span><span class='line'>      ],
+</span><span class='line'>      "cardinality": "1"
+</span><span class='line'>    },
+</span><span class='line'>    {
+</span><span class='line'>      "name": "master_2",
+</span><span class='line'>      "components": [
+</span><span class='line'>        {
+</span><span class='line'>          "name": "ZOOKEEPER_CLIENT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "HISTORYSERVER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "HIVE_SERVER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "SECONDARY_NAMENODE"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "HIVE_METASTORE"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "HDFS_CLIENT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "HIVE_CLIENT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "YARN_CLIENT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "MYSQL_SERVER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "GANGLIA_MONITOR"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "WEBHCAT_SERVER"
+</span><span class='line'>        }
+</span><span class='line'>      ],
+</span><span class='line'>      "cardinality": "1"
+</span><span class='line'>    },
+</span><span class='line'>    {
+</span><span class='line'>      "name": "master_3",
+</span><span class='line'>      "components": [
+</span><span class='line'>        {
+</span><span class='line'>          "name": "RESOURCEMANAGER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "APP_TIMELINE_SERVER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "SLIDER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "ZOOKEEPER_SERVER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "GANGLIA_MONITOR"
+</span><span class='line'>        }
+</span><span class='line'>      ],
+</span><span class='line'>      "cardinality": "1"
+</span><span class='line'>    },
+</span><span class='line'>    {
+</span><span class='line'>      "name": "master_4",
+</span><span class='line'>      "components": [
+</span><span class='line'>        {
+</span><span class='line'>          "name": "OOZIE_SERVER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "ZOOKEEPER_SERVER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "GANGLIA_MONITOR"
+</span><span class='line'>        }
+</span><span class='line'>      ],
+</span><span class='line'>      "cardinality": "1"
+</span><span class='line'>    },
+</span><span class='line'>    {
+</span><span class='line'>      "name": "slave_1",
+</span><span class='line'>      "components": [
+</span><span class='line'>        {
+</span><span class='line'>          "name": "HBASE_REGIONSERVER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "NODEMANAGER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "DATANODE"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "GANGLIA_MONITOR"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "FALCON_CLIENT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "OOZIE_CLIENT"
+</span><span class='line'>        }
+</span><span class='line'>      ],
+</span><span class='line'>      "cardinality": "${slavesCount}"
+</span><span class='line'>    },
+</span><span class='line'>    {
+</span><span class='line'>      "name": "gateway",
+</span><span class='line'>      "components": [
+</span><span class='line'>        {
+</span><span class='line'>          "name": "AMBARI_SERVER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "NAGIOS_SERVER"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "ZOOKEEPER_CLIENT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "PIG"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "OOZIE_CLIENT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "HBASE_CLIENT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "HCAT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "SQOOP"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "HDFS_CLIENT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "HIVE_CLIENT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "YARN_CLIENT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "MAPREDUCE2_CLIENT"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "GANGLIA_MONITOR"
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          "name": "KNOX_GATEWAY"
+</span><span class='line'>        }
+</span><span class='line'>      ],
+</span><span class='line'>      "cardinality": "1"
+</span><span class='line'>    }
+</span><span class='line'>    ],
+</span><span class='line'>    "Blueprints": {
+</span><span class='line'>      "blueprint_name": "hdp-multinode-sequenceiq",
+</span><span class='line'>      "stack_name": "HDP",
+</span><span class='line'>      "stack_version": "2.2"
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Now you can run the test client</p>
+<h3>Local environment</h3>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>     
-</span><span class='line'><span class="c"># You can use Maven</span>
-</span><span class='line'>mvn <span class="nb">exec</span>:java -Dexec.mainClass<span class="o">=</span><span class="s2">&quot;com.sequenceiq.samples.SandboxTester&quot;</span> -Dexec.args<span class="o">=</span><span class="s2">&quot;hdfs sandbox 8020&quot;</span> -Dhadoop.home.dir<span class="o">=</span>/tmp
-</span><span class='line'>      
-</span><span class='line'><span class="c"># or run from the JAR file</span>
-</span><span class='line'>      
-</span><span class='line'>java -jar sandbox-playground-1.0.jar hdfs sandbox 8020
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>As you see it&rsquo;s pretty easy and convenient to use the Hortonworks sandbox as a pre-configured development environment.</p>
-
-<p>In case you&rsquo;d like to use (as we do most of the time) a Hadoop cluster in the cloud (Amazon EC2), check our previous blog post <a href="http://blog.sequenceiq.com/blog/2014/02/07/hdp2-on-amazon/">HDP2 on Amazon</a>.
-In case you ever wondered whether it&rsquo;s possible to use Hadoop with Docker please follow this blog.</p>
-
-<p>Hope this helps,
-SequenceIQ</p>
+<p>As usual the Docker image is available for <em>local</em> deployments as well, described <a href="http://blog.sequenceiq.com/blog/2014/12/04/multinode-ambari-1-7-0/">here</a>.</p>
 
     </div>
   </div>
@@ -254,7 +635,7 @@ SequenceIQ</p>
     
   
 
-<span class="byline author vcard">Posted by <span class="fn">Laszlo Puskas</span></span>
+<span class="byline author vcard">Posted by <span class="fn">Krisztian Horvath</span></span>
 
     
     <div class="row">
@@ -266,13 +647,7 @@ SequenceIQ</p>
 
 
 
-  <a href="/blog/categories/hdp2/"><span class="label label-warning">HDP2</span></a>
-
-  <a href="/blog/categories/hortonworks-sandbox/"><span class="label label-warning">Hortonworks sandbox</span></a>
-
-  <a href="/blog/categories/socks-proxy/"><span class="label label-warning">SOCKS proxy</span></a>
-
-  <a href="/blog/categories/ssl/"><span class="label label-warning">SSL</span></a>
+  <a href="/blog/categories/cloudbreak/"><span class="label label-warning">Cloudbreak</span></a>
 
 
 
@@ -304,10 +679,8 @@ SequenceIQ</p>
       <div class="span12">
         <p class="meta">
           
-            <a class="basic-alignment left" href="/blog/2014/02/28/etl-and-data-quality/" title="Previous Post: ETL - producing better quality data">&laquo; ETL - producing better quality data</a>
+            <a class="basic-alignment left" href="/blog/2014/12/12/cloudbreak-got-periscope/" title="Previous Post: Cloudbreak welcomes Periscope">&laquo; Cloudbreak welcomes Periscope</a>
           
-          
-            <a class=" basic-alignment pull-right" href="/blog/2014/03/07/read-from-hdfs/" title="Next Post: HDFS and java.nio.channels">HDFS and java.nio.channels &raquo;</a>
           
         </p>
       </div>
@@ -694,8 +1067,8 @@ SequenceIQ</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.sequenceiq.com/blog/2014/03/05/access-hdp2-sandbox/';
-        var disqus_url = 'http://blog.sequenceiq.com/blog/2014/03/05/access-hdp2-sandbox/';
+        var disqus_identifier = 'http://blog.sequenceiq.com/blog/2014/12/22/cloudbreak-on-hdp-2-dot-2/';
+        var disqus_url = 'http://blog.sequenceiq.com/blog/2014/12/22/cloudbreak-on-hdp-2-dot-2/';
         var disqus_script = 'embed.js';
       
     (function () {
