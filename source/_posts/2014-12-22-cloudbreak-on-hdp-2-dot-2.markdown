@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Cloudbreak on HDP 2.2"
-date: 2014-12-22 13:59:42 +0100
+title: "New Cloudbreak release - support for HDP 2.2"
+date: 2014-12-23 13:59:42 +0100
 comments: true
 categories: [Cloudbreak]
 author: Krisztian Horvath
