@@ -145,7 +145,9 @@
 
   <div class="row-fluid">
     <div class="span12">
-      <h2>On-demand Hadoop cluster with autoscaling</h2>
+      <p>The last two weeks were pretty busy for us &ndash; we have <a href="http://blog.sequenceiq.com/blog/2014/12/04/multinode-ambari-1-7-0/">Dockerized</a> the new release of Ambari (1.7.0), <a href="http://blog.sequenceiq.com/blog/2014/12/12/cloudbreak-got-periscope/">integrated</a> Periscope with <a href="http://blog.sequenceiq.com/blog/2014/12/12/cloudbreak-got-periscope/">Cloudbreak</a> and just now we are announcing a new Cloudbreak <a href="https://cloudbreak.sequenceiq.com">release</a> which uses Ambari 1.7.0 and has full support for Hortonworks HDP 2.2 and Apache Bigtop stacks. But first &ndash; since this has been asked many times &ndash; see a <code>short</code> movie about Cloudbreak and Periscope in action.</p>
+
+<h2>On-demand Hadoop cluster with autoscaling</h2>
 
 <iframe width="640" height="480" src="//www.youtube.com/embed/E6bnEW76H_E" frameborder="0" allowfullscreen></iframe>
 
@@ -181,15 +183,15 @@ internally for a while now and finally made it to Cloudbreak. Just to highlight 
 </ul>
 
 
-<p>but the most important thing is that it allows you to install the latest versions of the Hadoop ecosystem.
+<p>These are nice features but for us one of the most important thing is that it allows you to install the latest versions of the Hadoop ecosystem.
 As usual the Docker image is available for <em>local</em> deployments as well, described <a href="http://blog.sequenceiq.com/blog/2014/12/04/multinode-ambari-1-7-0/">here</a>.</p>
 
-<p><code>Note:</code> There were small changes around the API so if you built an application on top of it check your rest calls. The Ambari Shell and the
-underlying Groovy rest client have been updated and will go into the Apache repository once it&rsquo;s passed the reviews.</p>
+<p><code>Note: There were small changes around the API so if you built an application on top of it check your REST calls. The Ambari Shell and the
+underlying Groovy rest client have been updated and will go into the Apache repository once it's passed the reviews.</code></p>
 
 <h2>Hadoop 2.6</h2>
 
-<p>Since with Ambari 1.7.0 we&rsquo;re able to install Hadoop 2.6 let&rsquo;s see what happend in <code>YARN</code> in the last couple of months (it&rsquo;s stunning):</p>
+<p>Since with Ambari 1.7.0 we&rsquo;re able to install Hadoop 2.6 let&rsquo;s see what happened in <code>YARN</code> in the last couple of months (it&rsquo;s stunning):</p>
 
 <ul>
 <li>Support for long running services &ndash; install <em>Slider</em> with Ambari and scale your Hadoop services!
@@ -205,17 +207,17 @@ underlying Groovy rest client have been updated and will go into the Apache repo
 <li>Container-preserving restart of NodeManager</li>
 </ul>
 </li>
-<li>Support node labels during scheduling &ndash; label based scaling is on the way with <a href="http://blog.sequenceiq.com/blog/2014/12/12/cloudbreak-got-periscope/">Periscope</a></li>
+<li>Supports node labels during scheduling &ndash; label based scaling is on the way with <a href="http://blog.sequenceiq.com/blog/2014/12/12/cloudbreak-got-periscope/">Periscope</a></li>
 <li>Support for time-based resource reservations in Capacity Scheduler (beta) &ndash; more on this awesome feature soon</li>
 <li>Support running of applications natively in Docker containers (alpha) &ndash; <a href="http://blog.sequenceiq.com/blog/2014/12/02/hadoop-2-6-0-docker/">Docker in Docker</a></li>
 </ul>
 
 
-<p>I&rsquo;m excited about these great innovations (not, because we&rsquo;re involved in a few of them), but because people can leverage from them using Cloudbreak.</p>
+<p>I&rsquo;m excited about these great innovations (not, because we&rsquo;re involved in a few of them), but because people can leverage them by using Cloudbreak.</p>
 
 <h2>HDP 2.2 blueprint</h2>
 
-<p>I created a blueprint which is not an official one, but it contains a few from the new services like: <code>SLIDER</code>, <code>KAFKA</code>, <code>FLUME</code>.</p>
+<p>I have created a blueprint which is not an <code>official</code> one, but it contains a few from the new services like: <code>SLIDER</code>, <code>KAFKA</code>, <code>FLUME</code>.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -640,8 +642,8 @@ underlying Groovy rest client have been updated and will go into the Apache repo
 <blockquote><p>Do the difficult things while they are easy and do the great things while they are small. A journey of a thousand miles must begin with a single step.</p></blockquote>
 
 
-<p>We&rsquo;ve walked a long journey since we started the company almost a year ago to reach where we are now, but it&rsquo;s not complete yet. We have big plans
-with our product stack. A couple of things from our roadmap:</p>
+<p>We&rsquo;ve walked a long journey since we started the company almost a year ago to reach where we are now, but our products are not complete yet. We have big plans
+with our product stacks. A couple of things from our roadmap:</p>
 
 <h3>Cloudbreak</h3>
 
@@ -675,7 +677,7 @@ deployment is already based on Docker, but will be much more simplified.</li>
 
 <h2>Happy Holidays</h2>
 
-<p>We&rsquo;re taking a short break regarding writing new blog posts until next year. You can still reach us on the usual social sites, but you can expect
+<p>We&rsquo;re taking a short break of writing new blog posts until next year. You can still reach us on the usual social sites, but you can expect
 small delays for answering questions. <code>Happy Holidays everyone.</code></p>
 
 <p><a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a> <a href="https://twitter.com/sequenceiq">Twitter</a> <a href="https://www.facebook">Facebook</a></p>
