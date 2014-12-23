@@ -8,6 +8,8 @@ author: Krisztian Horvath
 published: true
 ---
 
+The last two weeks were pretty busy for us - we have [Dockerized](http://blog.sequenceiq.com/blog/2014/12/04/multinode-ambari-1-7-0/) the new release of Ambari (1.7.0), [integrated](http://blog.sequenceiq.com/blog/2014/12/12/cloudbreak-got-periscope/) Periscope with [Cloudbreak](http://blog.sequenceiq.com/blog/2014/12/12/cloudbreak-got-periscope/) and just now we are announcing a new Cloudbreak [release](https://cloudbreak.sequenceiq.com) which uses Ambari 1.7.0 and has full support for Hortonworks HDP 2.2 and Apache Bigtop stacks. But first - since this has been asked many times - see a `short` movie about Cloudbreak and Periscope in action.
+
 ## On-demand Hadoop cluster with autoscaling
 
 <iframe width="640" height="480" src="//www.youtube.com/embed/E6bnEW76H_E" frameborder="0" allowfullscreen></iframe>
@@ -33,30 +35,30 @@ internally for a while now and finally made it to Cloudbreak. Just to highlight 
 * HDFS Rebalance
 * ResourceManager HA
 
-but the most important thing is that it allows you to install the latest versions of the Hadoop ecosystem.
+These are nice features but for us one of the most important thing is that it allows you to install the latest versions of the Hadoop ecosystem.
 As usual the Docker image is available for _local_ deployments as well, described [here](http://blog.sequenceiq.com/blog/2014/12/04/multinode-ambari-1-7-0/).
 
-`Note:` There were small changes around the API so if you built an application on top of it check your rest calls. The Ambari Shell and the
-underlying Groovy rest client have been updated and will go into the Apache repository once it's passed the reviews.
+`Note: There were small changes around the API so if you built an application on top of it check your REST calls. The Ambari Shell and the
+underlying Groovy rest client have been updated and will go into the Apache repository once it's passed the reviews.`
 
 ## Hadoop 2.6
 
-Since with Ambari 1.7.0 we're able to install Hadoop 2.6 let's see what happend in `YARN` in the last couple of months (it's stunning):
+Since with Ambari 1.7.0 we're able to install Hadoop 2.6 let's see what happened in `YARN` in the last couple of months (it's stunning):
 
 * Support for long running services - install _Slider_ with Ambari and scale your Hadoop services!
   * Service Registry for applications
 * Support for rolling upgrades - wow!
   * Work-preserving restarts of ResourceManager
   * Container-preserving restart of NodeManager
-* Support node labels during scheduling - label based scaling is on the way with [Periscope](http://blog.sequenceiq.com/blog/2014/12/12/cloudbreak-got-periscope/)
+* Supports node labels during scheduling - label based scaling is on the way with [Periscope](http://blog.sequenceiq.com/blog/2014/12/12/cloudbreak-got-periscope/)
 * Support for time-based resource reservations in Capacity Scheduler (beta) - more on this awesome feature soon
 * Support running of applications natively in Docker containers (alpha) - [Docker in Docker](http://blog.sequenceiq.com/blog/2014/12/02/hadoop-2-6-0-docker/)
 
-I'm excited about these great innovations (not, because we're involved in a few of them), but because people can leverage from them using Cloudbreak.
+I'm excited about these great innovations (not, because we're involved in a few of them), but because people can leverage them by using Cloudbreak.
 
 ## HDP 2.2 blueprint
 
-I created a blueprint which is not an official one, but it contains a few from the new services like: `SLIDER`, `KAFKA`, `FLUME`.
+I have created a blueprint which is not an `official` one, but it contains a few from the new services like: `SLIDER`, `KAFKA`, `FLUME`.
 ```
 {
   "configurations": [
@@ -274,8 +276,8 @@ I created a blueprint which is not an official one, but it contains a few from t
 Do the difficult things while they are easy and do the great things while they are small. A journey of a thousand miles must begin with a single step.
 {% endblockquote %}
 
-We've walked a long journey since we started the company almost a year ago to reach where we are now, but it's not complete yet. We have big plans
-with our product stack. A couple of things from our roadmap:
+We've walked a long journey since we started the company almost a year ago to reach where we are now, but our products are not complete yet. We have big plans
+with our product stacks. A couple of things from our roadmap:
 
 ### Cloudbreak
 
@@ -303,7 +305,7 @@ with our product stack. A couple of things from our roadmap:
 
 ## Happy Holidays
 
-We're taking a short break regarding writing new blog posts until next year. You can still reach us on the usual social sites, but you can expect
+We're taking a short break of writing new blog posts until next year. You can still reach us on the usual social sites, but you can expect
 small delays for answering questions. `Happy Holidays everyone.`
 
 [LinkedIn](https://www.linkedin.com/company/sequenceiq/) [Twitter](https://twitter.com/sequenceiq) [Facebook](https://www.facebook)
