@@ -79,7 +79,7 @@ In order to make it easier to understand you can take a look at the diagram whic
  * red boxes: processes started inside the individual containers or directly on host in case of Docker daemon
  * yellow boxes: mounted Docker volumes
 
- -> {% img https://dl.dropboxusercontent.com/u/16444381/process_map.png %} <-
+ ![](https://raw.githubusercontent.com/sequenceiq/blog-test/source/source/images/yarn-container/process_map.png)
 
 ##Summary
 We hope that the above example provides you a good start to play with DockerContainerExecutor, but it is important to know that this new feature has been put to Hadoop 2.6 release only in the last minute and it is still in alpha state, therefore using it in production is not recommended.
