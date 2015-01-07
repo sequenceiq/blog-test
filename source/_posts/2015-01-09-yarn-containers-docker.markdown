@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "YARN containers as Docker containers"
-date: 2015-01-09 11:00:00 +0200
+title: "Docker containers as Apache YARN containers"
+date: 2015-01-07 11:00:00 +0200
 comments: true
 categories: [YARN]
 author: Attila Kanto
@@ -24,7 +24,7 @@ To launch YARN containers as Docker containers the  [DockerContainerExecutor](ht
 </property>
 ```
 
-As the documentations states the DockerContainerExecutor requires the Docker daemon to be running on the NodeManagers and the Docker client must be also available, but at [SequenceIQ](http://sequenceiq.com) we have already packaged and running the whole Hadoop ecosystem into Docker containers and therefore we already have a Docker daemon and Docker client, the only problem is that they are outside of our Hadoop container and therefore the NodeManager or any other process running inside the container does not have access to them, therefore in one of our [earlier post](http://blog.sequenceiq.com/blog/2014/11/20/yarn-containers-and-docker/) we have considered  to run Docker daemon inside Docker, but instead of running Docker in Docker it is much more simpler just to reuse the Docker daemon and Docker client what was used for launching the [SequenceIQ](http://sequenceiq.com)  containers.
+As the documentations states the DockerContainerExecutor requires the Docker daemon to be running on the NodeManagers and the Docker client must be also available, but at [SequenceIQ](http://sequenceiq.com) we have already packaged and running the whole Hadoop ecosystem into Docker containers and therefore we already have a Docker daemon and Docker client, the only problem is that they are outside of our Hadoop container and therefore the NodeManager or any other process running inside the container does not have access to them. In one of our [earlier post](http://blog.sequenceiq.com/blog/2014/11/20/yarn-containers-and-docker/) we have considered  to run Docker daemon inside Docker, but instead of running Docker in Docker it is much more simpler just to reuse the Docker daemon and Docker client what was used for launching the [SequenceIQ](http://sequenceiq.com) containers.
 
 
 ##Reuse of Docker daemon and client
