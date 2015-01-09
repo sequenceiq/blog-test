@@ -1,0 +1,77 @@
+---
+layout: post
+title: "Apache Spark 1.2.0 on Docker"
+date: 2015-01-09 20:07:18 +0200
+comments: true
+categories: [Apache Spark, Docker]
+published: true
+author: Janos Matyas
+---
+
+
+In this current post we’d like to help you to start with the `latest - 1.2.0` Spark release in minutes - using Docker. Though we have released and pushed the container between the holidays into the official Docker repository, we were still due with the post. Here are the details ...
+
+Docker and Spark are two technologies which are very `hyped` these days. At [SequenceIQ](http://sequenceiq.com/) we use both quite a lot, thus we put together a Docker container and sharing it with the community.
+
+The container’s code is available in our [GitHub](https://github.com/sequenceiq/docker-spark/tree/v1.2.0onHadoop2.6.0) repository.
+
+###Pull the image from Docker Repository
+
+We suggest to always pull the container from the official Docker repository - as this is always maintained and supported by us.
+
+```
+docker pull sequenceiq/spark:1.2.0
+```
+
+<!-- more -->
+
+## Building the image
+
+Alternatively you can always build your own container based on our Dockerfile.
+
+```
+docker build --rm -t sequenceiq/spark:1.2.0 .
+```
+
+## Running the image
+
+Once you have pulled or built the container, you are ready to start with Spark.
+
+```
+docker run -i -t -h sandbox sequenceiq/spark:1.2.0 /etc/bootstrap.sh -bash
+```
+
+###Testing
+
+In order to check whether everything is OK, you can run one of the stock examples, coming with Spark. Check our previous blog posts and examples about Spark [here](http://blog.sequenceiq.com/blog/2014/07/31/spark-mllib/) and [here](http://blog.sequenceiq.com/blog/2014/08/22/spark-submit-in-java/).
+
+```
+cd /usr/local/spark
+# run the spark shell
+./bin/spark-shell --master yarn-client --driver-memory 1g --executor-memory 1g --executor-cores 1
+
+# execute the the following command which should return 1000
+scala> sc.parallelize(1 to 1000).count()
+```
+
+There are two deploy modes that can be used to launch Spark applications on YARN. In yarn-cluster mode, the Spark driver runs inside an application master process which is managed by YARN on the cluster, and the client can go away after initiating the application. In yarn-client mode, the driver runs in the client process, and the application master is only used for requesting resources from YARN.
+
+Estimating Pi (yarn-cluster mode):
+
+```
+cd /usr/local/spark
+
+# execute the the following command which should write the "Pi is roughly 3.1418" into the logs
+./bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-cluster --driver-memory 1g --executor-memory 1g --executor-cores 1 ./lib/spark-examples-1.2.0-hadoop2.4.0.jar
+```
+
+Estimating Pi (yarn-client mode):
+
+```
+cd /usr/local/spark
+
+# execute the the following command which should print the "Pi is roughly 3.1418" to the screen
+./bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --driver-memory 1g --executor-memory 1g --executor-cores 1 ./lib/spark-examples-1.2.0-hadoop2.4.0.jar
+```
+
+Should you have any questions let us know through our social channels using [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook.com/sequenceiq).
