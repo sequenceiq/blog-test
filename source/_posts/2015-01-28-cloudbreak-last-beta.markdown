@@ -48,6 +48,10 @@ This was one of the other highly desired features - and a perfect use case for D
 
 Long story short - Cloudbreak now support and automates provisioning of Hadoop clusters with custom blueprints on OpenStack. Give it a try and let us know how it works for you.
 
+###Ambari 1.7 integration
+
+Shortly after Ambari 1.7 came out we have upgraded Cloudbreak to use this new version. Ambari 1.7 supports HDP and Bigtop stacks and an increased number of Hadoop services/components.
+
 
 Make sure you check back soon to our [blog](http://blog.sequenceiq.com/) or follow us
 on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook).
