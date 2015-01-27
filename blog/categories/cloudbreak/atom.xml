@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Cloudbreak | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/cloudbreak/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2015-01-27T16:36:46+00:00</updated>
+  <updated>2015-01-27T16:38:44+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -56,6 +56,10 @@ Even a simple configuration on a large (thousands nodes) cluster is a tedious jo
 <p>This was one of the other highly desired features &ndash; and a perfect use case for Docker. You might be aware that we run the full Hadoop stack inside Docker container &ndash; and Cloudbreak&rsquo;s integration with the cloud provider is pretty thin. This gives us the option to add quick integration with a new cloud provider &ndash; the full OpenStack integration with Cloudbreak took few weeks only.</p>
 
 <p>Long story short &ndash; Cloudbreak now support and automates provisioning of Hadoop clusters with custom blueprints on OpenStack. Give it a try and let us know how it works for you.</p>
+
+<h3>Ambari 1.7 integration</h3>
+
+<p>Shortly after Ambari 1.7 came out we have upgraded Cloudbreak to use this new version. Ambari 1.7 supports HDP and Bigtop stacks and an increased number of Hadoop services/components.</p>
 
 <p>Make sure you check back soon to our <a href="http://blog.sequenceiq.com/">blog</a> or follow us
 on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook">Facebook</a>.</p>
@@ -745,7 +749,7 @@ Usage:
 <p>Options:
   &mdash;cloudbreak.address=&lt;http[s]://HOSTNAME:PORT>  Address of the Cloudbreak Server [default: <a href="https://cloudbreak-api.sequenceiq.com">https://cloudbreak-api.sequenceiq.com</a>].
   &mdash;identity.address=&lt;http[s]://HOSTNAME:PORT>    Address of the SequenceIQ identity server [default: <a href="https://identity.sequenceiq.com">https://identity.sequenceiq.com</a>].
-  &mdash;sequenceiq.user=<USER>                        Username of the SequenceIQ user [default: <a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#x75;&#x73;&#101;&#114;&#64;&#x73;&#x65;&#x71;&#117;&#101;&#110;&#99;&#x65;&#105;&#x71;&#x2e;&#99;&#x6f;&#x6d;">&#x75;&#x73;&#101;&#x72;&#x40;&#115;&#101;&#x71;&#x75;&#101;&#110;&#x63;&#x65;&#x69;&#x71;&#x2e;&#x63;&#x6f;&#x6d;</a>].
+  &mdash;sequenceiq.user=<USER>                        Username of the SequenceIQ user [default: <a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#117;&#115;&#101;&#114;&#x40;&#x73;&#101;&#113;&#x75;&#101;&#110;&#x63;&#101;&#105;&#113;&#46;&#99;&#x6f;&#x6d;">&#117;&#x73;&#x65;&#114;&#x40;&#115;&#x65;&#113;&#x75;&#x65;&#x6e;&#x63;&#x65;&#105;&#113;&#46;&#x63;&#x6f;&#109;</a>].
   &mdash;sequenceiq.password=<PASSWORD>                Password of the SequenceIQ user [default: password].</p>
 
 <p>Note:
