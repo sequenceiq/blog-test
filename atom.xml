@@ -4,7 +4,7 @@
   <title><![CDATA[SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2015-01-28T15:42:31+00:00</updated>
+  <updated>2015-01-28T17:15:49+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Cloudbreak new features]]></title>
+    <title type="html"><![CDATA[Cloudbreak new release available]]></title>
     <link href="http://blog.sequenceiq.com/blog/2015/01/28/cloudbreak-last-beta/"/>
     <updated>2015-01-28T09:00:00+00:00</updated>
     <id>http://blog.sequenceiq.com/blog/2015/01/28/cloudbreak-last-beta</id>
