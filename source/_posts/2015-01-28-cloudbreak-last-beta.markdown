@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Cloudbreak new features"
+title: "Cloudbreak new release available"
 date: 2015-01-28 11:00:00 +0200
 comments: true
 categories: [Cloudbreak]
