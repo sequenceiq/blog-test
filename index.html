@@ -173,30 +173,9 @@
 
 <p>This is a major step forward when you are using and running different workloads on your YARN cluster &ndash; and not just saving on costs but at the same time increasing your cluster throughput.</p>
 
-<h3>Hostgroup based autoscaling</h3>
-
-<p>Cloudbreak now integrates with <a href="http://sequenceiq.com/periscope">Periscope</a> &ndash; and allows you to set up alarms and autoscaling SLA policies based on YARN metrics. Having done the heterogenous cluster integration, now it&rsquo;s time to apply <code>autoscaleing</code> for those nodes based on Ambari Blueprints.</p>
-
-<h3>Recipes</h3>
-
-<p>While Cloudbreak and Ambari combined are a pretty powerful way to configure your Hadoop cluster, sometimes there are manuall steps required to reconfigure services, build dependent cluster architectures (e.g.: permanent and ephemeral clusters), etc &ndash; the list can be long.
-Even a simple configuration on a large (thousands nodes) cluster is a tedious job &ndash; and usually people use Ansible, Chef, Puppet or Saltstack to do so &ndash; however these all have some drawback and are not integrated with Cloudbreak. As Cloudbreak under the hood uses Consul, we came up with a simple solution which facilitates creating, applying and running <code>recipes</code> on your already provisioned cluster &ndash; pre/post Ambari installation. A follow up blog post will be released in the coming days whch will explain the concept, architecture and gives you a few sample recipes.</p>
-
-<h3>OpenStack</h3>
-
-<p>This was one of the other highly desired features &ndash; and a perfect use case for Docker. You might be aware that we run the full Hadoop stack inside Docker container &ndash; and Cloudbreak&rsquo;s integration with the cloud provider is pretty thin. This gives us the option to add quick integration with a new cloud provider &ndash; the full OpenStack integration with Cloudbreak took few weeks only.</p>
-
-<p>Long story short &ndash; Cloudbreak now support and automates provisioning of Hadoop clusters with custom blueprints on OpenStack. Give it a try and let us know how it works for you.</p>
-
-<h3>Ambari 1.7 integration</h3>
-
-<p>Shortly after Ambari 1.7 came out we have upgraded Cloudbreak to use this new version. Ambari 1.7 supports HDP and Bigtop stacks and an increased number of Hadoop services/components.</p>
-
-<p>Make sure you check back soon to our <a href="http://blog.sequenceiq.com/">blog</a> or follow us
-on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook">Facebook</a>.</p>
 
       
-      
+       <a href="/blog/2015/01/28/cloudbreak-last-beta/">Read on &rarr;</a> 
     </div>
   </div>
 

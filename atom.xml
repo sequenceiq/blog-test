@@ -4,7 +4,7 @@
   <title><![CDATA[SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2015-01-27T16:38:44+00:00</updated>
+  <updated>2015-01-28T15:42:31+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -41,6 +41,9 @@
 <p>At SequenceIQ we have quickly realized this and the new release allows you to apply different <code>stack templates</code> to all these YARN services/components. We do the heavy lifting for you in the background &ndash; the only thing you will have to do is to associate stack templates to Ambari <code>hostgroups</code>.</p>
 
 <p>This is a major step forward when you are using and running different workloads on your YARN cluster &ndash; and not just saving on costs but at the same time increasing your cluster throughput.</p>
+
+<!--more-->
+
 
 <h3>Hostgroup based autoscaling</h3>
 
