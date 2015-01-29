@@ -36,7 +36,7 @@ This is a major step forward when you are using and running different workloads 
 
 ###Hostgroup based autoscaling
 
-Cloudbreak now integrates with [Periscope](http://sequenceiq.com/periscope) - and allows you to set up alarms and autoscaling SLA policies based on YARN metrics. Having done the heterogenous cluster integration, now it's time to apply `autoscaleing` for those nodes based on Ambari Blueprints.
+Cloudbreak now integrates with [Periscope](http://sequenceiq.com/periscope) - and allows you to set up alarms and autoscaling SLA policies based on YARN metrics. Having done the heterogenous cluster integration, now it's time to apply `autoscaling` for those nodes based on Ambari Blueprints.
 
 ###Recipes
 
