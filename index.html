@@ -130,6 +130,125 @@
 
       <div class="row-fluid">
         
+            <a href="http://blog.sequenceiq.com/blog/2015/01/30/spark-with-cloudbreak/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
+        
+      </div>
+
+<span class="badge name-badge">30 January 2015</span>
+      
+        <div class="row-fluid">
+            
+            <a href="/blog/categories/apache-spark/"><span class="label label-warning">Apache Spark</span></a>
+            
+            <a href="/blog/categories/cloudbreak/"><span class="label label-warning">Cloudbreak</span></a>
+            
+        </div>
+      
+    </div>
+    <div class="col-md-10 post-container">
+      <h1 class="link">
+          <a href="/blog/2015/01/30/spark-with-cloudbreak/">Install Apache Spark with Cloudbreak</a>
+          <span class="badge name-badge">Oliver Szabo</span>
+
+      </h1>
+      <h2>HDP, Cloudbreak and Apache Spark</h2>
+
+<p>In the previous weeks people often asked us how to run our Apache Spark docker container on a multi node cluster or how to install and use it with Cloudbreak.</p>
+
+<p>At the moment Cloudbreak use Ambari blueprints (1.7) to provision multi node HDP cluster (on 4 different cloud providers at the moment: AWS, Google Cloud, Azure, Openstack, you can chose your favorite one). Unfortunately, as far as I know, there is no any Spark component in Ambari (version 1.7). Because of this, you need some manual steps to install it.</p>
+
+<p>With Cloudbreak you can easily set up a cluster on Google Cloud, AWS, Azure or Openstack (look at <a href="http://blog.sequenceiq.com/blog/2014/12/23/cloudbreak-on-hdp-2-dot-2/">here</a>). After your cluster is ready, you can install Apache Spark with these steps:</p>
+
+<p>Now you have 2 options for installing.</p>
+
+<h3>Install from instance</h3>
+
+<p>First, you need to enter to one of your instance. Then use the one-liner below:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -Lo .docker-spark-install j.mp/spark-hdp-docker-install && . .docker-spark-install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After the file is downloaded it will be sourced, then you can use the following command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>install-spark ambari-agent install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Or you can install it without uploading the Spark assembly uberjar with :</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>install-spark ambari-agent install-local</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After it is done, enter to the ambari-agent container:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>docker exec -it ambari-agent bash</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Apache Spark will be installed at /usr/local/spark in the container. If you want to try it you need to set up some environment variables such as YARN_CONF_DIR or SPARK_JAR.</p>
+
+<h3>Install from container</h3>
+
+<p>If you entered one of your instance, enter to the ambari-agent container: (same as you seen above)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>docker exec -it ambari-agent bash</span></code></pre></td></tr></table></div></figure>
+
+
+<p>From the container use the following command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -Lo .spark-install j.mp/spark-hdp-install && . .spark-install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then you can install spark with &ldquo;install-spark &lt;install/install-local>&rdquo; command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>install-spark install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With this approach you do not need to set up your environment variables. Its already done.</p>
+
+<h2>Run examples</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>spark-submit --class org.apache.spark.examples.SparkPi    --master yarn-cluster  --num-executors 3 --driver-memory 512m  --executor-memory 512m  --executor-cores 1  /usr/local/spark/lib/spark-examples*.jar 10</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Issues</h2>
+
+<ul>
+<li>You need to install Spark into every node (you can use it only on 1, but it is not the best approach).</li>
+<li>You do not want to enter docker container or even cloud instances to do things like this.</li>
+</ul>
+
+
+<h2>Cloudbreak Recipes</h2>
+
+      
+      
+    </div>
+  </div>
+
+
+
+    </article>
+    
+    <hr>
+    
+  
+  
+    <article>
+      
+
+  <div class="row">
+    <div class="col-md-2 post-meta">
+
+
+      <div class="row-fluid">
+        
             <a href="http://blog.sequenceiq.com/blog/2015/01/28/cloudbreak-last-beta/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
         
       </div>
@@ -673,56 +792,6 @@ Now let&rsquo;s do the math:</p>
 
     </article>
     
-    <hr>
-    
-  
-  
-    <article>
-      
-
-  <div class="row">
-    <div class="col-md-2 post-meta">
-
-
-      <div class="row-fluid">
-        
-            <a href="http://blog.sequenceiq.com/blog/2014/11/20/yarn-containers-and-docker/#disqus_thread">Comments </a> <i class="fa fa-comments-o" style="color: #3ba9c4 !important;"></i>
-        
-      </div>
-
-<span class="badge name-badge">20 November 2014</span>
-      
-        <div class="row-fluid">
-            
-            <a href="/blog/categories/yarn/"><span class="label label-warning">YARN</span></a>
-            
-        </div>
-      
-    </div>
-    <div class="col-md-10 post-container">
-      <h1 class="link">
-          <a href="/blog/2014/11/20/yarn-containers-and-docker/">YARN containers as Docker containers in Docker</a>
-          <span class="badge name-badge">Janos Matyas</span>
-
-      </h1>
-      <p>The new Hadoop 2.6 <a href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310240&amp;version=12327179">release</a> is almost here with an impressive set of new features and collaboration from the community &ndash; including <a href="http://sequenceiq.com">SequenceIQ</a> as well. It&rsquo;s not a new information that we use Docker quite a lot &ndash; and have <code>containerized</code> the full Hadoop ecosystem, and the <strong>2.6</strong> release will contain a new feature: <a href="https://issues.apache.org/jira/browse/YARN-1964">YARN-1964</a>.</p>
-
-<h2>YARN containers as .. Docker containers</h2>
-
-<p><a href="https://issues.apache.org/jira/browse/MAPREDUCE-279">Introduction</a> of YARN has revolutionized Hadoop &ndash; extending it with a new resource management, opening up Hadoop to different workloads, etc. &ndash; it&rsquo;s all history and we know it. With the emergence and wide adoption of Docker these days we are part of another <code>interesting</code> times again. Hadoop 2.6 will introduce (though in <code>alpha</code>) an analogy of YARN containers as Docker containers.</p>
-
-<p>Just to remember, a container is the resource allocation which is the successful result of the ResourceManager granting a specific ResourceRequest. A Container grants rights to an application to use a specific amount of resources (memory, cpu etc.) on a specific host, and isolates it from other containers. Sounds familiar &ndash; well, among few others this is what exactly Docker does &ndash; with the additional benefit of <code>packaging</code> and <code>shipping</code> applications the easy way.</p>
-
-
-      
-       <a href="/blog/2014/11/20/yarn-containers-and-docker/">Read on &rarr;</a> 
-    </div>
-  </div>
-
-
-
-    </article>
-    
   
   <div class="pagination">
     
@@ -742,6 +811,10 @@ Now let&rsquo;s do the math:</p>
                  <section>
   <h2 class="blue">Recent Posts</h2>
   <ul id="recent_posts" class="list-group">
+    
+      <li class="list-group-item">
+        <a href="/blog/2015/01/30/spark-with-cloudbreak/">Install Apache Spark with Cloudbreak</a>
+      </li>
     
       <li class="list-group-item">
         <a href="/blog/2015/01/28/cloudbreak-last-beta/">Cloudbreak - new release available</a>

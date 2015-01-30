@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Apache Spark | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/apache-spark/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2015-01-29T12:35:46+00:00</updated>
+  <updated>2015-01-30T16:12:33+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -12,6 +12,78 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Install Apache Spark with Cloudbreak]]></title>
+    <link href="http://blog.sequenceiq.com/blog/2015/01/30/spark-with-cloudbreak/"/>
+    <updated>2015-01-30T12:04:22+00:00</updated>
+    <id>http://blog.sequenceiq.com/blog/2015/01/30/spark-with-cloudbreak</id>
+    <content type="html"><![CDATA[<h2>HDP, Cloudbreak and Apache Spark</h2>
+
+<p>In the previous weeks people often asked us how to run our Apache Spark docker container on a multi node cluster or how to install and use it with Cloudbreak.</p>
+
+<p>At the moment Cloudbreak use Ambari blueprints (1.7) to provision multi node HDP cluster (on 4 different cloud providers at the moment: AWS, Google Cloud, Azure, Openstack, you can chose your favorite one). Unfortunately, as far as I know, there is no any Spark component in Ambari (version 1.7). Because of this, you need some manual steps to install it.</p>
+
+<p>With Cloudbreak you can easily set up a cluster on Google Cloud, AWS, Azure or Openstack (look at <a href="http://blog.sequenceiq.com/blog/2014/12/23/cloudbreak-on-hdp-2-dot-2/">here</a>). After your cluster is ready, you can install Apache Spark with these steps:</p>
+
+<p>Now you have 2 options for installing.</p>
+
+<h3>Install from instance</h3>
+
+<p>First, you need to enter to one of your instance. Then use the one-liner below:
+<code>
+curl -Lo .docker-spark-install j.mp/spark-hdp-docker-install &amp;&amp; . .docker-spark-install
+</code>
+After the file is downloaded it will be sourced, then you can use the following command:</p>
+
+<p><code>
+install-spark ambari-agent install
+</code>
+Or you can install it without uploading the Spark assembly uberjar with :</p>
+
+<p><code>
+install-spark ambari-agent install-local
+</code>
+After it is done, enter to the ambari-agent container:
+<code>
+docker exec -it ambari-agent bash
+</code>
+Apache Spark will be installed at /usr/local/spark in the container. If you want to try it you need to set up some environment variables such as YARN_CONF_DIR or SPARK_JAR.</p>
+
+<h3>Install from container</h3>
+
+<p>If you entered one of your instance, enter to the ambari-agent container: (same as you seen above)</p>
+
+<p><code>
+docker exec -it ambari-agent bash
+</code>
+From the container use the following command:
+<code>
+curl -Lo .spark-install j.mp/spark-hdp-install &amp;&amp; . .spark-install
+</code>
+Then you can install spark with &ldquo;install-spark &lt;install/install-local>&rdquo; command:
+<code>
+install-spark install
+</code>
+With this approach you do not need to set up your environment variables. Its already done.</p>
+
+<h2>Run examples</h2>
+
+<p><code>
+spark-submit --class org.apache.spark.examples.SparkPi    --master yarn-cluster  --num-executors 3 --driver-memory 512m  --executor-memory 512m  --executor-cores 1  /usr/local/spark/lib/spark-examples*.jar 10
+</code></p>
+
+<h2>Issues</h2>
+
+<ul>
+<li>You need to install Spark into every node (you can use it only on 1, but it is not the best approach).</li>
+<li>You do not want to enter docker container or even cloud instances to do things like this.</li>
+</ul>
+
+
+<h2>Cloudbreak Recipes</h2>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Apache Spark 1.2.0 on Docker]]></title>
