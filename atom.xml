@@ -4,7 +4,7 @@
   <title><![CDATA[SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2015-02-02T15:20:15+00:00</updated>
+  <updated>2015-02-02T15:42:19+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -68,7 +68,7 @@ The main concept behind this is the following: before the cluster install is sta
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
 
-<p>To make sure that only trusted plugins are used in Cloudbreak, there is a validation on the source URL &ndash; plugins must come from a configurable trusted Github account. In case of our hosted solution the only acceptable source is configured to be sequenceiq, so if you&rsquo;d like to use this feature there, please contact us first.
+<p>To make sure that only trusted plugins are used in Cloudbreak, there is a validation on the source URL &ndash; plugins must come from configurable trusted Github accounts. It can be useful if you deploy your own Cloudbreak and want to make sure that only verified scripts can be executed in a cluster. Our hosted solution is configured to accept all Github accounts as trusted, so you can experiment with this feature more easily.
 After the recipe is created, the API answers with the ID of the created resource, so it can be used to create a cluster. The <code>recipeId</code> field is optional, and no scripts are executed if it is missing from the cluster <code>POST</code> request.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
