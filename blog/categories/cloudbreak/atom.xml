@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Cloudbreak | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/cloudbreak/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2015-02-02T15:17:35+00:00</updated>
+  <updated>2015-02-02T15:20:15+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -24,6 +24,9 @@
 
 <p>Since the latest release, Cloudbreak uses <a href="https://consul.io">Consul</a> for cluster membership instead of Serf so we can make use of Consul’s other features, namely events and the key-value store. It won’t be detailed here how these features of Consul work, a whole post about Consul based clusters is coming soon. Recipes are using one more additional thing: the small <a href="https://github.com/progrium/plugn">plugn</a> project by Jeff Lindsay.
 The main concept behind this is the following: before the cluster install is started, a <code>recipe-pre-install</code> Consul event is sent to the cluster that triggers the <code>recipe-pre-install</code> hook of the enabled plugins, therefore executing the plugins' <code>recipe-pre-install</code> script. After the cluster installation is finished the same happens but with the <code>recipe-post-install</code> event and hook. The key-value store is used to signal plugin success or failure &ndash; after the plugins finished execution on a node, a new Consul key is added in the format <code>/events/&lt;event-id&gt;/&lt;node-hostname&gt;</code> that contains the exit status. Cloudbreak is able to check the key-value store if the recipe finished successfully or not.</p>
+
+<!-- more -->
+
 
 <h2>Register plugins for a cluster install</h2>
 
