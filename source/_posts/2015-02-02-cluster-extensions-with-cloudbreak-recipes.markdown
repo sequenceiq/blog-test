@@ -47,7 +47,7 @@ We already know how to write plugins, how to get properties from the key-value s
 }
 ```
 
-To make sure that only trusted plugins are used in Cloudbreak, there is a validation on the source URL - plugins must come from a configurable trusted Github account. In case of our hosted solution the only acceptable source is configured to be sequenceiq, so if you'd like to use this feature there, please contact us first.
+To make sure that only trusted plugins are used in Cloudbreak, there is a validation on the source URL - plugins must come from configurable trusted Github accounts. It can be useful if you deploy your own Cloudbreak and want to make sure that only verified scripts can be executed in a cluster. Our hosted solution is configured to accept all Github accounts as trusted, so you can experiment with this feature more easily.
 After the recipe is created, the API answers with the ID of the created resource, so it can be used to create a cluster. The `recipeId` field is optional, and no scripts are executed if it is missing from the cluster `POST` request.
 
 ```
