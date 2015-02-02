@@ -63,10 +63,13 @@ The recipes are not yet available on the Cloudbreak UI, if you’d like to try i
 
 ```
 recipe add --file /tmp/test-recipe.json
+recipe select --id <recipe-id>
+blueprint select --id <blueprint-id>
 ```
 
 ```
-cluster create —name recipe-cluster —blueprintId 1400 —recipeId 3744 —description "Demonstrates the recipe feature"
+
+cluster create --description "Demonstrates the recipe feature"
 ```
 
 ## Future improvements
