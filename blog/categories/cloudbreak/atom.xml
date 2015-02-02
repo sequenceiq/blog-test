@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Cloudbreak | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/cloudbreak/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2015-02-02T16:02:02+00:00</updated>
+  <updated>2015-02-02T18:07:58+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -35,7 +35,7 @@
 
 <h3>Creating a plugin</h3>
 
-<p>We’ve created an <a href="https://github.com/sequenceiq/consul-plugins-gcs-connector">example plugin</a> that downloads the <a href="https://cloud.google.com/hadoop/google-cloud-storage-connector">Google Cloud Storage connector for Hadoop</a> and puts it on the Hadoop classpath. As you can see a plugin is quite simple &ndash; it consists of a <code>.toml</code> descriptor, and the hook scripts. In the example only the <code>recipe-pre-install</code> hook is implemented, there is nothing to do after the cluster installation is done.</p>
+<p>We’ve created an <a href="https://github.com/sequenceiq/consul-plugins-gcs-connector">example plugin</a> that downloads the <a href="https://cloud.google.com/hadoop/google-cloud-storage-connector">Google Cloud Storage connector for Hadoop</a> and puts it on the Hadoop classpath. As you can see a plugin is quite simple &ndash; it consists of a <code>.toml</code> descriptor, and the hook scripts. In the example only the <code>recipe-pre-install</code> hook is implemented, there is nothing to do after the cluster installation is done. Make sure that the hook scripts are executable when pushing them to Github.</p>
 
 <h3>Adding properties to plugins</h3>
 
@@ -80,11 +80,14 @@
 
 <p><code>
 recipe add --file /tmp/test-recipe.json
+recipe select --id &lt;recipe-id&gt;
+blueprint select --id &lt;blueprint-id&gt;
 </code></p>
 
-<p><code>
-cluster create —name recipe-cluster —blueprintId 1400 —recipeId 3744 —description "Demonstrates the recipe feature"
-</code></p>
+<p>```</p>
+
+<p>cluster create &mdash;description &ldquo;Demonstrates the recipe feature&rdquo;
+```</p>
 
 <h2>Future improvements</h2>
 

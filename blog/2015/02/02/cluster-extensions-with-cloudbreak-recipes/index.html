@@ -162,7 +162,7 @@
 
 <h3>Creating a plugin</h3>
 
-<p>We’ve created an <a href="https://github.com/sequenceiq/consul-plugins-gcs-connector">example plugin</a> that downloads the <a href="https://cloud.google.com/hadoop/google-cloud-storage-connector">Google Cloud Storage connector for Hadoop</a> and puts it on the Hadoop classpath. As you can see a plugin is quite simple &ndash; it consists of a <code>.toml</code> descriptor, and the hook scripts. In the example only the <code>recipe-pre-install</code> hook is implemented, there is nothing to do after the cluster installation is done.</p>
+<p>We’ve created an <a href="https://github.com/sequenceiq/consul-plugins-gcs-connector">example plugin</a> that downloads the <a href="https://cloud.google.com/hadoop/google-cloud-storage-connector">Google Cloud Storage connector for Hadoop</a> and puts it on the Hadoop classpath. As you can see a plugin is quite simple &ndash; it consists of a <code>.toml</code> descriptor, and the hook scripts. In the example only the <code>recipe-pre-install</code> hook is implemented, there is nothing to do after the cluster installation is done. Make sure that the hook scripts are executable when pushing them to Github.</p>
 
 <h3>Adding properties to plugins</h3>
 
@@ -215,13 +215,19 @@
 <p>The recipes are not yet available on the Cloudbreak UI, if you’d like to try it out without hacking <code>curl</code> requests with proper authentication then I suggest to try the <a href="https://github.com/sequenceiq/cloudbreak-shell">Cloudbreak Shell</a>. The requests above correspond to the following shell commands (assuming that the above recipe description is saved in <code>/tmp/test-recipe.json</code> and the cluster infrastructure &ndash; the stack &ndash; is already created):</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>recipe add --file /tmp/test-recipe.json</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>recipe add --file /tmp/test-recipe.json
+</span><span class='line'>recipe select --id &lt;recipe-id&gt;
+</span><span class='line'>blueprint select --id &lt;blueprint-id&gt;</span></code></pre></td></tr></table></div></figure>
 
 
 
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cluster create —name recipe-cluster —blueprintId 1400 —recipeId 3744 —description "Demonstrates the recipe feature"</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>cluster create --description "Demonstrates the recipe feature"</span></code></pre></td></tr></table></div></figure>
 
 
 <h2>Future improvements</h2>
