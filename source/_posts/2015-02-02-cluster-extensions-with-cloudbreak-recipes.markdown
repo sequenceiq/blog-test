@@ -24,7 +24,7 @@ We cannot predict all the custom use cases that can come up when installing a Ha
 
 ### Creating a plugin
 
-We’ve created an [example plugin](https://github.com/sequenceiq/consul-plugins-gcs-connector) that downloads the [Google Cloud Storage connector for Hadoop](https://cloud.google.com/hadoop/google-cloud-storage-connector) and puts it on the Hadoop classpath. As you can see a plugin is quite simple - it consists of a `.toml` descriptor, and the hook scripts. In the example only the `recipe-pre-install` hook is implemented, there is nothing to do after the cluster installation is done.
+We’ve created an [example plugin](https://github.com/sequenceiq/consul-plugins-gcs-connector) that downloads the [Google Cloud Storage connector for Hadoop](https://cloud.google.com/hadoop/google-cloud-storage-connector) and puts it on the Hadoop classpath. As you can see a plugin is quite simple - it consists of a `.toml` descriptor, and the hook scripts. In the example only the `recipe-pre-install` hook is implemented, there is nothing to do after the cluster installation is done. Make sure that the hook scripts are executable when pushing them to Github.
 
 ### Adding properties to plugins
 
