@@ -8,11 +8,12 @@ author: Marton Sereg
 categories: [Cloudbreak]
 ---
 
-With the help of Cloudbreak it is very easy to provision Ambari clusters in the cloud from a blueprint. That's cool but it is often needed to make some additional changes on the nodes, like putting a JAR file on the Hadoop classpath or run some custom scripts. To help with these kind of situations we are introducing the concept of Cloudbreak recipes. Recipes are basically script extensions to a cluster that run on a set of nodes before or after the Ambari cluster installation.
+With the help of [Cloudbreak](https://cloudbreak.sequenceiq.com/) it is very easy to provision Hadoop clusters in the cloud from an Apache Ambari [blueprint](https://cwiki.apache.org/confluence/display/AMBARI/Blueprints). That's cool but it is often needed to make some additional changes on the nodes, like putting a JAR file on the Hadoop classpath or run some custom scripts. To help with these kind of situations we are introducing the concept of Cloudbreak `recipes`. Recipes are basically script extensions to a cluster that run on a set of nodes before or after the Ambari cluster installation.
 
 ## How does it work?
 
-Since the latest release, Cloudbreak uses [Consul](https://consul.io) for cluster membership instead of Serf so we can make use of Consul’s other features, namely events and the key-value store. It won’t be detailed here how these features of Consul work, a whole post about Consul based clusters is coming soon. Recipes are using one more additional thing: the small [plugn](https://github.com/progrium/plugn) project by Jeff Lindsay.
+Since the latest release, Cloudbreak uses [Consul](https://consul.io) for cluster membership instead of Serf so we can make use of Consul’s other features, namely `events` and the `key-value` store. It won’t be detailed here how these features of Consul work, a whole post about Consul based clusters is coming soon. Recipes are using one more additional thing: the small [plugn](https://github.com/progrium/plugn) project.
+
 The main concept behind this is the following: before the cluster install is started, a `recipe-pre-install` Consul event is sent to the cluster that triggers the `recipe-pre-install` hook of the enabled plugins, therefore executing the plugins' `recipe-pre-install` script. After the cluster installation is finished the same happens but with the `recipe-post-install` event and hook. The key-value store is used to signal plugin success or failure - after the plugins finished execution on a node, a new Consul key is added in the format `/events/<event-id>/<node-hostname>` that contains the exit status. Cloudbreak is able to check the key-value store if the recipe finished successfully or not.
 
 <!-- more -->
@@ -31,7 +32,7 @@ Properties can be passed to plugins by using environment variables, but we use C
 
 ## Putting things together
 
-We already know how to write plugins, how to get properties from the key-value store inside a plugin and how these things are triggered from Cloudbreak, but the key piece is missing: how do we tell Cloudbreak which plugins to install on our cluster and which properties to use. With the latest release a new resource is available on the API, the *recipe*. To create a new recipe make a `POST` to the `account/recipes` endpoint like this one:
+We already know how to write plugins, how to get properties from the key-value store inside a plugin and how these things are triggered from Cloudbreak, but the key piece is missing: how do we tell [Cloudbreak](https://cloudbreak.sequenceiq.com/) which plugins to install on our cluster and which properties to use. With the latest release a new resource is available on the API, the *recipe*. To create a new recipe make a `POST` to the `account/recipes` endpoint like this one:
 
 ```
 {
@@ -47,8 +48,7 @@ We already know how to write plugins, how to get properties from the key-value s
 }
 ```
 
-To make sure that only trusted plugins are used in Cloudbreak, there is a validation on the source URL - plugins must come from configurable trusted Github accounts. It can be useful if you deploy your own Cloudbreak and want to make sure that only verified scripts can be executed in a cluster. Our hosted solution is configured to accept all Github accounts as trusted, so you can experiment with this feature more easily.
-After the recipe is created, the API answers with the ID of the created resource, so it can be used to create a cluster. The `recipeId` field is optional, and no scripts are executed if it is missing from the cluster `POST` request.
+To make sure that only trusted plugins are used in Cloudbreak, there is a validation on the source URL - plugins must come from configurable trusted Github accounts. It can be useful if you deploy your own [Cloudbreak](https://cloudbreak.sequenceiq.com/) and want to make sure that only verified scripts can be executed in a cluster. Our hosted solution is configured to accept all Github accounts as trusted, so you can experiment with this feature more easily. After the recipe is created, the API answers with the ID of the created resource, so it can be used to create a cluster. The `recipeId` field is optional, and no scripts are executed if it is missing from the cluster `POST` request.
 
 ```
 {
@@ -71,12 +71,11 @@ cluster create —name recipe-cluster —blueprintId 1400 —recipeId 3744 —de
 
 ## Future improvements
 
-This feature is *just a preview* in its current state, there are a few important parts that are missing. The most important one is that the plugins are currently installed and executed in all of the `ambari-agent` containers, but there are scenarios where it is not needed or not good at all. Consider the case where you’d like to add a JAR to HDFS - it should be run on only one of the nodes. It is also possible that a script should be executed only on a set of nodes, typically the nodes in a hostgroup. This means that the API will probably change in the next few weeks, but then we’ll update our blog too.
+This feature is *just a preview* in its current state, there are a few important parts that are missing. The most important one is that the plugins are currently installed and executed in all of the `ambari-agent` containers, but there are scenarios where it is not needed or not good at all. Consider the case where you’d like to add a JAR to HDFS - it should be run on only one of the nodes. It is also possible that a script should be executed only on a set of nodes, typically the nodes in a `hostgroup`. This means that the API will probably change in the next few weeks, but then we’ll update our blog too.
 
 There are a few more things that you can expect to be implemented in the long run:
 
 - install plugins from private sources too along public Github repositories
-
 - validate required properties when creating a new recipe
 
 If you have any comments, questions or feature requests about this topic, feel free to create an issue on Cloudbreak’s [Github page](https://github.com/sequenceiq/cloudbreak/issues) or use the comments section below.
