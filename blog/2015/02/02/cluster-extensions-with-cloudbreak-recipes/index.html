@@ -145,12 +145,13 @@
 
   <div class="row-fluid">
     <div class="span12">
-      <p>With the help of Cloudbreak it is very easy to provision Ambari clusters in the cloud from a blueprint. That&rsquo;s cool but it is often needed to make some additional changes on the nodes, like putting a JAR file on the Hadoop classpath or run some custom scripts. To help with these kind of situations we are introducing the concept of Cloudbreak recipes. Recipes are basically script extensions to a cluster that run on a set of nodes before or after the Ambari cluster installation.</p>
+      <p>With the help of <a href="https://cloudbreak.sequenceiq.com/">Cloudbreak</a> it is very easy to provision Hadoop clusters in the cloud from an Apache Ambari <a href="https://cwiki.apache.org/confluence/display/AMBARI/Blueprints">blueprint</a>. That&rsquo;s cool but it is often needed to make some additional changes on the nodes, like putting a JAR file on the Hadoop classpath or run some custom scripts. To help with these kind of situations we are introducing the concept of Cloudbreak <code>recipes</code>. Recipes are basically script extensions to a cluster that run on a set of nodes before or after the Ambari cluster installation.</p>
 
 <h2>How does it work?</h2>
 
-<p>Since the latest release, Cloudbreak uses <a href="https://consul.io">Consul</a> for cluster membership instead of Serf so we can make use of Consul’s other features, namely events and the key-value store. It won’t be detailed here how these features of Consul work, a whole post about Consul based clusters is coming soon. Recipes are using one more additional thing: the small <a href="https://github.com/progrium/plugn">plugn</a> project by Jeff Lindsay.
-The main concept behind this is the following: before the cluster install is started, a <code>recipe-pre-install</code> Consul event is sent to the cluster that triggers the <code>recipe-pre-install</code> hook of the enabled plugins, therefore executing the plugins&#8217; <code>recipe-pre-install</code> script. After the cluster installation is finished the same happens but with the <code>recipe-post-install</code> event and hook. The key-value store is used to signal plugin success or failure &ndash; after the plugins finished execution on a node, a new Consul key is added in the format <code>/events/&lt;event-id&gt;/&lt;node-hostname&gt;</code> that contains the exit status. Cloudbreak is able to check the key-value store if the recipe finished successfully or not.</p>
+<p>Since the latest release, Cloudbreak uses <a href="https://consul.io">Consul</a> for cluster membership instead of Serf so we can make use of Consul’s other features, namely <code>events</code> and the <code>key-value</code> store. It won’t be detailed here how these features of Consul work, a whole post about Consul based clusters is coming soon. Recipes are using one more additional thing: the small <a href="https://github.com/progrium/plugn">plugn</a> project.</p>
+
+<p>The main concept behind this is the following: before the cluster install is started, a <code>recipe-pre-install</code> Consul event is sent to the cluster that triggers the <code>recipe-pre-install</code> hook of the enabled plugins, therefore executing the plugins&#8217; <code>recipe-pre-install</code> script. After the cluster installation is finished the same happens but with the <code>recipe-post-install</code> event and hook. The key-value store is used to signal plugin success or failure &ndash; after the plugins finished execution on a node, a new Consul key is added in the format <code>/events/&lt;event-id&gt;/&lt;node-hostname&gt;</code> that contains the exit status. Cloudbreak is able to check the key-value store if the recipe finished successfully or not.</p>
 
 <!-- more -->
 
@@ -169,7 +170,7 @@ The main concept behind this is the following: before the cluster install is sta
 
 <h2>Putting things together</h2>
 
-<p>We already know how to write plugins, how to get properties from the key-value store inside a plugin and how these things are triggered from Cloudbreak, but the key piece is missing: how do we tell Cloudbreak which plugins to install on our cluster and which properties to use. With the latest release a new resource is available on the API, the <em>recipe</em>. To create a new recipe make a <code>POST</code> to the <code>account/recipes</code> endpoint like this one:</p>
+<p>We already know how to write plugins, how to get properties from the key-value store inside a plugin and how these things are triggered from Cloudbreak, but the key piece is missing: how do we tell <a href="https://cloudbreak.sequenceiq.com/">Cloudbreak</a> which plugins to install on our cluster and which properties to use. With the latest release a new resource is available on the API, the <em>recipe</em>. To create a new recipe make a <code>POST</code> to the <code>account/recipes</code> endpoint like this one:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -195,8 +196,7 @@ The main concept behind this is the following: before the cluster install is sta
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
 
-<p>To make sure that only trusted plugins are used in Cloudbreak, there is a validation on the source URL &ndash; plugins must come from configurable trusted Github accounts. It can be useful if you deploy your own Cloudbreak and want to make sure that only verified scripts can be executed in a cluster. Our hosted solution is configured to accept all Github accounts as trusted, so you can experiment with this feature more easily.
-After the recipe is created, the API answers with the ID of the created resource, so it can be used to create a cluster. The <code>recipeId</code> field is optional, and no scripts are executed if it is missing from the cluster <code>POST</code> request.</p>
+<p>To make sure that only trusted plugins are used in Cloudbreak, there is a validation on the source URL &ndash; plugins must come from configurable trusted Github accounts. It can be useful if you deploy your own <a href="https://cloudbreak.sequenceiq.com/">Cloudbreak</a> and want to make sure that only verified scripts can be executed in a cluster. Our hosted solution is configured to accept all Github accounts as trusted, so you can experiment with this feature more easily. After the recipe is created, the API answers with the ID of the created resource, so it can be used to create a cluster. The <code>recipeId</code> field is optional, and no scripts are executed if it is missing from the cluster <code>POST</code> request.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -226,13 +226,13 @@ After the recipe is created, the API answers with the ID of the created resource
 
 <h2>Future improvements</h2>
 
-<p>This feature is <em>just a preview</em> in its current state, there are a few important parts that are missing. The most important one is that the plugins are currently installed and executed in all of the <code>ambari-agent</code> containers, but there are scenarios where it is not needed or not good at all. Consider the case where you’d like to add a JAR to HDFS &ndash; it should be run on only one of the nodes. It is also possible that a script should be executed only on a set of nodes, typically the nodes in a hostgroup. This means that the API will probably change in the next few weeks, but then we’ll update our blog too.</p>
+<p>This feature is <em>just a preview</em> in its current state, there are a few important parts that are missing. The most important one is that the plugins are currently installed and executed in all of the <code>ambari-agent</code> containers, but there are scenarios where it is not needed or not good at all. Consider the case where you’d like to add a JAR to HDFS &ndash; it should be run on only one of the nodes. It is also possible that a script should be executed only on a set of nodes, typically the nodes in a <code>hostgroup</code>. This means that the API will probably change in the next few weeks, but then we’ll update our blog too.</p>
 
 <p>There are a few more things that you can expect to be implemented in the long run:</p>
 
 <ul>
-<li><p>install plugins from private sources too along public Github repositories</p></li>
-<li><p>validate required properties when creating a new recipe</p></li>
+<li>install plugins from private sources too along public Github repositories</li>
+<li>validate required properties when creating a new recipe</li>
 </ul>
 
 
