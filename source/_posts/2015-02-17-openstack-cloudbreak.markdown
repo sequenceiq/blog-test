@@ -16,6 +16,8 @@ The overly simplified definition of the two deployment models:
  * **public cloud** consists of services that are usually purchased on-demand and provided off-site over the Internet by cloud provider
  * **private cloud** is one in which the services and infrastructure are purchased, maintained and managed within the company
 
+ <!-- more -->
+
 From Cloudbreak's point of view the most important difference is that the services and API of a public cloud is consistent within a provider and it does not really depends on tenants, in other words the AWS provides the same API and same services independently whether Company A or Company B is using it. In case of private cloud, the situation is not so simple, since even if the cloud platform is the same the provided services could be very different. If we take the OpenStack as example then one company can use [XEN](http://www.xenproject.org/) as hypervisor, [Ceph](http://ceph.com/ceph-storage/block-storage/) as block storage and the Nova network for networking, but another company might use [KVM](http://www.linux-kvm.org/), [Cinder](https://wiki.openstack.org/wiki/Cinder) and [Neutron](https://wiki.openstack.org/wiki/Neutron) to provide the same functionality. This divergence makes the integration of cloud platforms like OpenStack much more challenging than integrating a public cloud provider.
 
 ##Orchestration
