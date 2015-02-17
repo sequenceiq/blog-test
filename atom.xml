@@ -4,7 +4,7 @@
   <title><![CDATA[SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2015-02-17T09:34:32+00:00</updated>
+  <updated>2015-02-17T09:37:10+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -18,7 +18,7 @@
     <link href="http://blog.sequenceiq.com/blog/2015/02/17/openstack-cloudbreak/"/>
     <updated>2015-02-17T09:00:00+00:00</updated>
     <id>http://blog.sequenceiq.com/blog/2015/02/17/openstack-cloudbreak</id>
-    <content type="html"><![CDATA[<p>Cloudbreak can provision HDP clusters on different public cloud providers like Amazon Web Services (AWS), Google Cloud Platform (GCP) and Microsoft Azure. Since the last release Cloudbreak supports provision Hadoop on <a href="https://www.openstack.org/">OpenStack</a> as well. OpenStack is probably the most popular open-source cloud computing platform for private clouds. This blogpost explains in a nutshell how the OpenStack integration was done with Cloudbreak, in order to provision Hadoop but if you are just interested in playing with OpenStack then it is also worth to read because the <strong>Set Up Your Own Private Cloud</strong> section explains how to install a DevStack (Openstack suitable for development purposes) with just a few lines of commands.</p>
+    <content type="html"><![CDATA[<p>Cloudbreak can provision HDP clusters on different public cloud providers like Amazon Web Services (AWS), Google Cloud Platform (GCP) and Microsoft Azure. Since the last release Cloudbreak supports provision Hadoop on <a href="https://www.openstack.org/">OpenStack</a> as well. OpenStack is probably the most popular open-source cloud computing platform for private clouds. This blogpost explains in a nutshell how the OpenStack integration was done with Cloudbreak &ndash; in order to provision Hadoop &ndash; but if you are just interested in playing with OpenStack then it is also worth to read as the <strong>Set Up Your Own Private Cloud</strong> section explains how to install DevStack (Openstack suitable for development purposes) with just a few lines of commands.</p>
 
 <h2>Public and Private Clouds</h2>
 
