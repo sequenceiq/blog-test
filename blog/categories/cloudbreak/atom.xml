@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Cloudbreak | SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/blog/categories/cloudbreak/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2015-02-16T14:04:45+00:00</updated>
+  <updated>2015-02-17T09:34:32+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -14,11 +14,11 @@
 
   
   <entry>
-    <title type="html"><![CDATA[OpenStack integration to Cloudbreak]]></title>
+    <title type="html"><![CDATA[OpenStack integration with Cloudbreak]]></title>
     <link href="http://blog.sequenceiq.com/blog/2015/02/17/openstack-cloudbreak/"/>
     <updated>2015-02-17T09:00:00+00:00</updated>
     <id>http://blog.sequenceiq.com/blog/2015/02/17/openstack-cloudbreak</id>
-    <content type="html"><![CDATA[<p>Cloudbreak can provision HDP clusters on different public cloud providers like Amazon Web Services (AWS), Google Cloud Platform (GCP) and Microsoft Azure. Starting from the upcoming release the Cloudbreak is going to support provision Hadoop on <a href="https://www.openstack.org/">OpenStack</a> which is probably the most popular open-source cloud computing platform for private clouds. This blogpost is explains in a nutshell how OpenStack integration was done into Cloudbreak in order to provision Hadoop, but if you are just interested in playing with OpenStack then it is also worth to read because the <strong>Set Up Your Own Private Cloud</strong> section explains how to install a DevStack (Openstack suitable for development purposes) with just a few lines of commands.</p>
+    <content type="html"><![CDATA[<p>Cloudbreak can provision HDP clusters on different public cloud providers like Amazon Web Services (AWS), Google Cloud Platform (GCP) and Microsoft Azure. Since the last release Cloudbreak supports provision Hadoop on <a href="https://www.openstack.org/">OpenStack</a> as well. OpenStack is probably the most popular open-source cloud computing platform for private clouds. This blogpost explains in a nutshell how the OpenStack integration was done with Cloudbreak, in order to provision Hadoop but if you are just interested in playing with OpenStack then it is also worth to read because the <strong>Set Up Your Own Private Cloud</strong> section explains how to install a DevStack (Openstack suitable for development purposes) with just a few lines of commands.</p>
 
 <h2>Public and Private Clouds</h2>
 
@@ -30,11 +30,13 @@
 </ul>
 
 
-<p>From Cloudbreak point of view the most important difference is that the services and API of a public cloud is consistent within a provider and it does not really depends on tenants, in other words the AWS provides the same API and same services independently whether Company A or Company B is using it. In case of private cloud, the situation is not so simple, since even if cloud platform is the same the provided services could be very different. If we take the OpenStack as example then one company can use <a href="http://www.xenproject.org/">XEN</a> as hypervisor, <a href="http://ceph.com/ceph-storage/block-storage/">Ceph</a> as block storage and the Nova network for networking, but another company might use <a href="http://www.linux-kvm.org/">KVM</a>, <a href="https://wiki.openstack.org/wiki/Cinder">Cinder</a> and <a href="https://wiki.openstack.org/wiki/Neutron">Neutron</a> to provide the same functionality. This divergence makes the integration of cloud platforms like OpenStack much more challenging than integrating a public cloud provider.</p>
+<p> <!-- more --></p>
+
+<p>From Cloudbreak&rsquo;s point of view the most important difference is that the services and API of a public cloud is consistent within a provider and it does not really depends on tenants, in other words the AWS provides the same API and same services independently whether Company A or Company B is using it. In case of private cloud, the situation is not so simple, since even if the cloud platform is the same the provided services could be very different. If we take the OpenStack as example then one company can use <a href="http://www.xenproject.org/">XEN</a> as hypervisor, <a href="http://ceph.com/ceph-storage/block-storage/">Ceph</a> as block storage and the Nova network for networking, but another company might use <a href="http://www.linux-kvm.org/">KVM</a>, <a href="https://wiki.openstack.org/wiki/Cinder">Cinder</a> and <a href="https://wiki.openstack.org/wiki/Neutron">Neutron</a> to provide the same functionality. This divergence makes the integration of cloud platforms like OpenStack much more challenging than integrating a public cloud provider.</p>
 
 <h2>Orchestration</h2>
 
-<p>Because of the diversity of OpenStack deployments we decided to use the <a href="https://wiki.openstack.org/wiki/Heat">Heat</a> orchestration service. With the template mechanism of Heat we can describe the infrastructure resources like servers, floating IPs, volumes and security groups for a cloud application in a text file (JSON, YAML or HOT synax) and we can easily adapt this template description in order support different deployments without changing the code of Cloudbreak.</p>
+<p>Because of the diversity of OpenStack deployments we decided to use the <a href="https://wiki.openstack.org/wiki/Heat">Heat</a> orchestration service. With the template mechanism of Heat we can describe the infrastructure resources like servers, floating IPs, volumes and security groups for a cloud application in a text file (JSON, YAML or HOT synax) and we can easily adapt this template description in order to support different deployments without changing the code of Cloudbreak.</p>
 
 <p>To make it easier to understand you can take a look at the following template snippet:
 ```yaml
@@ -65,7 +67,7 @@ properties:
 
 <p>```</p>
 
-<p>In the above Heat template fragment Neutron (OS::Neutron::Subnet) is used to provide networking service, but in deployments where the Neutron is not supported we would use another type of Network resource definition like Rackspace::Cloud::Network in case of <a href="http://www.rackspace.com/cloud/private">Rackspace</a> based deployments:</p>
+<p>In the above Heat template fragment Neutron (OS::Neutron::Subnet) is used to provide networking services, but in deployments where the Neutron is not supported we would use another type of Network resource definition like Rackspace::Cloud::Network in case of <a href="http://www.rackspace.com/cloud/private">Rackspace</a> based deployments:</p>
 
 <p>```yaml
 heat_template_version: 2014-10-16</p>
@@ -83,24 +85,24 @@ properties:
 
 <p>```</p>
 
-<p>The Heat stack is a model that holds the Heat template, parameters and other meta data related to it, when the infrastructure is changed (e.g. new VM is added or removed, or the CIDR of network is changed) then template needs to be modified and can be used to update your existing stack and the Heat knows how to make the necessary changes in the infrastructure in order to satisfy the resource definition described in the updated template.</p>
+<p>The Heat stack is a model that holds the Heat template, parameters and other meta data related content, when the infrastructure is changed (e.g. new VM is added or removed, or the CIDR of network is changed) then template needs to be modified and can be used to update your existing stack and the Heat knows how to make the necessary changes in the infrastructure in order to satisfy the resource definition described in the updated template.</p>
 
-<p>Although the Heat can manage the whole lifecycle of the application the Cloudbreak uses it only for infrastructure management and the Hadoop provisioning is done by using Ambari and Docker containers exactly in the same way as we do it for  public cloud providers.</p>
+<p>Although the Heat can manage the whole lifecycle of the application, Cloudbreak uses it only for infrastructure management and the Hadoop provisioning is done by using Ambari and Docker containers exactly in the same way as we do it in other public cloud providers.</p>
 
 <h2>Set Up Your Own Private Cloud</h2>
 
-<p>To try out the OpenStack integration you need to have OpenStack. If you don&rsquo;t already have one then for development purposes the  <a href="https://wiki.openstack.org/wiki/DevStack">DevStack</a> can be used to quickly deploy an OpenStack cloud. When we started with the integration we have realised that finding a proper configuration and install guide for DevStack is not an easy task. Of course there are plenty of documentations, but rest of them are not very accurate or extremely long or a bit outdated, therefore we have gathered all necessary piece of information to set up OpenStack development environment with Neutron, Cinder, Glance, Nova, Horizon and created an Ansible Playbook wich we added to Vagrant config, therefore staring and installing a VM with DevStack is as simple as:</p>
+<p>To try out the OpenStack integration you need to have an OpenStack cluster. If you don&rsquo;t already have one then for development purposes the  <a href="https://wiki.openstack.org/wiki/DevStack">DevStack</a> can be used to quickly deploy an OpenStack cloud. When we started with the integration we have realized that finding a proper configuration and install guide for DevStack is not an easy task. Of course there are plenty of documentations, but rest of them are not very accurate or extremely long or a bit outdated, therefore we have gathered all the necessary pieces of information to set up OpenStack development environment with Neutron, Cinder, Glance, Nova, Horizon and created an <code>Ansible Playbook</code> which we added to a Vagrant config, therefore staring and installing a VM with DevStack is as simple as:</p>
 
 <p><code>bash
 $ git clone https://github.com/sequenceiq/sequenceiq-samples
 $ cd sequenceiq-samples/devstack/vagrant/devstack-neutron
 $ vagrant up
 </code>
-<em>Note: you need to have Vagrant, VirtualBox and Ansible installed before using vagrant up command</em></p>
+<em>Note: you need to have Vagrant, VirtualBox and Ansible installed before using the <code>vagrant up</code> command</em></p>
 
-<p>The installation takes at least 30mins, but after it Horizon UI will be available at <a href="http://192.168.60.10/">http://192.168.60.10/</a> and you can login with user <em>admin</em>  and <em>openstack</em> password. The most important configuration values used for setting up the DevStack can be found <a href="https://github.com/sequenceiq/sequenceiq-samples/blob/master/devstack/ansible/local-vagrant-vm.yml">here</a>.</p>
+<p>The installation takes at least 30mins, but after that the Horizon UI will be available at <a href="http://192.168.60.10/">http://192.168.60.10/</a> and you can login with user <em>admin</em>  and <em>openstack</em> password. The most important configuration values used for setting up the DevStack can be found <a href="https://github.com/sequenceiq/sequenceiq-samples/blob/master/devstack/ansible/local-vagrant-vm.yml">here</a>.</p>
 
-<p>So we have launched a whole OpenStack cloud in one single VM running in VirtualBox, as you might guessed already that is just for demonstration purpose of the Ansible install scripts, because as you can see from the configuration <a href="https://github.com/sequenceiq/sequenceiq-samples/blob/master/devstack/ansible/local-vagrant-vm.yml">file</a> that in OpenStack launched on VirtualBox the <a href="http://wiki.qemu.org/Main_Page">QEMU</a> emulation is used therefore the OpenStack VM instances will be to slow and not suitable for Hadoop installation. But based on this you can install just configure the  <a href="https://github.com/sequenceiq/sequenceiq-samples/blob/master/devstack/ansible/devstack.yml">devstack.yml</a> and <a href="https://github.com/sequenceiq/sequenceiq-samples/blob/master/devstack/ansible/hosts">hosts</a> and set up the DevStack on a physical machine with KVM virtualisation support. After the OpenStack is running you can launch a VM and install a Cloudbreak on it and use that Cloudbreak to set up VMs and provision HDP on them.</p>
+<p>So we have launched a whole OpenStack cloud in one single VM running in VirtualBox; as you might guessed already that is just for demonstration purpose of the Ansible install scripts, because as you can see from the configuration <a href="https://github.com/sequenceiq/sequenceiq-samples/blob/master/devstack/ansible/local-vagrant-vm.yml">file</a> that in case of OpenStack being launched in VirtualBox the <a href="http://wiki.qemu.org/Main_Page">QEMU</a> emulation is used. These instances of the OpenStack launched VMs will be to slow and not suitable for Hadoop installation. But based on this you can always install and configure configure the  <a href="https://github.com/sequenceiq/sequenceiq-samples/blob/master/devstack/ansible/devstack.yml">devstack.yml</a> and <a href="https://github.com/sequenceiq/sequenceiq-samples/blob/master/devstack/ansible/hosts">hosts</a> and set up DevStack on a physical machine with KVM virtualization support. After the OpenStack is running you can launch a VM and install Cloudbreak on it and use that Cloudbreak instance to set up VMs and provision HDP on them.</p>
 
 <h2>Future plans</h2>
 
