@@ -8,7 +8,7 @@ author: Attila Kanto
 published: true
 ---
 
-Cloudbreak can provision HDP clusters on different public cloud providers like Amazon Web Services (AWS), Google Cloud Platform (GCP) and Microsoft Azure. Since the last release Cloudbreak supports provision Hadoop on [OpenStack](https://www.openstack.org/) as well. OpenStack is probably the most popular open-source cloud computing platform for private clouds. This blogpost explains in a nutshell how the OpenStack integration was done with Cloudbreak, in order to provision Hadoop but if you are just interested in playing with OpenStack then it is also worth to read because the **Set Up Your Own Private Cloud** section explains how to install a DevStack (Openstack suitable for development purposes) with just a few lines of commands.
+Cloudbreak can provision HDP clusters on different public cloud providers like Amazon Web Services (AWS), Google Cloud Platform (GCP) and Microsoft Azure. Since the last release Cloudbreak supports provision Hadoop on [OpenStack](https://www.openstack.org/) as well. OpenStack is probably the most popular open-source cloud computing platform for private clouds. This blogpost explains in a nutshell how the OpenStack integration was done with Cloudbreak - in order to provision Hadoop - but if you are just interested in playing with OpenStack then it is also worth to read as the **Set Up Your Own Private Cloud** section explains how to install DevStack (Openstack suitable for development purposes) with just a few lines of commands.
 
 ##Public and Private Clouds
 The overly simplified definition of the two deployment models:
