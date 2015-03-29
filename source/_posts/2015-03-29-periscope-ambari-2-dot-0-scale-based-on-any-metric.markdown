@@ -114,7 +114,7 @@ You can define a script to check a metric value for you and Ambari will execute 
 
 ### Dispatchers
 
-Alerts will produce either `OK`, `WARNING` or `CRITICAL` states. It's possible to send notifications based on these states. For example if an alert reports `CRITICAL` state and e-mail could be sent or an SNMP message to some network devices. It's also planned to be able to provide such dispatcher by placing the implementation to the classpath.
+Alerts will produce either `OK`, `WARNING` or `CRITICAL` states. It's possible to send notifications based on these states. For example if an alert reports `CRITICAL` state an e-mail could be sent or an SNMP message to some network devices. It's also planned to be able to provide such dispatcher by placing the implementation to the classpath.
 
 ### Under the hood
 
