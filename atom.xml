@@ -4,7 +4,7 @@
   <title><![CDATA[SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2015-03-29T16:05:11+00:00</updated>
+  <updated>2015-03-29T16:10:42+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -215,7 +215,7 @@
 
 <h3>Dispatchers</h3>
 
-<p>Alerts will produce either <code>OK</code>, <code>WARNING</code> or <code>CRITICAL</code> states. It&rsquo;s possible to send notifications based on these states. For example if an alert reports <code>CRITICAL</code> state and e-mail could be sent or an SNMP message to some network devices. It&rsquo;s also planned to be able to provide such dispatcher by placing the implementation to the classpath.</p>
+<p>Alerts will produce either <code>OK</code>, <code>WARNING</code> or <code>CRITICAL</code> states. It&rsquo;s possible to send notifications based on these states. For example if an alert reports <code>CRITICAL</code> state an e-mail could be sent or an SNMP message to some network devices. It&rsquo;s also planned to be able to provide such dispatcher by placing the implementation to the classpath.</p>
 
 <h3>Under the hood</h3>
 
