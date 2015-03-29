@@ -12,7 +12,7 @@ It's been a while since we discussed [Periscope](http://sequenceiq.com/periscope
 
 ## Ambari 2.0 alerts
 
-The next version of Ambari (which is going to be released soon) will be able to monitor `any` type of metrics that Hadoop provides. It's really powerful since you'll not only be able to define simple metric alerts but aggregated, service level, host level and script based ones. Let's jump into it and see how it looks like to define an `alert` which triggers if the defined `root queue`'s available memory falls below a certain threshold (basically the available memory in the cluster):
+The next version of [Ambari](https://ambari.apache.org/) (going to be released soon) will be able to monitor `any` type of metrics that he full Hadoop ecosystem provides. It's really powerful since you'll not only be able to define simple metric alerts but aggregated, service level, host level and script based ones. Let's jump into it and see how it looks like to define an `alert` which triggers if the defined `root queue`'s available memory falls below a certain threshold (basically the available memory in the cluster):
 ```json
 {
   "AlertDefinition": {
@@ -67,7 +67,7 @@ The next version of Ambari (which is going to be released soon) will be able to 
 ```
 <!--more-->
 
-Most of the Hadoop components expose its metrics via `jmx`, but not all of them (later on this). As you can see we're using the RM's `jmx` as source to obtain the necessary metrics (in this case the `AvailableMB` and the `AllocatedMB` to calculate the overall memory usage: `"value": "{0}/({0} + {1}) * 100"`). So how does Ambari know where to look for these values, like: `"Hadoop:service=ResourceManager,name=QueueMetrics,q0=root/AvailableMB"`? You have to define which property to use in the `uri` section: `yarn-site/yarn.resourcemanager.webapp.address`. It tells Ambari to grab the property from the yarn-site and use the RM's web address and on it use the jmx endpoint. It could be problematic if you're using the RM in HA mode as there are multiple RMs. It can be solved if you provide this information as well in the `high_availability` part. In this way Ambari will always use the active RM and not the ones in `standby` mode. To make sure these metric values are there you can use the following endpoint on your cluster: 
+Most of the Hadoop components expose its metrics via `jmx`, but not all of them (later on this). As you can see we're using the RM's `jmx` as source to obtain the necessary metrics (in this case the `AvailableMB` and the `AllocatedMB` to calculate the overall memory usage: `"value": "{0}/({0} + {1}) * 100"`). So how does [Ambari](https://ambari.apache.org/) knows where to look for these values, like: `"Hadoop:service=ResourceManager,name=QueueMetrics,q0=root/AvailableMB"`? You have to define which property to use in the `uri` section: `yarn-site/yarn.resourcemanager.webapp.address`. It tells Ambari to grab the property from the yarn-site and use the RM's web address and on that use the jmx endpoint. It could be problematic if you're using the RM in HA mode as there are multiple RMs. It can be solved if you provide this information as well in the `high_availability` part. In this way Ambari will always use the active RM and not the ones in `standby` mode. To make sure these metric values are there you can use the following endpoint on your cluster:
 ```
 RM_IP:8088/jmx?qry=Hadoop:service=ResourceManager,name=QueueMetrics,q0=root
 ```
@@ -103,7 +103,7 @@ or a web UI is available:
   }
 }
 ```
-but the most interesting one besides jmx is the `SCRIPT` based:
+but the most interesting one besides `jmx` is the `SCRIPT` based:
 ```
 {
   "location": "scripts/alert_check.py",
@@ -114,7 +114,7 @@ You can define a script to check a metric value for you and Ambari will execute 
 
 ### Dispatchers
 
-Alerts will produce either `OK`, `WARNING` or `CRITICAL` states. It's possible to send notifications based on these states. For example if an alert reports `CRITICAL` state an e-mail could be sent or an SNMP message to some network devices. It's also planned to be able to provide such dispatcher by placing the implementation to the classpath.
+Alerts will produce either `OK`, `WARNING` or `CRITICAL` states. It's possible to send notifications based on these states. For example if an alert reports `CRITICAL` state an e-mail could be sent or an SNMP message to some network devices. It's also planned to be able to provide such dispatcher by placing the implementation to the `classpath`.
 
 ### Under the hood
 
@@ -125,9 +125,9 @@ curl -X GET -u "admin:admin" http://127.0.0.1:8080/api/v1/clusters/mycluster/ale
 curl -X GET -u "admin:admin" http://127.0.0.1:8080/api/v1/clusters/mycluster/alerts
 curl -X GET -u "admin:admin" http://127.0.0.1:8080/api/v1/clusters/mycluster/alert_groups
 ```
-If you install a cluster there are many alerts pre-defined by default. In order to create new ones you'll have to send a POST request to the appropriate endpoint, the UI doesn't support it.
+If you install a cluster there are many pre-defined alerts by default. In order to create new ones you'll have to send a POST request to the appropriate endpoint, the UI doesn't support it.
 
-How does Ambari collect the metrics?
+How does [Ambari](https://ambari.apache.org/) collect the metrics?
 
 ![](https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/ambari_alrts.png)
 
@@ -135,7 +135,7 @@ Each alert definition provides an `interval` property. This interval defines how
 
 ## Periscope alerts
 
-Previously you had to configure such alerts in Periscope and Periscope did the heavy lifting collecting the metric values. The new alert system in Ambari will take care of that which means in Periscope you'll have to configure which Ambari alert you want to use to scale your cluster. Periscope will make its decisions based on the alert's history preventing to trigger a scaling activity unnecessarily. You'll be able to attach scaling actions to Ambari defined alerts the same way you did with Periscope based alerts. For example: enable scaling based on the above defined allocated memory:
+Previously you had to configure such alerts in Periscope and Periscope did the heavy lifting collecting the metric values. The new alert system in Ambari will take care of that and it means in Periscope you'll have to configure which Ambari alert you want to use to scale your cluster. Periscope will make its decisions based on the alert's history preventing to trigger a scaling activity unnecessarily. You'll be able to attach scaling actions to `Ambari defined alerts` the same way you did with Periscope based alerts. For example: enable scaling based on the above defined allocated memory:
 ```
 {
   "alertName": "allocatedmemory",
@@ -149,11 +149,10 @@ This alert will trigger if the `allocated_memory` defined in Ambari reports `CRI
 
 ## Docker
 
-Although Ambari 2.0 is not released yet, a [Docker](https://github.com/sequenceiq/docker-ambari/tree/2.0.0) image is available to try the [same way as 1.7.0](http://blog.sequenceiq.com/blog/2014/12/04/multinode-ambari-1-7-0/).
+Although Ambari 2.0 is not released yet, a preview [Docker](https://github.com/sequenceiq/docker-ambari/tree/2.0.0) image is available to try the latest build ([same way as wid did with 1.7.0](http://blog.sequenceiq.com/blog/2014/12/04/multinode-ambari-1-7-0/).
 
-`Note`: More and more people getting involved developing and maintaining the Ambari docker images, so we own a thank you for them. Keep up the good work guys.
+`Note`: More and more people getting involved developing and maintaining the Ambari docker images, so we like to thank for all of them. Keep up the good work guys.
 
 ## What's next
 
-We're steadily working to make both [Cloudbreak](http://blog.sequenceiq.com/blog/2014/12/23/cloudbreak-on-hdp-2-dot-2/) and Periscope `GA`. If you're interested helping us simply register and start using them, every feedback is welcome. The key aspect we're focusing on at the moment is the security layer (kerberos security probably worth a blog entry). In the meanwhile follow us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook).
-
+We're steadily working to make both [Cloudbreak](http://blog.sequenceiq.com/blog/2014/12/23/cloudbreak-on-hdp-2-dot-2/) and Periscope `GA`. If you're interested helping us simply register and start using them, every feedback is welcomed. The key aspect we're focusing on at the moment is the security layer (`kerberos` based security probably worth a blog entry). In the meanwhile follow us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook).
