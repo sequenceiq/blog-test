@@ -12,7 +12,7 @@ It's been a while since we discussed [Periscope](http://sequenceiq.com/periscope
 
 ## Ambari 2.0 alerts
 
-The next version of [Ambari](https://ambari.apache.org/) (going to be released soon) will be able to monitor `any` type of metrics that he full Hadoop ecosystem provides. It's really powerful since you'll not only be able to define simple metric alerts but aggregated, service level, host level and script based ones. Let's jump into it and see how it looks like to define an `alert` which triggers if the defined `root queue`'s available memory falls below a certain threshold (basically the available memory in the cluster):
+The next version of [Ambari](https://ambari.apache.org/) (going to be released soon) will be able to monitor `any` type of metrics that the full Hadoop ecosystem provides. It's really powerful since you'll not only be able to define simple metric alerts but aggregated, service level, host level and script based ones. Let's jump into it and see how it looks like to define an `alert` which triggers if the defined `root queue`'s available memory falls below a certain threshold (basically the available memory in the cluster):
 ```json
 {
   "AlertDefinition": {
