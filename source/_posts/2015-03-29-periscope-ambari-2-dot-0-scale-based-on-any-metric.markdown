@@ -155,4 +155,4 @@ Although Ambari 2.0 is not released yet, a preview [Docker](https://github.com/s
 
 ## What's next
 
-We're steadily working to make both [Cloudbreak](http://blog.sequenceiq.com/blog/2014/12/23/cloudbreak-on-hdp-2-dot-2/) and Periscope `GA`. If you're interested helping us simply register and start using them, every feedback is welcomed. The key aspect we're focusing on at the moment is the security layer (`kerberos` based security probably worth a blog entry). In the meanwhile follow us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook).
+We're steadily working to make both [Cloudbreak](http://blog.sequenceiq.com/blog/2014/12/23/cloudbreak-on-hdp-2-dot-2/) and Periscope `GA`. If you're interested helping us simply register and start using them - every feedback is welcomed. The key aspect we're focusing on at the moment is the security layer (`kerberos` based security probably worth a blog entry). In the meanwhile follow us on [LinkedIn](https://www.linkedin.com/company/sequenceiq/), [Twitter](https://twitter.com/sequenceiq) or [Facebook](https://www.facebook).
