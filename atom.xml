@@ -4,7 +4,7 @@
   <title><![CDATA[SequenceIQ Blog]]></title>
   <link href="http://blog.sequenceiq.com/atom.xml" rel="self"/>
   <link href="http://blog.sequenceiq.com/"/>
-  <updated>2015-03-29T16:10:42+00:00</updated>
+  <updated>2015-03-31T11:19:07+00:00</updated>
   <id>http://blog.sequenceiq.com/</id>
   <author>
     <name><![CDATA[SequenceIQ]]></name>
@@ -22,7 +22,7 @@
 
 <h2>Ambari 2.0 alerts</h2>
 
-<p>The next version of Ambari (which is going to be released soon) will be able to monitor <code>any</code> type of metrics that Hadoop provides. It&rsquo;s really powerful since you&rsquo;ll not only be able to define simple metric alerts but aggregated, service level, host level and script based ones. Let&rsquo;s jump into it and see how it looks like to define an <code>alert</code> which triggers if the defined <code>root queue</code>&rsquo;s available memory falls below a certain threshold (basically the available memory in the cluster):</p>
+<p>The next version of <a href="https://ambari.apache.org/">Ambari</a> (going to be released soon) will be able to monitor <code>any</code> type of metrics that the full Hadoop ecosystem provides. It&rsquo;s really powerful since you&rsquo;ll not only be able to define simple metric alerts but aggregated, service level, host level and script based ones. Let&rsquo;s jump into it and see how it looks like to define an <code>alert</code> which triggers if the defined <code>root queue</code>&rsquo;s available memory falls below a certain threshold (basically the available memory in the cluster):</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -130,7 +130,7 @@
 <!--more-->
 
 
-<p>Most of the Hadoop components expose its metrics via <code>jmx</code>, but not all of them (later on this). As you can see we&rsquo;re using the RM&rsquo;s <code>jmx</code> as source to obtain the necessary metrics (in this case the <code>AvailableMB</code> and the <code>AllocatedMB</code> to calculate the overall memory usage: <code>"value": "{0}/({0} + {1}) * 100"</code>). So how does Ambari know where to look for these values, like: <code>"Hadoop:service=ResourceManager,name=QueueMetrics,q0=root/AvailableMB"</code>? You have to define which property to use in the <code>uri</code> section: <code>yarn-site/yarn.resourcemanager.webapp.address</code>. It tells Ambari to grab the property from the yarn-site and use the RM&rsquo;s web address and on it use the jmx endpoint. It could be problematic if you&rsquo;re using the RM in HA mode as there are multiple RMs. It can be solved if you provide this information as well in the <code>high_availability</code> part. In this way Ambari will always use the active RM and not the ones in <code>standby</code> mode. To make sure these metric values are there you can use the following endpoint on your cluster:</p>
+<p>Most of the Hadoop components expose its metrics via <code>jmx</code>, but not all of them (later on this). As you can see we&rsquo;re using the RM&rsquo;s <code>jmx</code> as source to obtain the necessary metrics (in this case the <code>AvailableMB</code> and the <code>AllocatedMB</code> to calculate the overall memory usage: <code>"value": "{0}/({0} + {1}) * 100"</code>). So how does <a href="https://ambari.apache.org/">Ambari</a> knows where to look for these values, like: <code>"Hadoop:service=ResourceManager,name=QueueMetrics,q0=root/AvailableMB"</code>? You have to define which property to use in the <code>uri</code> section: <code>yarn-site/yarn.resourcemanager.webapp.address</code>. It tells Ambari to grab the property from the yarn-site and use the RM&rsquo;s web address and on that use the jmx endpoint. It could be problematic if you&rsquo;re using the RM in HA mode as there are multiple RMs. It can be solved if you provide this information as well in the <code>high_availability</code> part. In this way Ambari will always use the active RM and not the ones in <code>standby</code> mode. To make sure these metric values are there you can use the following endpoint on your cluster:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='json'><span class='line'><span class="err">RM_IP:</span><span class="mi">8088</span><span class="err">/jmx?qry=Hadoop:service=ResourceManager,name=QueueMetrics,q</span><span class="mi">0</span><span class="err">=root</span>
@@ -198,7 +198,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>but the most interesting one besides jmx is the <code>SCRIPT</code> based:</p>
+<p>but the most interesting one besides <code>jmx</code> is the <code>SCRIPT</code> based:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -215,7 +215,7 @@
 
 <h3>Dispatchers</h3>
 
-<p>Alerts will produce either <code>OK</code>, <code>WARNING</code> or <code>CRITICAL</code> states. It&rsquo;s possible to send notifications based on these states. For example if an alert reports <code>CRITICAL</code> state an e-mail could be sent or an SNMP message to some network devices. It&rsquo;s also planned to be able to provide such dispatcher by placing the implementation to the classpath.</p>
+<p>Alerts will produce either <code>OK</code>, <code>WARNING</code> or <code>CRITICAL</code> states. It&rsquo;s possible to send notifications based on these states. For example if an alert reports <code>CRITICAL</code> state an e-mail could be sent or an SNMP message to some network devices. It&rsquo;s also planned to be able to provide such dispatcher by placing the implementation to the <code>classpath</code>.</p>
 
 <h3>Under the hood</h3>
 
@@ -232,9 +232,9 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>If you install a cluster there are many alerts pre-defined by default. In order to create new ones you&rsquo;ll have to send a POST request to the appropriate endpoint, the UI doesn&rsquo;t support it.</p>
+<p>If you install a cluster there are many pre-defined alerts by default. In order to create new ones you&rsquo;ll have to send a POST request to the appropriate endpoint, the UI doesn&rsquo;t support it.</p>
 
-<p>How does Ambari collect the metrics?</p>
+<p>How does <a href="https://ambari.apache.org/">Ambari</a> collect the metrics?</p>
 
 <p><img src="https://raw.githubusercontent.com/sequenceiq/sequenceiq-samples/master/images/ambari_alrts.png" alt="" /></p>
 
@@ -242,7 +242,7 @@
 
 <h2>Periscope alerts</h2>
 
-<p>Previously you had to configure such alerts in Periscope and Periscope did the heavy lifting collecting the metric values. The new alert system in Ambari will take care of that which means in Periscope you&rsquo;ll have to configure which Ambari alert you want to use to scale your cluster. Periscope will make its decisions based on the alert&rsquo;s history preventing to trigger a scaling activity unnecessarily. You&rsquo;ll be able to attach scaling actions to Ambari defined alerts the same way you did with Periscope based alerts. For example: enable scaling based on the above defined allocated memory:</p>
+<p>Previously you had to configure such alerts in Periscope and Periscope did the heavy lifting collecting the metric values. The new alert system in Ambari will take care of that and it means in Periscope you&rsquo;ll have to configure which Ambari alert you want to use to scale your cluster. Periscope will make its decisions based on the alert&rsquo;s history preventing to trigger a scaling activity unnecessarily. You&rsquo;ll be able to attach scaling actions to <code>Ambari defined alerts</code> the same way you did with Periscope based alerts. For example: enable scaling based on the above defined allocated memory:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -265,13 +265,13 @@
 
 <h2>Docker</h2>
 
-<p>Although Ambari 2.0 is not released yet, a <a href="https://github.com/sequenceiq/docker-ambari/tree/2.0.0">Docker</a> image is available to try the <a href="http://blog.sequenceiq.com/blog/2014/12/04/multinode-ambari-1-7-0/">same way as 1.7.0</a>.</p>
+<p>Although Ambari 2.0 is not released yet, a preview <a href="https://github.com/sequenceiq/docker-ambari/tree/2.0.0">Docker</a> image is available to try the latest build (<a href="http://blog.sequenceiq.com/blog/2014/12/04/multinode-ambari-1-7-0/">same way as wid did with 1.7.0</a>.</p>
 
-<p><code>Note</code>: More and more people getting involved developing and maintaining the Ambari docker images, so we own a thank you for them. Keep up the good work guys.</p>
+<p><code>Note</code>: More and more people getting involved developing and maintaining the Ambari docker images, so we like to thank for all of them. Keep up the good work guys.</p>
 
 <h2>What&rsquo;s next</h2>
 
-<p>We&rsquo;re steadily working to make both <a href="http://blog.sequenceiq.com/blog/2014/12/23/cloudbreak-on-hdp-2-dot-2/">Cloudbreak</a> and Periscope <code>GA</code>. If you&rsquo;re interested helping us simply register and start using them, every feedback is welcome. The key aspect we&rsquo;re focusing on at the moment is the security layer (kerberos security probably worth a blog entry). In the meanwhile follow us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook">Facebook</a>.</p>
+<p>We&rsquo;re steadily working to make both <a href="http://blog.sequenceiq.com/blog/2014/12/23/cloudbreak-on-hdp-2-dot-2/">Cloudbreak</a> and <a href="http://sequenceiq.com/periscope/">Periscope</a> <code>GA</code>. If you&rsquo;re interested helping us simply register and start using them &ndash; every feedback is welcomed. The key aspect we&rsquo;re focusing on at the moment is the security layer (<code>kerberos</code> based security probably worth a blog entry). In the meanwhile follow us on <a href="https://www.linkedin.com/company/sequenceiq/">LinkedIn</a>, <a href="https://twitter.com/sequenceiq">Twitter</a> or <a href="https://www.facebook">Facebook</a>.</p>
 ]]></content>
   </entry>
   
